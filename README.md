@@ -1,1 +1,6 @@
-# air-strike-javax-swing
+# Air Strike (Javier, Tristan, Ziven) PPTI 16
+
+Members: 
+- Javier Justin (2602
+- Tristan Aaron H (2602
+- Ziven Ferdinand (2602190476)
