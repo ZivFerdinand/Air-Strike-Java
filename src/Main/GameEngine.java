@@ -1,5 +1,7 @@
 package Main;
 
+import Planes.PlayerPlane;
+
 public class GameEngine implements Runnable {
 
     private GameFrame gameFrame;
@@ -8,13 +10,23 @@ public class GameEngine implements Runnable {
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
 
-    public GameEngine() {
+    private PlayerPlane playerPlane;
 
-        gamePanel = new GamePanel();
+    public GameEngine() {
+        initClasses();
+        gamePanel = new GamePanel(this);
         gameFrame = new GameFrame(gamePanel);
         gamePanel.requestFocus();
         startGameLoop();
 
+    }
+
+    private void initClasses() {
+        this.playerPlane = new PlayerPlane((GamePanel.GAME_WIDTH - 150) / 2, 600);
+    }
+
+    public PlayerPlane getPlayerPlane() {
+        return this.playerPlane;
     }
 
     private void startGameLoop() {
@@ -23,7 +35,7 @@ public class GameEngine implements Runnable {
     }
 
     public void update() {
-        gamePanel.updateGame();
+        playerPlane.updateGame();
     }
 
     @Override

@@ -5,17 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73b5f575-a523-4217-923e-fa6b56053c65" name="Changes" comment="Finished Moving Plane Animation">
-      <change afterPath="$PROJECT_DIR$/src/Enum/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Input/KeyboardInput.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Input/MouseInput.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main/GameEngine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main/GameFrame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/GameFrame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/GamePanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InputListener/KeyboardListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InputListener/MouseListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Planes/Plane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Planes/PlayerPlane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Input/KeyboardInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Input/KeyboardInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/res/AirplaneSprite.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,13 +40,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/bcamaster/Documents/CAWU 2/Object Oriented Programming/PlatformerTutorial"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bcamaster/Documents/CAWU 2/Object Oriented Programming/PlatformerTutorial&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\bcamaster\Documents\CAWU 2\Object Oriented Programming\Air-Strike-JavaX-Swing\src" />

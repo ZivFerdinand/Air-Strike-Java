@@ -10,25 +10,20 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import Input.*;
+import Planes.PlayerPlane;
 
 import static Enum.Constants.Directions.*;
 
 
 public class GamePanel extends JPanel {
-
+    public static int GAME_WIDTH = 1280, GAME_HEIGHT = 800;
     private MouseInput mouseInput;
-    private float xDelta = 100, yDelta = 100;
-    private int aniTick, aniIndex, aniSpeed = 25;
-    private int playerAction = IDLE;
-    private int playerDir = -1;
-    private boolean moving = false;
-    private BufferedImage img;
-    private BufferedImage upAnim, downAnim, leftAnim, rightAnim, leftupAnim, rightupAnim, leftdownAnim, rightdownAnim, idleAnim;
-    private BufferedImage currAnimation;
-    public GamePanel() {
+    private GameEngine gameEngine;
+
+
+    public GamePanel(GameEngine gameEngine) {
+        this.gameEngine = gameEngine;
         mouseInput = new MouseInput(this);
-        importImg();
-        loadAnimations();
 
         setPanelSize();
         addKeyListener(new KeyboardInput(this));
@@ -36,105 +31,20 @@ public class GamePanel extends JPanel {
         addMouseMotionListener(mouseInput);
     }
 
-    private void loadAnimations() {
-        BufferedImage[][] animations = new BufferedImage[3][3];
-        for (int j = 0; j < animations.length; j++)
-            for (int i = 0; i < animations[j].length; i++)
-                animations[j][i] = img.getSubimage(i * 200, j * 200, 200, 200);
-
-        upAnim = animations[0][1];
-        downAnim = animations[2][1];
-        leftAnim = animations[1][0];
-        rightAnim = animations[1][2];
-        leftupAnim = animations[0][0];
-        rightupAnim = animations[0][2];
-        leftdownAnim = animations[2][0];
-        rightdownAnim = animations[2][2];
-        currAnimation =  idleAnim = animations[1][1];
-    }
-
-    private void importImg() {
-        InputStream is = getClass().getResourceAsStream("/res/3x3Sprite.png");
-        try {
-            img = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public PlayerPlane getPlayerPlane() {
+        return gameEngine.getPlayerPlane();
     }
 
     private void setPanelSize() {
-        Dimension size = new Dimension(1280, 800);
+        Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
         setPreferredSize(size);
     }
 
-    public void setDirection(int direction) {
-        this.playerDir = direction;
-        moving = true;
-    }
-
-    public void setMoving(boolean moving) {
-        if(moving==false){
-            currAnimation=idleAnim;
-        }
-        this.moving = moving;
-    }
-
-
-
-    private void setAnimation() {
-        if (moving)
-            if(playerDir==UP){
-                currAnimation=upAnim;
-            }
-            else if(playerDir==DOWN){
-                currAnimation=downAnim;
-            }
-            else if(playerDir==LEFT){
-                currAnimation=leftAnim;
-            }
-            else if(playerDir==RIGHT){
-                currAnimation=rightAnim;
-            }
-        else
-            currAnimation=idleAnim;
-    }
-
-    private void updatePos() {
-        if (moving) {
-            switch (playerDir) {
-                case LEFT:
-                    xDelta -= 2;
-                    break;
-                case UP:
-                    yDelta -= 2;
-                    break;
-                case RIGHT:
-                    xDelta += 2;
-                    break;
-                case DOWN:
-                    yDelta += 2;
-                    break;
-            }
-        }
-    }
-
-    public void updateGame() {
-
-
-        setAnimation();
-        updatePos();
-    }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.drawImage(currAnimation, (int) xDelta, (int) yDelta, 150, 150, null);
+        gameEngine.getPlayerPlane().render(g);
     }
 
 }

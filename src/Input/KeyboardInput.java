@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import Main.*;
+
 import static Enum.Constants.Directions.*;
 
 public class KeyboardInput implements KeyListener {
@@ -23,10 +24,13 @@ public class KeyboardInput implements KeyListener {
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
+                gamePanel.getPlayerPlane().setUp(false);
             case KeyEvent.VK_A:
+                gamePanel.getPlayerPlane().setLeft(false);
             case KeyEvent.VK_S:
+                gamePanel.getPlayerPlane().setDown(false);
             case KeyEvent.VK_D:
-                gamePanel.setMoving(false);
+                gamePanel.getPlayerPlane().setRight(false);
                 break;
         }
     }
@@ -35,16 +39,16 @@ public class KeyboardInput implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
-                gamePanel.setDirection(UP);
+                gamePanel.getPlayerPlane().setUp(true);
                 break;
             case KeyEvent.VK_A:
-                gamePanel.setDirection(LEFT);
+                gamePanel.getPlayerPlane().setLeft(true);
                 break;
             case KeyEvent.VK_S:
-                gamePanel.setDirection(DOWN);
+                gamePanel.getPlayerPlane().setDown(true);
                 break;
             case KeyEvent.VK_D:
-                gamePanel.setDirection(RIGHT);
+                gamePanel.getPlayerPlane().setRight(true);
                 break;
         }
     }
