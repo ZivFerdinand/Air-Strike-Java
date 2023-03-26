@@ -18,20 +18,12 @@ public class GamePanel extends JPanel {
 
     private MouseInput mouseInput;
     private float xDelta = 100, yDelta = 100;
-    private BufferedImage img;
     private int aniTick, aniIndex, aniSpeed = 25;
     private int playerAction = IDLE;
     private int playerDir = -1;
     private boolean moving = false;
-    private BufferedImage upAnim;
-    private BufferedImage downAnim;
-    private BufferedImage leftAnim;
-    private BufferedImage rightAnim;
-    private BufferedImage leftupAnim;
-    private BufferedImage rightupAnim;
-    private BufferedImage leftdownAnim;
-    private BufferedImage rightdownAnim;
-    private BufferedImage idleAnim;
+    private BufferedImage img;
+    private BufferedImage upAnim, downAnim, leftAnim, rightAnim, leftupAnim, rightupAnim, leftdownAnim, rightdownAnim, idleAnim;
     private BufferedImage currAnimation;
     public GamePanel() {
         mouseInput = new MouseInput(this);
@@ -58,8 +50,7 @@ public class GamePanel extends JPanel {
         rightupAnim = animations[0][2];
         leftdownAnim = animations[2][0];
         rightdownAnim = animations[2][2];
-        idleAnim = animations[1][1];
-    currAnimation=idleAnim;
+        currAnimation =  idleAnim = animations[1][1];
     }
 
     private void importImg() {
