@@ -47,7 +47,7 @@ public class PlayerPlane extends Plane {
     }
 
     private void importImg() {
-        InputStream is = getClass().getResourceAsStream("/res/yellowSkin.png");
+        InputStream is = getClass().getResourceAsStream("/res/Plane-Blue.png");
         try {
             img = ImageIO.read(is);
         } catch (IOException e) {

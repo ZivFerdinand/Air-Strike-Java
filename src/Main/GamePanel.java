@@ -34,6 +34,7 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        gameEngine.getBackground().render(g);
         gameEngine.getPlayerPlane().render(g);
     }
 

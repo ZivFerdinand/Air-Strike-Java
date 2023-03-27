@@ -1,5 +1,6 @@
 package Main;
 
+import Background.BackgroundManager;
 import Planes.PlayerPlane;
 
 public class GameEngine implements Runnable {
@@ -11,6 +12,7 @@ public class GameEngine implements Runnable {
     private final int UPS_SET = 200;
 
     private PlayerPlane playerPlane;
+    private BackgroundManager background;
 
     public GameEngine() {
         initClasses();
@@ -22,13 +24,14 @@ public class GameEngine implements Runnable {
     }
 
     private void initClasses() {
+        this.background = new BackgroundManager();
         this.playerPlane = new PlayerPlane((GamePanel.GAME_WIDTH - 150) / 2, 600);
     }
 
     public PlayerPlane getPlayerPlane() {
         return this.playerPlane;
     }
-
+    public BackgroundManager getBackground() {return this.background;}
     private void startGameLoop() {
         gameThread = new Thread(this);
         gameThread.start();
