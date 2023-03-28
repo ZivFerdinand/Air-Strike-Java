@@ -1,6 +1,7 @@
 package Planes;
 
 import Main.GamePanel;
+import Objects.Laser;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -33,7 +34,7 @@ public class PlayerPlane extends Plane {
         BufferedImage[][] animations = new BufferedImage[3][3];
         for (int j = 0; j < animations.length; j++)
             for (int i = 0; i < animations[j].length; i++)
-                animations[j][i] = img.getSubimage(200+i * 200, 200+j * 200, 200, 200);
+                animations[j][i] = img.getSubimage(200 + i * 200, 200 + j * 200, 200, 200);
 
         upAnim = animations[0][1];
         downAnim = animations[2][1];
@@ -111,11 +112,22 @@ public class PlayerPlane extends Plane {
         }
     }
 
+
     public void updateGame() {
         setAnimation();
     }
 
+    Laser x = new Laser((int) posX, (int) posY);
+
     public void render(Graphics g) {
+
         g.drawImage(currAnimation, (int) posX, (int) posY, 150, 150, null);
+        g.drawImage(currAnimation, (int) posX - 100, (int) posY + 150, 75, 75, null);
+
+        x.render(g);
+        if(x.getPosY() < -100)
+        {
+            x.resetPos((int) posX, (int) posY);
+        }
     }
 }

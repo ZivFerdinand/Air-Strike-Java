@@ -5,7 +5,9 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import Input.*;
+import Objects.Laser;
 import Planes.PlayerPlane;
+
 public class GamePanel extends JPanel {
     public static int GAME_WIDTH = 1280, GAME_HEIGHT = 800;
     private MouseInput mouseInput;
@@ -36,6 +38,7 @@ public class GamePanel extends JPanel {
 
         gameEngine.getBackground().render(g);
         gameEngine.getPlayerPlane().render(g);
+//        new Laser(100,a++).render(g);
     }
 
 }

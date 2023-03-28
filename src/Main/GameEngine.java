@@ -31,7 +31,11 @@ public class GameEngine implements Runnable {
     public PlayerPlane getPlayerPlane() {
         return this.playerPlane;
     }
-    public BackgroundManager getBackground() {return this.background;}
+
+    public BackgroundManager getBackground() {
+        return this.background;
+    }
+
     private void startGameLoop() {
         gameThread = new Thread(this);
         gameThread.start();
