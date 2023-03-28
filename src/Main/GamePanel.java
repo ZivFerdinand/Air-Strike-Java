@@ -38,7 +38,6 @@ public class GamePanel extends JPanel {
 
         gameEngine.getBackground().render(g);
         gameEngine.getPlayerPlane().render(g);
-//        new Laser(100,a++).render(g);
     }
 
 }
