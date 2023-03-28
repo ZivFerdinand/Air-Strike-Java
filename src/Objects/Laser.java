@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Laser {
+    private final int laserSpeed = 5;
     private int posX, posY;
     private int initPosX, initPosY;
     private int totalMvmt = 0;
@@ -59,8 +60,8 @@ public class Laser {
     }
 
     public void render(Graphics g) {
-        posY -= 2;
-        totalMvmt += 2;
+        posY -= laserSpeed;
+        totalMvmt += laserSpeed;
         g.drawImage(img, posX + 65, posY, 20, 38, null);
     }
 }

@@ -182,7 +182,7 @@ public class PlayerPlane extends Plane {
             counterPassed = 460;
 
         g.drawImage(currAnimation, (int) posX, (int) posY, 150, 150, null);
-        g.drawImage(currAnimationShadow, (int) posX - 100, (int) posY + 150, 75, 75, null);
+        g.drawImage(currAnimationShadow, (int) posX - 50, (int) posY + 150, 95, 95, null);
 
         for (int i = 0; i < counterPassed / 20; i++) {
             if (!laserShoot.get(i).checkHasMoved()) {
