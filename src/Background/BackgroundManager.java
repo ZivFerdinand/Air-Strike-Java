@@ -24,7 +24,7 @@ public class BackgroundManager {
     }
 
     private void importImg() {
-        InputStream is = getClass().getResourceAsStream("/res/Main-Background-2.png");
+        InputStream is = getClass().getResourceAsStream("/res/Main-Background-2-Cloud.png");
         try {
             img = ImageIO.read(is);
         } catch (IOException e) {
