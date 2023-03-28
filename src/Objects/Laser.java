@@ -59,7 +59,7 @@ public class Laser extends Object{
     }
 
     public void render(Graphics g) {
-        drawHitBox(g);
+        // drawHitBox(g);
         posY -= laserSpeed;
         totalMvmt += laserSpeed;
         g.drawImage(img, (int) posX + 65, (int) posY, 20, 38, null);

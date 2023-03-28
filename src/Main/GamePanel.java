@@ -48,6 +48,7 @@ public class GamePanel extends JPanel{
         }
         for (int i = 0; i < getPlayerPlane().getLaserShoot().size(); i++) {
             if (r1.intersects(getPlayerPlane().getLaserShoot().get(i).getHitBox())) {
+                getPlayerPlane().getLaserShoot().get(i).resetPos(posX, -100);
                 x = new Color((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255));
             }
         }
