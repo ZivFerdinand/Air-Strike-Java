@@ -1,7 +1,7 @@
 package Main;
 
 import Background.BackgroundManager;
-import Planes.PlayerPlane;
+import Objects.PlayerPlane;
 
 public class GameEngine implements Runnable {
 

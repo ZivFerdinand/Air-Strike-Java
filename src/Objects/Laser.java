@@ -6,19 +6,18 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Laser {
-    private final int laserSpeed = 5;
-    private int posX, posY;
+public class Laser extends Object{
+    private final int laserSpeed = 4;
+    // private int posX, posY;
     private int initPosX, initPosY;
     private int totalMvmt = 0;
     private BufferedImage img;
     private boolean hasMoved = false;
 
     public Laser(int posX, int posY) {
+        super(posX, posY,70, 0, 10, 38);
         this.initPosX = posX;
         this.initPosY = posY;
-        this.posX = posX;
-        this.posY = posY;
         importImg();
     }
 
@@ -60,8 +59,10 @@ public class Laser {
     }
 
     public void render(Graphics g) {
+        drawHitBox(g);
         posY -= laserSpeed;
         totalMvmt += laserSpeed;
-        g.drawImage(img, posX + 65, posY, 20, 38, null);
+        g.drawImage(img, (int) posX + 65, (int) posY, 20, 38, null);
     }
+    
 }
