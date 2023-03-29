@@ -1,5 +1,6 @@
 package Objects;
 
+import Main.GameEngine;
 import Main.GamePanel;
 
 import javax.imageio.ImageIO;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class PlayerPlane extends Object {
     private int counterPassed = 0;
     private final int playerSpeed = 3;
-    private BufferedImage img, imgShadow;
+    private BufferedImage imgShadow;
     private BufferedImage upAnim, downAnim, leftAnim, rightAnim, leftUpAnim, rightUpAnim, leftDownAnim, rightDownAnim, idleAnim;
     private BufferedImage upAnimShadow, downAnimShadow, leftAnimShadow, rightAnimShadow, leftUpAnimShadow, rightUpAnimShadow, leftDownAnimShadow, rightDownAnimShadow, idleAnimShadow;
     private BufferedImage currAnimation;
@@ -27,9 +28,9 @@ public class PlayerPlane extends Object {
     private boolean isLeft;
 
     public PlayerPlane(float posX, float posY) {
-        super(posX, posY, 7, 40, 135, 75);
+        super(posX, posY, 7, 40, 135, 75, "/res/Plane-Blue.png");
+        importImgShadow();
         laserInstantiate(23);
-        importImg();
         loadAnimations();
     }
 
@@ -70,20 +71,8 @@ public class PlayerPlane extends Object {
         currAnimationShadow = idleAnimShadow = animationsShadow[1][1];
     }
 
-    private void importImg() {
-        InputStream is = getClass().getResourceAsStream("/res/Plane-Blue.png");
-        try {
-            img = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        is = getClass().getResourceAsStream("/res/Plane-Shadow-40.png");
+    private void importImgShadow() {
+        InputStream is = getClass().getResourceAsStream("/res/Plane-Shadow-40.png");
         try {
             imgShadow = ImageIO.read(is);
         } catch (IOException e) {
@@ -160,7 +149,6 @@ public class PlayerPlane extends Object {
     public void updateGame() {
         updateHitBox();
         laserUpdateHitBox();
-
         setAnimation();
     }
 
@@ -180,9 +168,17 @@ public class PlayerPlane extends Object {
         return laserShoot;
     }
 
+    int counterAudio = 0;
+
     private void laserUpdate(Graphics g)
     {
         counterPassed++;
+        counterAudio++;
+        if (counterAudio == 20)
+        {
+            counterAudio = 0;
+            GameEngine.audioPlayer.playEffect(0);
+        }
         if (counterPassed >= 460)
             counterPassed = 460;
         for (int i = 0; i < counterPassed / 20; i++) {
@@ -198,11 +194,8 @@ public class PlayerPlane extends Object {
         }
     }
     public void render(Graphics g) {
-        drawHitBox(g);
-
         g.drawImage(currAnimation, (int) posX, (int) posY, 150, 150, null);
         g.drawImage(currAnimationShadow, (int) posX - 50, (int) posY + 150, 95, 95, null);
-
         laserUpdate(g);
     }
 

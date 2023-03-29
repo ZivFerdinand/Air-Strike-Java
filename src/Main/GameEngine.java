@@ -2,10 +2,11 @@ package Main;
 
 import Background.BackgroundManager;
 import Collision.CollisionManager;
-import Objects.EnemyPlane;
-import Objects.PlayerPlane;
+import Objects.*;
+import Utils.AudioPlayer;
 
 public class GameEngine implements Runnable {
+    public static AudioPlayer audioPlayer;
 
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
@@ -16,9 +17,13 @@ public class GameEngine implements Runnable {
     private PlayerPlane playerPlane;
     private BackgroundManager background;
     private CollisionManager collisionManager;
-    private EnemyPlane enemyPlane;
+    private EnemyHelicopter enemyHelicopter;
+    private EnemyUFO enemyUFO;
+    private Explosion explosionHelicopter;
+    private Explosion explosionUFO;
 
     public GameEngine() {
+        audioPlayer = new AudioPlayer();
         initClasses();
         gamePanel = new GamePanel(this);
         gameFrame = new GameFrame(gamePanel);
@@ -26,38 +31,59 @@ public class GameEngine implements Runnable {
         startGameLoop();
 
     }
+
     private void startGameLoop() {
         gameThread = new Thread(this);
         gameThread.start();
     }
+
     private void initClasses() {
         this.background = new BackgroundManager();
         this.playerPlane = new PlayerPlane((GamePanel.GAME_WIDTH - 150) / 2, 600);
-        this.enemyPlane = new EnemyPlane(50, -50);
-        this.collisionManager = new CollisionManager(playerPlane, playerPlane.getLaserShoot(), enemyPlane);
+        this.enemyHelicopter = new EnemyHelicopter(50, -50, this);
+        this.enemyUFO = new EnemyUFO(50, 50, this);
+        this.collisionManager = new CollisionManager(playerPlane, playerPlane.getLaserShoot(), enemyHelicopter,
+                enemyUFO);
+        this.explosionHelicopter = new Explosion(10, 10, 100, 96);
+        this.explosionUFO = new Explosion(10, 10, 200, 192);
     }
 
     public PlayerPlane getPlayerPlane() {
         return this.playerPlane;
     }
 
-    public EnemyPlane getEnemyPlane()
-    {
-        return this.enemyPlane;
+    public EnemyHelicopter getEnemyHelicopter() {
+        return this.enemyHelicopter;
     }
+
     public BackgroundManager getBackground() {
         return this.background;
     }
-    public CollisionManager getCollisionManager()
-    {
+
+    public CollisionManager getCollisionManager() {
         return this.collisionManager;
+    }
+
+    public Explosion getExplosionHelicopter() {
+        return explosionHelicopter;
+    }
+
+    public Explosion getExplosionUFO() {
+        return explosionUFO;
+    }
+
+    public EnemyUFO getEnemyUFO() {
+        return enemyUFO;
     }
 
     public void update() {
 
         playerPlane.updateGame();
         collisionManager.updateCollisionDetection();
-        enemyPlane.update();
+        enemyHelicopter.update();
+        enemyUFO.update();
+        explosionHelicopter.updateGame();
+        explosionUFO.updateGame();
     }
 
     @Override
