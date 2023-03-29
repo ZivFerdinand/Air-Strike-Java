@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class PlayerPlane extends Object {
     private int counterPassed = 0;
-    private final int playerSpeed = 2;
+    private final int playerSpeed = 3;
     private BufferedImage img, imgShadow;
     private BufferedImage upAnim, downAnim, leftAnim, rightAnim, leftUpAnim, rightUpAnim, leftDownAnim, rightDownAnim, idleAnim;
     private BufferedImage upAnimShadow, downAnimShadow, leftAnimShadow, rightAnimShadow, leftUpAnimShadow, rightUpAnimShadow, leftDownAnimShadow, rightDownAnimShadow, idleAnimShadow;

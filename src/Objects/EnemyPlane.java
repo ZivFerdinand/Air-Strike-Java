@@ -11,7 +11,7 @@ import java.io.InputStream;
 
 public class EnemyPlane extends Object{
     private int totalMvmt;
-    private final int healthMax = 5;
+    private final int healthMax = 7;
     private int health = healthMax;
     private final int initPosY = -100;
     private int enemySpeed = 3;
@@ -54,9 +54,9 @@ public class EnemyPlane extends Object{
         health = healthMax;
         posY = initPosY;
         totalMvmt = 0;
-        enemySpeed = MathAssist.getRandomNumber(2,4);
+        enemySpeed = MathAssist.getRandomNumber(2,3);
 
-        posX = MathAssist.getRandomNumber(50, GamePanel.GAME_WIDTH - 50);
+        posX = MathAssist.getRandomNumber(100, GamePanel.GAME_WIDTH - 100);
     }
     public void destroyObjectFromScreen()
     {

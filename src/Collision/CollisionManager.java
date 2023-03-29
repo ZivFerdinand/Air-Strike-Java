@@ -37,6 +37,10 @@ public class CollisionManager {
                 laserShoot.get(i).resetPos(-100, -100);
             }
         }
+        if(playerPlane.getHitBox().intersects(enemyPlane.getHitBox())){
+            enemyPlane.destroyObjectFromScreen();
+            
+        }
     }
 
     public void render(Graphics g)
