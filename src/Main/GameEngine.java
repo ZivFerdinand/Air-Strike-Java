@@ -1,18 +1,20 @@
 package Main;
 
 import Background.BackgroundManager;
+import Collision.CollisionManager;
 import Objects.PlayerPlane;
 
 public class GameEngine implements Runnable {
 
+    private final int FPS_SET = 120;
+    private final int UPS_SET = 200;
     private GameFrame gameFrame;
     private GamePanel gamePanel;
     private Thread gameThread;
-    private final int FPS_SET = 120;
-    private final int UPS_SET = 200;
 
     private PlayerPlane playerPlane;
     private BackgroundManager background;
+    private CollisionManager collisionManager;
 
     public GameEngine() {
         initClasses();
@@ -22,10 +24,14 @@ public class GameEngine implements Runnable {
         startGameLoop();
 
     }
-
+    private void startGameLoop() {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
     private void initClasses() {
         this.background = new BackgroundManager();
         this.playerPlane = new PlayerPlane((GamePanel.GAME_WIDTH - 150) / 2, 600);
+        this.collisionManager = new CollisionManager(playerPlane, playerPlane.getLaserShoot());
     }
 
     public PlayerPlane getPlayerPlane() {
@@ -35,14 +41,15 @@ public class GameEngine implements Runnable {
     public BackgroundManager getBackground() {
         return this.background;
     }
-
-    private void startGameLoop() {
-        gameThread = new Thread(this);
-        gameThread.start();
+    public CollisionManager getCollisionManager()
+    {
+        return this.collisionManager;
     }
 
     public void update() {
+
         playerPlane.updateGame();
+        collisionManager.updateCollisionDetection();
     }
 
     @Override

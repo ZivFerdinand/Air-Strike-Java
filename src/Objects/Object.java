@@ -15,7 +15,7 @@ public abstract class Object {
         this.hitBoxY = hitBoxY;
         this.width = width;
         this.height = height;
-        initHitbox();
+        initHitBox();
     }
 
     protected void drawHitBox(Graphics g) {
@@ -23,11 +23,11 @@ public abstract class Object {
         g.drawRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
     }
 
-    private void initHitbox() {
+    private void initHitBox() {
         hitBox = new Rectangle((int) hitBoxX, (int) hitBoxY, width, height);
     }
 
-    public void updateHitbox() {
+    public void updateHitBox() {
         hitBox.x = (int) posX + (int) hitBoxX;
         hitBox.y = (int) posY + (int) hitBoxY;
     }

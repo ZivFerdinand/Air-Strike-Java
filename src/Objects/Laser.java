@@ -8,11 +8,9 @@ import java.io.InputStream;
 
 public class Laser extends Object{
     private final int laserSpeed = 4;
-    // private int posX, posY;
-    private int initPosX, initPosY;
+    private final int initPosX, initPosY;
     private int totalMvmt = 0;
     private BufferedImage img;
-    private boolean hasMoved = false;
 
     public Laser(int posX, int posY) {
         super(posX, posY,70, 0, 10, 38);
@@ -37,12 +35,10 @@ public class Laser extends Object{
     }
 
     public boolean checkHasMoved() {
-        if (posX != initPosX || posY != initPosY) {
-            hasMoved = true;
+        if (posX != initPosX || posY != initPosY)
             return true;
-        }
 
-        return hasMoved;
+        return false;
     }
 
     public void resetPos(int posX, int posY) {
@@ -59,7 +55,7 @@ public class Laser extends Object{
     }
 
     public void render(Graphics g) {
-        // drawHitBox(g);
+//        drawHitBox(g);
         posY -= laserSpeed;
         totalMvmt += laserSpeed;
         g.drawImage(img, (int) posX + 65, (int) posY, 20, 38, null);

@@ -13,7 +13,7 @@ public class GameFrame {
 
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.add(gamePanel);
-        jFrame.setTitle("Air Strike");
+        jFrame.setTitle("Air Strike [JAVIER-TRISTAN-ZIVEN]");
         jFrame.setResizable(false);
         jFrame.pack();
         jFrame.setLocationRelativeTo(null);

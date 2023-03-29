@@ -8,7 +8,7 @@ import Input.*;
 import Objects.*;
 
 public class GamePanel extends JPanel{
-    public static int GAME_WIDTH = 1280, GAME_HEIGHT = 800;
+    public final static int GAME_WIDTH = 1280, GAME_HEIGHT = 800;
     private MouseInput mouseInput;
     private GameEngine gameEngine;
 
@@ -31,26 +31,12 @@ public class GamePanel extends JPanel{
         setPreferredSize(size);
     }
 
-    int posX = 300;
-    Rectangle r1 = new Rectangle(posX, 300, 150, 150);
-    Color x = new Color(255, 0, 0);
+
     public void paintComponent(Graphics g) {
         
         super.paintComponent(g);
         gameEngine.getBackground().render(g);
         gameEngine.getPlayerPlane().render(g);
-        r1 = new Rectangle(posX, 300, 150, 150);
-        g.setColor(x);
-        g.fillRect(posX, 300, 150, 150);
-        if (r1.intersects(getPlayerPlane().getHitBox())) {
-            System.out.println("Collision");
-            posX = 100;
-        }
-        for (int i = 0; i < getPlayerPlane().getLaserShoot().size(); i++) {
-            if (r1.intersects(getPlayerPlane().getLaserShoot().get(i).getHitBox())) {
-                getPlayerPlane().getLaserShoot().get(i).resetPos(posX, -100);
-                x = new Color((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255));
-            }
-        }
+        gameEngine.getCollisionManager().render(g);
     }
 }

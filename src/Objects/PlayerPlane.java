@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PlayerPlane extends Object {
     private int counterPassed = 0;
@@ -25,15 +24,12 @@ public class PlayerPlane extends Object {
     private boolean isUp;
     private boolean isDown;
     private boolean isRight;
-
-
     private boolean isLeft;
 
     public PlayerPlane(float posX, float posY) {
         super(posX, posY, 7, 40, 135, 75);
-        laserInstantiate();
+        laserInstantiate(23);
         importImg();
-        importImgShadow();
         loadAnimations();
     }
 
@@ -87,10 +83,7 @@ public class PlayerPlane extends Object {
                 e.printStackTrace();
             }
         }
-    }
-
-    private void importImgShadow() {
-        InputStream is = getClass().getResourceAsStream("/res/Plane-Shadow-40.png");
+        is = getClass().getResourceAsStream("/res/Plane-Shadow-40.png");
         try {
             imgShadow = ImageIO.read(is);
         } catch (IOException e) {
@@ -165,20 +158,20 @@ public class PlayerPlane extends Object {
 
 
     public void updateGame() {
-        updateHitbox();
+        updateHitBox();
         laserUpdateHitBox();
+
         setAnimation();
     }
 
-    public void laserUpdateHitBox() {
+    private void laserUpdateHitBox() {
         for (int i = 0; i < laserShoot.size(); i++) {
-            laserShoot.get(i).updateHitbox();
+            laserShoot.get(i).updateHitBox();
         }
     }
 
-    public void laserInstantiate() {
-        for (int i = 0; i < 23; i++) {
-
+    private void laserInstantiate(int count) {
+        for (int i = 0; i < count; i++) {
             laserShoot.add(new Laser((int) posX, (int) posY));
         }
     }
@@ -187,15 +180,11 @@ public class PlayerPlane extends Object {
         return laserShoot;
     }
 
-    public void render(Graphics g) {
-        drawHitBox(g);
+    private void laserUpdate(Graphics g)
+    {
         counterPassed++;
         if (counterPassed >= 460)
             counterPassed = 460;
-
-        g.drawImage(currAnimation, (int) posX, (int) posY, 150, 150, null);
-        g.drawImage(currAnimationShadow, (int) posX - 50, (int) posY + 150, 95, 95, null);
-
         for (int i = 0; i < counterPassed / 20; i++) {
             if (!laserShoot.get(i).checkHasMoved()) {
                 laserShoot.get(i).resetPos((int) posX, (int) posY);
@@ -204,9 +193,17 @@ public class PlayerPlane extends Object {
                 laserShoot.get(i).setTotalMvmt(0);
                 laserShoot.get(i).resetPos((int) posX, (int) posY);
             }
-            laserShoot.get(i).updateHitbox();
+            laserShoot.get(i).updateHitBox();
             laserShoot.get(i).render(g);
         }
+    }
+    public void render(Graphics g) {
+        drawHitBox(g);
+
+        g.drawImage(currAnimation, (int) posX, (int) posY, 150, 150, null);
+        g.drawImage(currAnimationShadow, (int) posX - 50, (int) posY + 150, 95, 95, null);
+
+        laserUpdate(g);
     }
 
 }
