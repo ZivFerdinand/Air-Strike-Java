@@ -11,6 +11,8 @@ import java.io.InputStream;
 
 public class EnemyPlane extends Object{
     private int totalMvmt;
+    private final int healthMax = 5;
+    private int health = healthMax;
     private final int initPosY = -100;
     private int enemySpeed = 3;
     private BufferedImage img;
@@ -44,14 +46,27 @@ public class EnemyPlane extends Object{
 
         if(totalMvmt >= GamePanel.GAME_HEIGHT + 100)
         {
-            posY = initPosY;
-            totalMvmt = 0;
-            enemySpeed = MathAssist.getRandomNumber(2,4);
-
-            posX = MathAssist.getRandomNumber(50, GamePanel.GAME_WIDTH - 50);
+            resetPosition();
         }
     }
+    private void resetPosition()
+    {
+        health = healthMax;
+        posY = initPosY;
+        totalMvmt = 0;
+        enemySpeed = MathAssist.getRandomNumber(2,4);
 
+        posX = MathAssist.getRandomNumber(50, GamePanel.GAME_WIDTH - 50);
+    }
+    public void destroyObjectFromScreen()
+    {
+        health--;
+
+        if(health < 0) {
+            posY = GamePanel.GAME_HEIGHT + 1000;
+            health=healthMax;
+        }
+    }
     public void render(Graphics g)
     {
         drawHitBox(g);

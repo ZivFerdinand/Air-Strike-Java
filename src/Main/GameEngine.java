@@ -33,8 +33,8 @@ public class GameEngine implements Runnable {
     private void initClasses() {
         this.background = new BackgroundManager();
         this.playerPlane = new PlayerPlane((GamePanel.GAME_WIDTH - 150) / 2, 600);
-        this.collisionManager = new CollisionManager(playerPlane, playerPlane.getLaserShoot());
         this.enemyPlane = new EnemyPlane(50, -50);
+        this.collisionManager = new CollisionManager(playerPlane, playerPlane.getLaserShoot(), enemyPlane);
     }
 
     public PlayerPlane getPlayerPlane() {
