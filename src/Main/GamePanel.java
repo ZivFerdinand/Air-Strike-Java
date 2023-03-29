@@ -38,5 +38,6 @@ public class GamePanel extends JPanel{
         gameEngine.getBackground().render(g);
         gameEngine.getPlayerPlane().render(g);
         gameEngine.getCollisionManager().render(g);
+        gameEngine.getEnemyPlane().render(g);
     }
 }

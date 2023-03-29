@@ -2,6 +2,7 @@ package Main;
 
 import Background.BackgroundManager;
 import Collision.CollisionManager;
+import Objects.EnemyPlane;
 import Objects.PlayerPlane;
 
 public class GameEngine implements Runnable {
@@ -15,6 +16,7 @@ public class GameEngine implements Runnable {
     private PlayerPlane playerPlane;
     private BackgroundManager background;
     private CollisionManager collisionManager;
+    private EnemyPlane enemyPlane;
 
     public GameEngine() {
         initClasses();
@@ -32,12 +34,17 @@ public class GameEngine implements Runnable {
         this.background = new BackgroundManager();
         this.playerPlane = new PlayerPlane((GamePanel.GAME_WIDTH - 150) / 2, 600);
         this.collisionManager = new CollisionManager(playerPlane, playerPlane.getLaserShoot());
+        this.enemyPlane = new EnemyPlane(50, -50);
     }
 
     public PlayerPlane getPlayerPlane() {
         return this.playerPlane;
     }
 
+    public EnemyPlane getEnemyPlane()
+    {
+        return this.enemyPlane;
+    }
     public BackgroundManager getBackground() {
         return this.background;
     }
@@ -50,6 +57,7 @@ public class GameEngine implements Runnable {
 
         playerPlane.updateGame();
         collisionManager.updateCollisionDetection();
+        enemyPlane.update();
     }
 
     @Override

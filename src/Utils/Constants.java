@@ -1,4 +1,4 @@
-package Enum;
+package Utils;
 
 public class Constants {
     public static class Directions {
