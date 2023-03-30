@@ -1,5 +1,6 @@
 package Collision;
 
+import Main.GameEngine;
 import Objects.EnemyHelicopter;
 import Objects.EnemyUFO;
 import Objects.Laser;
@@ -51,12 +52,13 @@ public class CollisionManager {
         if (playerPlane.getHitBox().intersects(enemyHelicopter.getHitBox())) {
 
             audioPlayer.playHitSound(0);
-            enemyHelicopter.destroyObjectFromScreen();
+            enemyHelicopter.destroyObjectFromScreen(playerPlane);
+
         }
         if (playerPlane.getHitBox().intersects(enemyUFO.getHitBox())) {
 
             audioPlayer.playHitSound(0);
-            enemyUFO.destroyObjectFromScreen();
+            enemyUFO.destroyObjectFromScreen(playerPlane);
         }
     }
 }

@@ -71,6 +71,18 @@ public class EnemyHelicopter extends Object {
             health = healthMax;
             gameEngine.getExplosionHelicopter().startAnimation(posX, posY);
             posY = GamePanel.GAME_HEIGHT + 1000;
+            GameEngine.score.setScore(20);
+        }
+    }
+    public void destroyObjectFromScreen(PlayerPlane playerPlane) {
+        health--;
+
+        if (health < 0) {
+            health = healthMax;
+            gameEngine.getExplosionHelicopter().startAnimation(posX, posY);
+            posY = GamePanel.GAME_HEIGHT + 1000;
+            GameEngine.score.setScore(20);
+            playerPlane.reduceHealth(5);
         }
     }
 

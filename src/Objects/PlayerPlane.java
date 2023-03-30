@@ -13,8 +13,10 @@ import java.util.ArrayList;
 
 public class PlayerPlane extends Object {
     private int counterPassed = 0;
+    private int health = 100;
     private final int playerSpeedX = 3, playerSpeedY = 1;
     private BufferedImage imgShadow;
+    private BufferedImage healthStatus;
     private BufferedImage upAnim, downAnim, leftAnim, rightAnim, leftUpAnim, rightUpAnim, leftDownAnim, rightDownAnim, idleAnim;
     private BufferedImage upAnimShadow, downAnimShadow, leftAnimShadow, rightAnimShadow, leftUpAnimShadow, rightUpAnimShadow, leftDownAnimShadow, rightDownAnimShadow, idleAnimShadow;
     private BufferedImage currAnimation;
@@ -76,6 +78,19 @@ public class PlayerPlane extends Object {
         InputStream is = getClass().getResourceAsStream("/res/Plane-Shadow-40.png");
         try {
             imgShadow = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        is = getClass().getResourceAsStream("/res/Health-Icon.png");
+        try {
+            healthStatus = ImageIO.read(is);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -170,13 +185,21 @@ public class PlayerPlane extends Object {
     }
 
     int counterAudio = 0;
-
+    public int getHealth()
+    {
+        return health;
+    }
+    public void reduceHealth(int health)
+    {
+        this.health -= health;
+    }
     private void laserUpdate(Graphics g)
     {
         counterPassed++;
         counterAudio++;
         if (counterAudio == 20)
         {
+            GameEngine.score.setScore(1);
             counterAudio = 0;
             GameEngine.audioPlayer.playAttackSound(25);
         }
@@ -195,9 +218,12 @@ public class PlayerPlane extends Object {
         }
     }
     public void render(Graphics g) {
+
         g.drawImage(currAnimation, (int) posX, (int) posY, 150, 150, null);
         g.drawImage(currAnimationShadow, (int) posX - 50, (int) posY + 150, 95, 95, null);
         laserUpdate(g);
+
+        g.drawImage(healthStatus, 50, 45, 80, 80, null);
     }
 
 }

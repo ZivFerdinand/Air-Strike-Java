@@ -11,9 +11,10 @@ public class GamePanel extends JPanel {
     public final static int GAME_WIDTH = 1280, GAME_HEIGHT = 800;
     private MouseInput mouseInput;
     private GameEngine gameEngine;
-
+    private FontGenerator fontGenerator;
     public GamePanel(GameEngine gameEngine) {
         this.gameEngine = gameEngine;
+        this.fontGenerator = new FontGenerator();
         mouseInput = new MouseInput(this);
 
         setPanelSize();
@@ -40,5 +41,6 @@ public class GamePanel extends JPanel {
         gameEngine.getExplosionHelicopter().render(g);
         gameEngine.getExplosionUFO().render(g);
         gameEngine.getPlayerPlane().render(g);
+        fontGenerator.render(g, 40F , gameEngine.getPlayerPlane().getHealth(), GameEngine.score.getScore());
     }
 }

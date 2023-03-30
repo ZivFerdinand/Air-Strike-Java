@@ -60,6 +60,21 @@ public class EnemyUFO extends Object {
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             GameEngine.audioPlayer.playDestroySound(0);
+            GameEngine.score.setScore(50);
+        }
+    }
+    public void destroyObjectFromScreen(PlayerPlane playerPlane) {
+        health--;
+
+        if (health < 0) {
+            health = healthMax;
+            gameEngine.getExplosionUFO().startAnimation(posX, posY);
+            posY = GamePanel.GAME_HEIGHT + 1000;
+
+            GameEngine.audioPlayer.playDestroySound(0);
+            GameEngine.score.setScore(50);
+
+            playerPlane.reduceHealth(7);
         }
     }
 
