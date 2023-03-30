@@ -17,7 +17,8 @@ public class Explosion extends Object {
     private int counterPassed = 0;
     private int animIndex = 0;
 
-    private int score;
+    private int score, healthReduce;
+    private boolean healthShow;
 
     private int expWidth, expHeight;
     private int fontSize = 50;
@@ -44,14 +45,19 @@ public class Explosion extends Object {
 
             g.drawImage(currAnimation, (int) posX, (int) posY, expWidth, expHeight, null);
             fontGenerator.render(g, score, fontSize, (int)posX, (int)posY);
+
+            if(healthShow)
+            fontGenerator.renderMinus(g, healthReduce, fontSize, (int)posX+100, (int)posY+96);
         }
     }
 
-    public void startAnimation(float posX, float posY, int score) {
+    public void startAnimation(float posX, float posY, int score, int healthReduce, boolean healthShow) {
         audioPlayer.playDestroySound(0);
         isAnimating = true;
+        this.healthShow = healthShow;
         fontSize=50;
         this.score = score;
+        this.healthReduce = healthReduce;
         animIndex = 0;
         this.posX = posX;
         this.posY = posY;

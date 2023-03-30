@@ -12,7 +12,9 @@ import java.util.ArrayList;
 public class PlayerPlane extends Object {
     private int counterPassed = 0;
     private int health = 100;
+    private int healthBackPos = 0;
     private final int playerSpeedX = 3, playerSpeedY = 2;
+    int healthPosX = 50;
     private BufferedImage imgShadow;
     private BufferedImage healthStatus;
     private BufferedImage upAnim, downAnim, leftAnim, rightAnim, leftUpAnim, rightUpAnim, leftDownAnim, rightDownAnim, idleAnim;
@@ -189,17 +191,27 @@ public class PlayerPlane extends Object {
     }
     public void reduceHealth(int health)
     {
+        healthPosX = 40;
+        healthBackPos=0;
         this.health -= health;
     }
     private void laserUpdate(Graphics g)
     {
+        healthBackPos ++;
         counterPassed++;
         counterAudio++;
+        if(healthBackPos == 20)
+        {
+            healthBackPos=0;
+            healthPosX=50;
+        }
         if (counterAudio == 20)
         {
             GameEngine.score.setScore(1);
             counterAudio = 0;
             GameEngine.audioPlayer.playAttackSound(25);
+
+
         }
         if (counterPassed >= 460)
             counterPassed = 460;
@@ -221,7 +233,7 @@ public class PlayerPlane extends Object {
         g.drawImage(currAnimationShadow, (int) posX - 50, (int) posY + 150, 95, 95, null);
         laserUpdate(g);
 
-        g.drawImage(healthStatus, 50, 45, 80, 80, null);
+        g.drawImage(healthStatus, healthPosX, 45, 80, 80, null);
     }
 
 }

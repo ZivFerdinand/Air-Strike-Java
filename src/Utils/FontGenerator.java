@@ -23,14 +23,40 @@ public class FontGenerator {
             e.printStackTrace();
         }
     }
+
+    float tempFontSize = 40;
+    float change = -.3f;
     public void render(Graphics g, float fontSize, int health, int score)
     {
         g.setFont(mainFont);
-        g.setFont(g.getFont().deriveFont(Font.PLAIN, fontSize));
-        g.setColor(Color.WHITE);
 
-        g.drawString("" + health, 140, 100);
+        g.setColor(Color.WHITE);
+        g.setFont(g.getFont().deriveFont(Font.PLAIN, fontSize));
         g.drawString(String.format("%08d", score), 510, 100);
+        if(health <= 30)
+        {
+
+            g.setColor(Color.YELLOW);
+
+            if(tempFontSize <= 35)
+            {
+                change*=-1;
+            }
+            else if(tempFontSize >= 45)
+            {
+                change*=-1;
+            }
+            tempFontSize += change;
+            fontSize = tempFontSize;
+
+        }
+        if(health <= 15)
+        {
+            g.setColor(Color.RED);
+        }
+        g.setFont(g.getFont().deriveFont(Font.PLAIN, fontSize));
+        g.drawString("" + health + "%", 140, 100);
+
     }
     public void render(Graphics g, int score, int fontSize, int x, int y)
     {
@@ -38,7 +64,14 @@ public class FontGenerator {
         g.setFont(g.getFont().deriveFont(Font.PLAIN, fontSize));
         g.setColor(Color.YELLOW);
 
-        g.drawString("+" + score, x, y);
+        g.drawString("+" + score + "PTS", x, y);
     }
+    public void renderMinus(Graphics g, int score, int fontSize, int x, int y)
+    {
+        g.setFont(mainFont);
+        g.setFont(g.getFont().deriveFont(Font.PLAIN, fontSize));
+        g.setColor(Color.RED);
 
+        g.drawString("-" + score, x, y);
+    }
 }

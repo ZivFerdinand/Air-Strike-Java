@@ -114,7 +114,7 @@ public class EnemyHelicopter extends Object {
 
         if (health < 0) {
             health = healthMax;
-            gameEngine.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT);
+            gameEngine.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, false);
             posY = GamePanel.GAME_HEIGHT + 1000;
             GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT);
         }
@@ -124,7 +124,7 @@ public class EnemyHelicopter extends Object {
 
         if (health < 0) {
             health = healthMax;
-            gameEngine.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT);
+            gameEngine.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, true);
             posY = GamePanel.GAME_HEIGHT + 1000;
             GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HIT_POINT);
             playerPlane.reduceHealth(5);

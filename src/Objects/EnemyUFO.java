@@ -67,7 +67,7 @@ public class EnemyUFO extends Object {
 
         if (health < 0) {
             health = healthMax;
-            gameEngine.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_UFO_LASER_POINT);
+            gameEngine.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_UFO_LASER_POINT, Constants.DamageDealer.UFO_REDUCE, false);
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             GameEngine.audioPlayer.playDestroySound(0);
@@ -79,7 +79,7 @@ public class EnemyUFO extends Object {
 
         if (health < 0) {
             health = healthMax;
-            gameEngine.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT);
+            gameEngine.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT, Constants.DamageDealer.UFO_REDUCE, true);
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             GameEngine.audioPlayer.playDestroySound(0);
