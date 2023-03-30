@@ -209,7 +209,7 @@ public class PlayerPlane extends Object {
         {
             GameEngine.score.setScore(1);
             counterAudio = 0;
-            GameEngine.audioPlayer.playAttackSound(25);
+            GameEngine.audioPlayer.playAttackSound();
 
 
         }

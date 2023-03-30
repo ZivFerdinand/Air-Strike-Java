@@ -42,6 +42,7 @@ public class GamePanel extends JPanel {
         gameEngine.getExplosionHelicopter().render(g);
         gameEngine.getExplosionUFO().render(g);
         gameEngine.getPlayerPlane().render(g);
+        gameEngine.getCollisionManager().render(g);
         fontGenerator.render(g, 40F , gameEngine.getPlayerPlane().getHealth(), GameEngine.score.getScore());
     }
 }

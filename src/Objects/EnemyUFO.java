@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 
 public class EnemyUFO extends Object {
@@ -19,13 +20,14 @@ public class EnemyUFO extends Object {
     private final int healthMax = 20;
     private int health = healthMax;
     private final int initPosY = -250;
-    private int enemySpeed = 3;
+    private int enemySpeed = 1;
     private GameEngine gameEngine;
     private BufferedImage imgShadow;
     private BufferedImage[] imgHitting = new BufferedImage[4];
     private BufferedImage imgHittingFull;
     private BufferedImage currAnimation;
     private boolean isHitting = false;
+    private ArrayList<LaserEnemy> laserShoot = new ArrayList<LaserEnemy>();
 
     public void setHitting(boolean isHitting) {
         this.isHitting = isHitting;
@@ -36,10 +38,12 @@ public class EnemyUFO extends Object {
         this.gameEngine = gameEngine;
         totalMvmt = 0;
         importImgShadow();
+        laserInstantiate(5);
     }
 
     public void update() {
         updateHitBox();
+        laserUpdateHitBox();
         updateAnimation();
         posY += enemySpeed;
         totalMvmt += enemySpeed;
@@ -52,14 +56,61 @@ public class EnemyUFO extends Object {
             resetPosition();
         }
     }
+    private void laserUpdateHitBox() {
+        for (int i = 0; i < laserShoot.size(); i++) {
+            laserShoot.get(i).updateHitBox();
+        }
+    }
+
+    private void laserInstantiate(int count) {
+
+        laserShoot.add(new LaserEnemy((int) posX, (int) posY, 2, 4));
+        laserShoot.add(new LaserEnemy((int) posX, (int) posY, -2, -2));
+        laserShoot.add(new LaserEnemy((int) posX, (int) posY, 2, -2));
+        laserShoot.add(new LaserEnemy((int) posX, (int) posY, -2, 4));
+    }
+
+    public ArrayList<LaserEnemy> getLaserShoot() {
+        return laserShoot;
+    }
+    private void laserUpdate(Graphics g)
+    {
+//        counterPassed++;
+//        counterAudio++;
+//        if(healthBackPos == 20)
+//        {
+//            healthBackPos=0;
+//            healthPosX=50;
+//        }
+//        if (counterAudio == 20)
+//        {
+//            GameEngine.score.setScore(1);
+//            counterAudio = 0;
+//            GameEngine.audioPlayer.playAttackSound(25);
+//
+//
+//        }
+//        if (counterPassed >= 80)
+//            counterPassed = 80;
+        for (int i = 0; i < laserShoot.size(); i++) {
+            if (!laserShoot.get(i).checkHasMoved()) {
+                laserShoot.get(i).resetPos((int) posX, (int) posY);
+            }
+            if (laserShoot.get(i).getTotalMvmt() >= 500) {
+                laserShoot.get(i).setTotalMvmt(0);
+                laserShoot.get(i).resetPos((int) posX, (int) posY);
+            }
+            laserShoot.get(i).updateHitBox();
+            laserShoot.get(i).render(g);
+        }
+    }
 
     private void resetPosition() {
         health = healthMax;
         posY = initPosY;
         totalMvmt = 0;
-        enemySpeed = Assist.getRandomNumber(2, 3);
 
-        posX = Assist.getRandomNumber(100, GamePanel.GAME_WIDTH - 100);
+        posX = Assist.getRandomNumber(300, GamePanel.GAME_WIDTH - 300);
     }
 
     public void destroyObjectFromScreen() {
@@ -70,7 +121,7 @@ public class EnemyUFO extends Object {
             gameEngine.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_UFO_LASER_POINT, Constants.DamageDealer.UFO_REDUCE, false);
             posY = GamePanel.GAME_HEIGHT + 1000;
 
-            GameEngine.audioPlayer.playDestroySound(0);
+            GameEngine.audioPlayer.playDestroySound();
             GameEngine.score.setScore(Constants.DamageDealer.ENEMY_UFO_LASER_POINT);
         }
     }
@@ -82,7 +133,7 @@ public class EnemyUFO extends Object {
             gameEngine.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT, Constants.DamageDealer.UFO_REDUCE, true);
             posY = GamePanel.GAME_HEIGHT + 1000;
 
-            GameEngine.audioPlayer.playDestroySound(0);
+            GameEngine.audioPlayer.playDestroySound();
             GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HIT_POINT);
 
             playerPlane.reduceHealth(7);
@@ -141,6 +192,7 @@ public class EnemyUFO extends Object {
 
 
     public void render(Graphics g) {
+        laserUpdate(g);
         g.drawImage(imgShadow, (int) posX - 50, (int) posY + 125, 150, 150, null);
         g.drawImage(currAnimation, (int) posX, (int) posY, 200, 200, null);
     }

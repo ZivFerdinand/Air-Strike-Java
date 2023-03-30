@@ -23,7 +23,14 @@ public abstract class Object {
         initHitBox();
         importImg(path);
     }
-
+    public int getPosX()
+    {
+        return (int)posX;
+    }
+    public int getPosY()
+    {
+        return (int) posY;
+    }
     protected void drawHitBox(Graphics g) {
         g.setColor(Color.GREEN);
         g.drawRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);

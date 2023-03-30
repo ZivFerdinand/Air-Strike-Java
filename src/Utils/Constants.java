@@ -7,6 +7,7 @@ public class Constants {
         public static final int ENEMY_HIT_POINT = 5;
         public static final int UFO_REDUCE = 7;
         public static final int HELICOPTER_REDUCE = 7;
+        public static final int PLAYER_REDUCE_LASER = 5;
 
     }
     
@@ -20,5 +21,6 @@ public class Constants {
         public static String ENEMY_UFO_HIT = "/res/sprite/Enemy-UFO-Hit.png";
         public static String EXPLOSION = "/res/sprite/Explosion.png";
         public static String LASER = "/res/sprite/Laser-Sprite.png";
+        public static String LASER_ENEMY = "/res/sprite/Laser-Enemy.png";
     }
 }

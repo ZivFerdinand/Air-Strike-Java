@@ -52,7 +52,7 @@ public class Explosion extends Object {
     }
 
     public void startAnimation(float posX, float posY, int score, int healthReduce, boolean healthShow) {
-        audioPlayer.playDestroySound(0);
+        audioPlayer.playDestroySound();
         isAnimating = true;
         this.healthShow = healthShow;
         fontSize=50;

@@ -27,7 +27,6 @@ public class AudioPlayer {
     public AudioPlayer() {
         loadSongs();
         loadEffects();
-        playSong(LEVEL_1);
     }
 
     private void loadSongs() {
@@ -81,16 +80,16 @@ public class AudioPlayer {
     }
 
 
-    public void playAttackSound(int reduce) {
-        updateEffectsVolume(reduce);
+    public void playAttackSound() {
+        updateEffectsVolume(30);
         playEffect(0);
     }
-    public void playDestroySound(int reduce) {
-        updateEffectsVolume(reduce);
+    public void playDestroySound() {
+        updateEffectsVolume(20);
         playEffect(1);
     }
-    public void playHitSound(int reduce) {
-        updateEffectsVolume(reduce);
+    public void playHitSound() {
+        updateEffectsVolume(10);
         playEffect(2);
     }
 
@@ -131,7 +130,7 @@ public class AudioPlayer {
         FloatControl gainControl = (FloatControl) songs[currentSongId].getControl(FloatControl.Type.MASTER_GAIN);
         float range = gainControl.getMaximum() - gainControl.getMinimum();
         float gain = (range * volume) + gainControl.getMinimum();
-        gainControl.setValue(gain);
+        gainControl.setValue(gain - 5);
 
     }
 

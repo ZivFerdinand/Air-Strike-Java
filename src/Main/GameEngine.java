@@ -34,6 +34,7 @@ public class GameEngine implements Runnable {
     }
 
     private void startGameLoop() {
+        audioPlayer.playSong(AudioPlayer.LEVEL_1);
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -44,7 +45,7 @@ public class GameEngine implements Runnable {
         this.enemyHelicopter = new EnemyHelicopter(50, -50, this);
         this.enemyUFO = new EnemyUFO(50, 50, this);
         this.collisionManager = new CollisionManager(playerPlane, playerPlane.getLaserShoot(), enemyHelicopter,
-                enemyUFO);
+                enemyUFO, enemyUFO.getLaserShoot());
         this.explosionHelicopter = new Explosion(10, 10, 100, 96);
         this.explosionUFO = new Explosion(10, 10, 200, 192);
         this.score = new Score();
