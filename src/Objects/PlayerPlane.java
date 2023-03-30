@@ -2,6 +2,7 @@ package Objects;
 
 import Main.GameEngine;
 import Main.GamePanel;
+import Utils.AudioPlayer;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public class PlayerPlane extends Object {
     private int counterPassed = 0;
-    private final int playerSpeed = 3;
+    private final int playerSpeedX = 3, playerSpeedY = 1;
     private BufferedImage imgShadow;
     private BufferedImage upAnim, downAnim, leftAnim, rightAnim, leftUpAnim, rightUpAnim, leftDownAnim, rightDownAnim, idleAnim;
     private BufferedImage upAnimShadow, downAnimShadow, leftAnimShadow, rightAnimShadow, leftUpAnimShadow, rightUpAnimShadow, leftDownAnimShadow, rightDownAnimShadow, idleAnimShadow;
@@ -110,22 +111,22 @@ public class PlayerPlane extends Object {
         currAnimation = idleAnim;
         currAnimationShadow = idleAnimShadow;
 
-        if (isRight && !isLeft && posX + playerSpeed + 150 <= GamePanel.GAME_WIDTH) {
-            posX += playerSpeed;
+        if (isRight && !isLeft && posX + playerSpeedX + 150 <= GamePanel.GAME_WIDTH) {
+            posX += playerSpeedX;
             currAnimation = rightAnim;
             currAnimationShadow = rightAnimShadow;
-        } else if (!isRight && isLeft && posX - playerSpeed >= 0) {
-            posX -= playerSpeed;
+        } else if (!isRight && isLeft && posX - playerSpeedX >= 0) {
+            posX -= playerSpeedX;
             currAnimation = leftAnim;
             currAnimationShadow = leftAnimShadow;
         }
 
-        if (isUp && !isDown && posY - playerSpeed >= 0) {
-            posY -= playerSpeed;
+        if (isUp && !isDown && posY - playerSpeedY >= 0) {
+            posY -= playerSpeedY;
             currAnimation = upAnim;
             currAnimationShadow = upAnimShadow;
-        } else if (!isUp && isDown && posY + 150 + playerSpeed <= GamePanel.GAME_HEIGHT) {
-            posY += playerSpeed;
+        } else if (!isUp && isDown && posY + 150 + playerSpeedY <= GamePanel.GAME_HEIGHT) {
+            posY += playerSpeedY;
             currAnimation = downAnim;
             currAnimationShadow = downAnimShadow;
         }
@@ -177,7 +178,7 @@ public class PlayerPlane extends Object {
         if (counterAudio == 20)
         {
             counterAudio = 0;
-            GameEngine.audioPlayer.playEffect(0);
+            GameEngine.audioPlayer.playAttackSound(25);
         }
         if (counterPassed >= 460)
             counterPassed = 460;

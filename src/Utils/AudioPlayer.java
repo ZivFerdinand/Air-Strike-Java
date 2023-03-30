@@ -16,15 +16,10 @@ public class AudioPlayer {
 
     public static int BACKGROUND = 0;
     public static int LEVEL_1 = 1;
-    public static int LEVEL_2 = 2;
 
-    public static int DIE = 0;
-    public static int JUMP = 1;
-    public static int GAMEOVER = 2;
-    public static int LVL_COMPLETED = 3;
-    public static int ATTACK_ONE = 4;
-    public static int ATTACK_TWO = 5;
-    public static int ATTACK_THREE = 6;
+    public static int LASER_SOUND = 0;
+    public static int EXPLORE_SOUND = 1;
+    public static int HIT_SOUND = 2;
 
     private Clip[] songs, effects;
     private int currentSongId;
@@ -35,22 +30,22 @@ public class AudioPlayer {
     public AudioPlayer() {
         loadSongs();
         loadEffects();
-        playSong(BACKGROUND);
+        playSong(LEVEL_1);
     }
 
     private void loadSongs() {
-        String[] names = { "Background-Music" };
+        String[] names = { "MainMenu-BGM", "Background-Music" };
         songs = new Clip[names.length];
         for (int i = 0; i < songs.length; i++)
             songs[i] = getClip(names[i]);
     }
 
     private void loadEffects() {
-        String[] effectNames = { "Laser-Sound" };
+        String[] effectNames = { "Laser-Sound", "Explosion", "Object-Hit" };
         effects = new Clip[effectNames.length];
         for (int i = 0; i < effects.length; i++)
             effects[i] = getClip(effectNames[i]);
-        updateEffectsVolume();
+        updateEffectsVolume(30);
 
     }
 
@@ -76,7 +71,7 @@ public class AudioPlayer {
     public void setVolume(float volume) {
         this.volume = volume;
         updateSongVolume();
-        updateEffectsVolume();
+        updateEffectsVolume(0);
     }
 
     public void stopSong() {
@@ -84,22 +79,22 @@ public class AudioPlayer {
             songs[currentSongId].stop();
     }
 
-    public void setLevelSong(int lvlIndex) {
-        if (lvlIndex % 2 == 0)
-            playSong(LEVEL_1);
-        else
-            playSong(LEVEL_2);
+    public void setLevelSong() {
+        playSong(LEVEL_1);
     }
 
-    public void lvlCompleted() {
-        stopSong();
-        playEffect(LVL_COMPLETED);
-    }
 
-    public void playAttackSound() {
-        int start = 4;
-        start += rand.nextInt(3);
-        playEffect(start);
+    public void playAttackSound(int reduce) {
+        updateEffectsVolume(reduce);
+        playEffect(0);
+    }
+    public void playDestroySound(int reduce) {
+        updateEffectsVolume(reduce);
+        playEffect(1);
+    }
+    public void playHitSound(int reduce) {
+        updateEffectsVolume(reduce);
+        playEffect(2);
     }
 
     public void playEffect(int effect) {
@@ -130,8 +125,8 @@ public class AudioPlayer {
             BooleanControl booleanControl = (BooleanControl) c.getControl(BooleanControl.Type.MUTE);
             booleanControl.setValue(effectMute);
         }
-        if (!effectMute)
-            playEffect(JUMP);
+//        if (!effectMute)
+//            playEffect(JUMP);
     }
 
     private void updateSongVolume() {
@@ -143,12 +138,12 @@ public class AudioPlayer {
 
     }
 
-    private void updateEffectsVolume() {
+    private void updateEffectsVolume(int reduce) {
         for (Clip c : effects) {
             FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
             float range = gainControl.getMaximum() - gainControl.getMinimum();
             float gain = (range * volume) + gainControl.getMinimum();
-            gainControl.setValue(gain - 30);
+            gainControl.setValue(gain - reduce);
         }
     }
 

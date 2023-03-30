@@ -4,11 +4,13 @@ import Objects.EnemyHelicopter;
 import Objects.EnemyUFO;
 import Objects.Laser;
 import Objects.PlayerPlane;
+import Utils.AudioPlayer;
 
 import java.util.ArrayList;
 import java.awt.*;
 
 public class CollisionManager {
+    private AudioPlayer audioPlayer = new AudioPlayer();
     private PlayerPlane playerPlane;
     private ArrayList<Laser> laserShoot;
     private EnemyHelicopter enemyHelicopter;
@@ -36,18 +38,24 @@ public class CollisionManager {
                 // posHittingX = (int) laserShoot.get(i).getPosX();
                 // posHittingY = (int) laserShoot.get(i).getPosY();
                 // isHitting = true;
+                audioPlayer.playHitSound(0);
                 laserShoot.get(i).resetPos(-100, -100);
             }
             if(enemyUFO.getHitBox().intersects(laserShoot.get(i).getHitBox()))
             {
+                audioPlayer.playHitSound(0);
                 enemyUFO.destroyObjectFromScreen();
                 laserShoot.get(i).resetPos(-100, -100);
             }
         }
         if (playerPlane.getHitBox().intersects(enemyHelicopter.getHitBox())) {
+
+            audioPlayer.playHitSound(0);
             enemyHelicopter.destroyObjectFromScreen();
         }
         if (playerPlane.getHitBox().intersects(enemyUFO.getHitBox())) {
+
+            audioPlayer.playHitSound(0);
             enemyUFO.destroyObjectFromScreen();
         }
     }

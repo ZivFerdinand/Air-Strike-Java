@@ -13,9 +13,9 @@ import java.io.InputStream;
 public class EnemyUFO extends Object {
 
     private int totalMvmt;
-    private final int healthMax = 10;
+    private final int healthMax = 20;
     private int health = healthMax;
-    private final int initPosY = -200;
+    private final int initPosY = -250;
     private int enemySpeed = 3;
     private GameEngine gameEngine;
 
@@ -58,6 +58,8 @@ public class EnemyUFO extends Object {
             health = healthMax;
             gameEngine.getExplosionUFO().startAnimation(posX, posY);
             posY = GamePanel.GAME_HEIGHT + 1000;
+
+            GameEngine.audioPlayer.playDestroySound(0);
         }
     }
 

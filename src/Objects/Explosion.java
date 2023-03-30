@@ -1,9 +1,12 @@
 package Objects;
 
+import Utils.AudioPlayer;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Explosion extends Object {
+    private AudioPlayer audioPlayer = new AudioPlayer();
     private boolean isAnimating = false;
     private BufferedImage currAnimation;
     private BufferedImage[] animations = new BufferedImage[36];
@@ -37,6 +40,7 @@ public class Explosion extends Object {
     }
 
     public void startAnimation(float posX, float posY) {
+        audioPlayer.playDestroySound(0);
         isAnimating = true;
         animIndex = 0;
         this.posX = posX;
