@@ -20,7 +20,7 @@ public class EnemyHelicopter extends Object {
     private GameEngine gameEngine;
 
     public EnemyHelicopter(float posX, float posY, GameEngine gameEngine) {
-        super(posX, posY, 40, 1, 50, 129, "/res/Enemy-Helicopter.png") ;
+        super(posX, posY, 40, 1, 50, 129, "/res/sprite/Enemy-Helicopter.png") ;
         this.gameEngine = gameEngine;
         totalMvmt = 0;
         importImgAnimation();
@@ -69,9 +69,9 @@ public class EnemyHelicopter extends Object {
 
         if (health < 0) {
             health = healthMax;
-            gameEngine.getExplosionHelicopter().startAnimation(posX, posY);
+            gameEngine.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT);
             posY = GamePanel.GAME_HEIGHT + 1000;
-            GameEngine.score.setScore(20);
+            GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT);
         }
     }
     public void destroyObjectFromScreen(PlayerPlane playerPlane) {
@@ -79,9 +79,9 @@ public class EnemyHelicopter extends Object {
 
         if (health < 0) {
             health = healthMax;
-            gameEngine.getExplosionHelicopter().startAnimation(posX, posY);
+            gameEngine.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT);
             posY = GamePanel.GAME_HEIGHT + 1000;
-            GameEngine.score.setScore(20);
+            GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HIT_POINT);
             playerPlane.reduceHealth(5);
         }
     }

@@ -4,6 +4,7 @@ import Background.BackgroundManager;
 import Collision.CollisionManager;
 import Objects.*;
 import Utils.AudioPlayer;
+import Utils.Constants;
 
 public class GameEngine implements Runnable {
     public static AudioPlayer audioPlayer;
@@ -45,8 +46,8 @@ public class GameEngine implements Runnable {
         this.enemyUFO = new EnemyUFO(50, 50, this);
         this.collisionManager = new CollisionManager(playerPlane, playerPlane.getLaserShoot(), enemyHelicopter,
                 enemyUFO);
-        this.explosionHelicopter = new Explosion(10, 10, 100, 96, 20);
-        this.explosionUFO = new Explosion(10, 10, 200, 192, 50);
+        this.explosionHelicopter = new Explosion(10, 10, 100, 96);
+        this.explosionUFO = new Explosion(10, 10, 200, 192);
         this.score = new Score();
     }
 

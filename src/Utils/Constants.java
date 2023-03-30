@@ -1,11 +1,9 @@
 package Utils;
 
 public class Constants {
-    public static class Directions {
-        public static final int IDLE = 0;
-        public static final int UP = 1;
-        public static final int RIGHT = 2;
-        public static final int DOWN = 3;
-        public static final int LEFT = 4;
+    public static class DamageDealer{
+        public static final int ENEMY_UFO_LASER_POINT = 50;
+        public static final int ENEMY_HELICOPTER_LASER_POINT = 30;
+        public static final int ENEMY_HIT_POINT = 5;
     }
 }

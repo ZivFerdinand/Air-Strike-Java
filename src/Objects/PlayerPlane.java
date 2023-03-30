@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class PlayerPlane extends Object {
     private int counterPassed = 0;
     private int health = 100;
-    private final int playerSpeedX = 3, playerSpeedY = 1;
+    private final int playerSpeedX = 3, playerSpeedY = 2;
     private BufferedImage imgShadow;
     private BufferedImage healthStatus;
     private BufferedImage upAnim, downAnim, leftAnim, rightAnim, leftUpAnim, rightUpAnim, leftDownAnim, rightDownAnim, idleAnim;
@@ -31,7 +31,7 @@ public class PlayerPlane extends Object {
     private boolean isLeft;
 
     public PlayerPlane(float posX, float posY) {
-        super(posX, posY, 7, 40, 135, 75, "/res/Plane-Blue.png");
+        super(posX, posY, 7, 40, 135, 75, "/res/sprite/Plane-Blue.png");
         importImgShadow();
         laserInstantiate(23);
         loadAnimations();
@@ -75,7 +75,7 @@ public class PlayerPlane extends Object {
     }
 
     private void importImgShadow() {
-        InputStream is = getClass().getResourceAsStream("/res/Plane-Shadow-40.png");
+        InputStream is = getClass().getResourceAsStream("/res/sprite/Plane-Shadow-40.png");
         try {
             imgShadow = ImageIO.read(is);
         } catch (IOException e) {
@@ -88,7 +88,7 @@ public class PlayerPlane extends Object {
             }
         }
 
-        is = getClass().getResourceAsStream("/res/Health-Icon.png");
+        is = getClass().getResourceAsStream("/res/sprite/Health-Icon.png");
         try {
             healthStatus = ImageIO.read(is);
         } catch (IOException e) {

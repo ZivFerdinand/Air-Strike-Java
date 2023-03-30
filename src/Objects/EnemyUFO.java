@@ -22,7 +22,7 @@ public class EnemyUFO extends Object {
     private BufferedImage imgShadow;
 
     public EnemyUFO(float posX, float posY, GameEngine gameEngine) {
-        super(posX, posY, 0, 0, 200, 200, "/res/Enemy-UFO.png");
+        super(posX, posY, 0, 0, 200, 200, "/res/sprite/Enemy-UFO.png");
         this.gameEngine = gameEngine;
         totalMvmt = 0;
         importImgShadow();
@@ -56,11 +56,11 @@ public class EnemyUFO extends Object {
 
         if (health < 0) {
             health = healthMax;
-            gameEngine.getExplosionUFO().startAnimation(posX, posY);
+            gameEngine.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_UFO_LASER_POINT);
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             GameEngine.audioPlayer.playDestroySound(0);
-            GameEngine.score.setScore(50);
+            GameEngine.score.setScore(Constants.DamageDealer.ENEMY_UFO_LASER_POINT);
         }
     }
     public void destroyObjectFromScreen(PlayerPlane playerPlane) {
@@ -68,18 +68,18 @@ public class EnemyUFO extends Object {
 
         if (health < 0) {
             health = healthMax;
-            gameEngine.getExplosionUFO().startAnimation(posX, posY);
+            gameEngine.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT);
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             GameEngine.audioPlayer.playDestroySound(0);
-            GameEngine.score.setScore(50);
+            GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HIT_POINT);
 
             playerPlane.reduceHealth(7);
         }
     }
 
     private void importImgShadow() {
-        InputStream is = getClass().getResourceAsStream("/res/Enemy-UFO-Shadow.png");
+        InputStream is = getClass().getResourceAsStream("/res/sprite/Enemy-UFO-Shadow.png");
         try {
             imgShadow = ImageIO.read(is);
         } catch (IOException e) {
@@ -91,6 +91,8 @@ public class EnemyUFO extends Object {
                 e.printStackTrace();
             }
         }
+
+
     }
 
 

@@ -7,7 +7,7 @@ public class Laser extends Object{
     private int totalMvmt = 0;
 
     public Laser(int posX, int posY) {
-        super(posX, posY,70, 0, 10, 38, "/res/Laser-Sprite.png");
+        super(posX, posY,70, 0, 10, 38, "/res/sprite/Laser-Sprite.png");
         this.initPosX = posX;
         this.initPosY = posY;
     }

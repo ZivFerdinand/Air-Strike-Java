@@ -1,4 +1,4 @@
-package Main;
+package Utils;
 
 import java.awt.*;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class FontGenerator {
     {
         try {
 
-            InputStream is = getClass().getResourceAsStream("/res/mainFont.ttf");
+            InputStream is = getClass().getResourceAsStream("/res/font/mainFont.ttf");
             mainFont = Font.createFont(Font.TRUETYPE_FONT, is);
         } catch (FontFormatException e)
         {

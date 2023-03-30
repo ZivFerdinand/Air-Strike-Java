@@ -1,6 +1,6 @@
 package Objects;
 
-import Main.FontGenerator;
+import Utils.FontGenerator;
 import Utils.AudioPlayer;
 
 import java.awt.Graphics;
@@ -19,10 +19,11 @@ public class Explosion extends Object {
     private int score;
 
     private int expWidth, expHeight;
+    private int fontSize = 50;
 
-    public Explosion(float posX, float posY, int expWidth, int expHeight, int score) {
-        super(posX, posY, 0, 0, 100, 96, "/res/Explosion.png");
-        this.score = score;
+    public Explosion(float posX, float posY, int expWidth, int expHeight) {
+        super(posX, posY, 0, 0, 100, 96, "/res/sprite/Explosion.png");
+        this.score = 0;
         this.expWidth = expWidth;
         this.expHeight = expHeight;
         loadAnimations();
@@ -37,7 +38,6 @@ public class Explosion extends Object {
             }
     }
 
-    int fontSize = 50;
     public void render(Graphics g) {
         if (isAnimating) {
 
@@ -46,10 +46,11 @@ public class Explosion extends Object {
         }
     }
 
-    public void startAnimation(float posX, float posY) {
+    public void startAnimation(float posX, float posY, int score) {
         audioPlayer.playDestroySound(0);
         isAnimating = true;
         fontSize=50;
+        this.score = score;
         animIndex = 0;
         this.posX = posX;
         this.posY = posY;
