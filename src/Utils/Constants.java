@@ -11,8 +11,10 @@ public class Constants {
         public static String PLAYER_PLANE = "/res/sprite/Plane-Blue.png";
         public static String PLAYER_PLANE_SHADOW = "/res/sprite/Plane-Shadow-40.png";
         public static String ENEMY_HELICOPTER = "/res/sprite/Enemy-Helicopter.png";
+        public static String ENEMY_HELICOPTER_HIT = "/res/sprite/Enemy-Helicopter-Hit.png";
         public static String ENEMY_UFO = "/res/sprite/Enemy-UFO.png";
         public static String ENEMY_UFO_SHADOW = "/res/sprite/Enemy-UFO-Shadow.png";
+        public static String ENEMY_UFO_HIT = "/res/sprite/Enemy-UFO-Hit.png";
         public static String EXPLOSION = "/res/sprite/Explosion.png";
         public static String LASER = "/res/sprite/Laser-Sprite.png";
     }

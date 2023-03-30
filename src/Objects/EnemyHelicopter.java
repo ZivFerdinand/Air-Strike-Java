@@ -7,6 +7,10 @@ import Utils.Constants.Path;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
 
 public class EnemyHelicopter extends Object {
     private int totalMvmt;
@@ -15,21 +19,45 @@ public class EnemyHelicopter extends Object {
     private final int initPosY = -100;
     private int enemySpeed = 3;
     private BufferedImage[] animation = new BufferedImage[4];
+    private BufferedImage[] imgHitting = new BufferedImage[4];
+    private BufferedImage imgHittingFull;
+    private boolean isHitting = false;
+    
     private int counterPassed = 0;
     private int animIndex = 0;
-
     private GameEngine gameEngine;
-
+    
     public EnemyHelicopter(float posX, float posY, GameEngine gameEngine) {
-        super(posX, posY, 40, 1, 50, 129, Path.ENEMY_HELICOPTER) ;
+        super(posX, posY, 40, 1, 50, 129, Path.ENEMY_HELICOPTER);
         this.gameEngine = gameEngine;
         totalMvmt = 0;
         importImgAnimation();
+    }
+    
+    public void setHitting(boolean isHitting) {
+        this.isHitting = isHitting;
     }
 
     private void importImgAnimation() {
         for (int i = 0; i < animation.length; i++) {
             animation[i] = img.getSubimage(i * 96, 0, 96, 128);
+        }
+
+        InputStream is = getClass().getResourceAsStream(Path.ENEMY_HELICOPTER_HIT);
+        try {
+            imgHittingFull = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        for (int i = 0; i < animation.length; i++) {
+            imgHitting[i] = imgHittingFull.getSubimage(i * 96, 0, 96, 128);
         }
     }
 
@@ -45,15 +73,31 @@ public class EnemyHelicopter extends Object {
     }
 
     private void updateAnimation() {
-        if (counterPassed % 15 == 0) {
-            animIndex++;
-            if (animIndex >= animation.length)
-                animIndex = 0;
+        if (isHitting) {
+            if (counterPassed % 10 == 0) {
+                animIndex++;
+                if (animIndex >= animation.length)
+                {
+                    animIndex = 0;
+                    isHitting = false;
+                }
 
-            img = animation[animIndex];
-            counterPassed = 0;
+                img = imgHitting[animIndex];
+                counterPassed = 0;
+            }
+            counterPassed++;
         }
-        counterPassed++;
+        else {
+            if (counterPassed % 15 == 0) {
+                animIndex++;
+                if (animIndex >= animation.length)
+                    animIndex = 0;
+    
+                img = animation[animIndex];
+                counterPassed = 0;
+            }
+            counterPassed++;
+        }
     }
 
     private void resetPosition() {

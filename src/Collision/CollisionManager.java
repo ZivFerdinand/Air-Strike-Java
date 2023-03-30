@@ -41,12 +41,14 @@ public class CollisionManager {
                 // isHitting = true;
                 audioPlayer.playHitSound(0);
                 laserShoot.get(i).resetPos(-100, -100);
+                enemyHelicopter.setHitting(true);
             }
             if(enemyUFO.getHitBox().intersects(laserShoot.get(i).getHitBox()))
             {
                 audioPlayer.playHitSound(0);
                 enemyUFO.destroyObjectFromScreen();
                 laserShoot.get(i).resetPos(-100, -100);
+                enemyUFO.setHitting(true);
             }
         }
         if (playerPlane.getHitBox().intersects(enemyHelicopter.getHitBox())) {

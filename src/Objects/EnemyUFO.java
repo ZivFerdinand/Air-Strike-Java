@@ -21,8 +21,15 @@ public class EnemyUFO extends Object {
     private final int initPosY = -250;
     private int enemySpeed = 3;
     private GameEngine gameEngine;
-
     private BufferedImage imgShadow;
+    private BufferedImage[] imgHitting = new BufferedImage[4];
+    private BufferedImage imgHittingFull;
+    private BufferedImage currAnimation;
+    private boolean isHitting = false;
+
+    public void setHitting(boolean isHitting) {
+        this.isHitting = isHitting;
+    }
 
     public EnemyUFO(float posX, float posY, GameEngine gameEngine) {
         super(posX, posY, 0, 0, 200, 200, Path.ENEMY_UFO);
@@ -33,6 +40,7 @@ public class EnemyUFO extends Object {
 
     public void update() {
         updateHitBox();
+        updateAnimation();
         posY += enemySpeed;
         totalMvmt += enemySpeed;
 
@@ -95,13 +103,46 @@ public class EnemyUFO extends Object {
             }
         }
 
+        is = getClass().getResourceAsStream(Path.ENEMY_UFO_HIT);
+        try {
+            imgHittingFull = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
+        for (int i = 0; i < imgHitting.length; i++) {
+            imgHitting[i] = imgHittingFull.getSubimage(i * 600, 0, 600, 600);
+        }
+    }
+
+    int counterPassed = 0;
+    int animIndex = 0;
+
+    private void updateAnimation() {
+        if (isHitting) {
+            currAnimation = imgHitting[animIndex];
+            if(counterPassed++ % 10 == 0){
+                animIndex++; counterPassed=0;}
+            if (animIndex >= imgHitting.length) {
+                animIndex = 0;
+                isHitting = false;
+            }
+        }
+        else {
+            currAnimation = this.img;
+        }
     }
 
 
     public void render(Graphics g) {
         g.drawImage(imgShadow, (int) posX - 50, (int) posY + 125, 150, 150, null);
-        g.drawImage(img, (int) posX, (int) posY, 200, 200, null);
+        g.drawImage(currAnimation, (int) posX, (int) posY, 200, 200, null);
     }
 
 }
