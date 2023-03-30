@@ -3,6 +3,7 @@ package Objects;
 import Main.GameEngine;
 import Main.GamePanel;
 import Utils.*;
+import Utils.Constants.Path;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,7 +21,7 @@ public class EnemyHelicopter extends Object {
     private GameEngine gameEngine;
 
     public EnemyHelicopter(float posX, float posY, GameEngine gameEngine) {
-        super(posX, posY, 40, 1, 50, 129, "/res/sprite/Enemy-Helicopter.png") ;
+        super(posX, posY, 40, 1, 50, 129, Path.ENEMY_HELICOPTER) ;
         this.gameEngine = gameEngine;
         totalMvmt = 0;
         importImgAnimation();

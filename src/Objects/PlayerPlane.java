@@ -2,13 +2,11 @@ package Objects;
 
 import Main.GameEngine;
 import Main.GamePanel;
-import Utils.AudioPlayer;
-
+import Utils.Constants.Path;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class PlayerPlane extends Object {
@@ -31,7 +29,7 @@ public class PlayerPlane extends Object {
     private boolean isLeft;
 
     public PlayerPlane(float posX, float posY) {
-        super(posX, posY, 7, 40, 135, 75, "/res/sprite/Plane-Blue.png");
+        super(posX, posY, 7, 40, 135, 75, Path.PLAYER_PLANE);
         importImgShadow();
         laserInstantiate(23);
         loadAnimations();
@@ -75,7 +73,7 @@ public class PlayerPlane extends Object {
     }
 
     private void importImgShadow() {
-        InputStream is = getClass().getResourceAsStream("/res/sprite/Plane-Shadow-40.png");
+        InputStream is = getClass().getResourceAsStream(Path.PLAYER_PLANE_SHADOW);
         try {
             imgShadow = ImageIO.read(is);
         } catch (IOException e) {

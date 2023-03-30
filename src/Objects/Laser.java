@@ -1,13 +1,15 @@
 package Objects;
 
 import java.awt.*;
+
+import Utils.Constants.Path;
 public class Laser extends Object{
     private final int laserSpeed = 4;
     private final int initPosX, initPosY;
     private int totalMvmt = 0;
 
     public Laser(int posX, int posY) {
-        super(posX, posY,70, 0, 10, 38, "/res/sprite/Laser-Sprite.png");
+        super(posX, posY,70, 0, 10, 38, Path.LASER);
         this.initPosX = posX;
         this.initPosY = posY;
     }

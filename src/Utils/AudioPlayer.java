@@ -2,8 +2,6 @@ package Utils;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Random;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.BooleanControl;
@@ -25,7 +23,6 @@ public class AudioPlayer {
     private int currentSongId;
     private float volume = 1f;
     private boolean songMute, effectMute;
-    private Random rand = new Random();
 
     public AudioPlayer() {
         loadSongs();

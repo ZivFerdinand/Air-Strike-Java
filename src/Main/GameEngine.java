@@ -3,8 +3,7 @@ package Main;
 import Background.BackgroundManager;
 import Collision.CollisionManager;
 import Objects.*;
-import Utils.AudioPlayer;
-import Utils.Constants;
+import Utils.*;
 
 public class GameEngine implements Runnable {
     public static AudioPlayer audioPlayer;

@@ -1,8 +1,7 @@
 package Utils;
 
 import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 public class FontGenerator {
     Font mainFont;

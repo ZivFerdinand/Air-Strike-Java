@@ -3,12 +3,15 @@ package Objects;
 import Main.GameEngine;
 import Main.GamePanel;
 import Utils.*;
+import Utils.Constants.Path;
 
 import javax.imageio.ImageIO;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+
 
 public class EnemyUFO extends Object {
 
@@ -22,7 +25,7 @@ public class EnemyUFO extends Object {
     private BufferedImage imgShadow;
 
     public EnemyUFO(float posX, float posY, GameEngine gameEngine) {
-        super(posX, posY, 0, 0, 200, 200, "/res/sprite/Enemy-UFO.png");
+        super(posX, posY, 0, 0, 200, 200, Path.ENEMY_UFO);
         this.gameEngine = gameEngine;
         totalMvmt = 0;
         importImgShadow();
@@ -79,7 +82,7 @@ public class EnemyUFO extends Object {
     }
 
     private void importImgShadow() {
-        InputStream is = getClass().getResourceAsStream("/res/sprite/Enemy-UFO-Shadow.png");
+        InputStream is = getClass().getResourceAsStream(Path.ENEMY_UFO_SHADOW);
         try {
             imgShadow = ImageIO.read(is);
         } catch (IOException e) {

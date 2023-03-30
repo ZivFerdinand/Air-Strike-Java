@@ -1,6 +1,7 @@
 package Objects;
 
 import Utils.FontGenerator;
+import Utils.Constants.Path;
 import Utils.AudioPlayer;
 
 import java.awt.Graphics;
@@ -22,7 +23,7 @@ public class Explosion extends Object {
     private int fontSize = 50;
 
     public Explosion(float posX, float posY, int expWidth, int expHeight) {
-        super(posX, posY, 0, 0, 100, 96, "/res/sprite/Explosion.png");
+        super(posX, posY, 0, 0, 100, 96, Path.EXPLOSION);
         this.score = 0;
         this.expWidth = expWidth;
         this.expHeight = expHeight;
