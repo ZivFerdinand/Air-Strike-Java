@@ -25,7 +25,7 @@ public class Constants {
         public static String BACKGROUND_GAME_1 = "/res/sprite/Main-Background-Cloud.png";
         public static String BACKGROUND_GAME_2 = "/res/sprite/Main-Background-2-Cloud.png";
         public static String BUTTON_MAINMENU = "/res/sprite/Button-MainMenu.png";
-        public static String MAINMENU_PANEL = "/res/sprite/Button-MainMenu-Panel.png";
+        public static String MAINMENU_PANEL = "/res/sprite/Button-MainMenu-Panel-2.png";
         public static String MAP_1 = "/res/sprite/Main-Background.jpeg";
         public static String MAP_1_HVR = "/res/sprite/Main-Background-Hover.jpeg";
         public static String MAP_1_CLK = "/res/sprite/Main-Background-Click.jpeg";
