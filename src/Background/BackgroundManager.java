@@ -37,7 +37,7 @@ public class BackgroundManager {
     }
 
     private void importImg() {
-        InputStream is = getClass().getResourceAsStream(Constants.Path.BACKGROUND_GAME);
+        InputStream is = getClass().getResourceAsStream(Constants.Path.BACKGROUND_GAME_2);
         try {
             backgroundImage = map2 = ImageIO.read(is);
         } catch (IOException e) {
@@ -50,7 +50,7 @@ public class BackgroundManager {
             }
         }
 
-        is = getClass().getResourceAsStream(Constants.Path.MAP_1);
+        is = getClass().getResourceAsStream(Constants.Path.BACKGROUND_GAME_1);
         try {
             map1 = ImageIO.read(is);
         } catch (IOException e) {
