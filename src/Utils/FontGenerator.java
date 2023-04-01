@@ -32,7 +32,7 @@ public class FontGenerator {
         g.setFont(g.getFont().deriveFont(Font.PLAIN, 60));
         g.setColor(Color.RED);
 
-        g.drawString("!", x + 50, 50);
+        g.drawString("!!", x + 30, 50);
     }
     public void chooseMap(Graphics g, int fontSize)
     {
