@@ -9,8 +9,6 @@ import Utils.*;
 public class GameEngine implements Runnable {
     public static AudioPlayer audioPlayer;
     private final GamePanel gamePanel;
-    private final GameFrame gameFrame;
-
     private Playing playing;
     private Menu menu;
     private Option option;
@@ -21,7 +19,7 @@ public class GameEngine implements Runnable {
         audioPlayer = new AudioPlayer();
         initClasses();
         gamePanel = new GamePanel(this);
-        gameFrame = new GameFrame(gamePanel, this);
+        new GameFrame(gamePanel, this);
         gamePanel.requestFocus();
         startGameLoop();
     }
