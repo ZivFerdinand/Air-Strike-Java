@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class EnemyUFO extends Object implements IEnemy, IGameStandard {
     private final AudioPlayer audioPlayer;
+    private FontGenerator fontGenerator;
 
     private BufferedImage imgShadow;
     private BufferedImage[] imgHitting = new BufferedImage[4];
@@ -43,6 +44,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
         super(1000, -200, 0, 0, 200, 200, Path.ENEMY_UFO, Constants.ObjectSizeData.ENEMY_UFO);
         this.audioPlayer = new AudioPlayer();
         this.playing = playing;
+        fontGenerator = new FontGenerator();
         healthReset();
         totalMvmt = 0;
         importImgShadow();
@@ -203,6 +205,11 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
         laserUpdate(g);
         g.drawImage(imgShadow, (int) posX - 50, (int) posY + 125, 150, 150, null);
         g.drawImage(currAnimation, (int) posX, (int) posY, imageWidth, imageHeight, null);
+
+        if(posY >= Constants.InitialPosition.UFO_INITIAL_POS_Y && posY <= -20)
+        {
+            fontGenerator.drawExclamationMark(g, (int)posX + 20);
+        }
     }
     public void healthReset()
     {

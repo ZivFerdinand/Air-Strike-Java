@@ -6,6 +6,8 @@ import Interfaces.IGameStandard;
 import Interfaces.ILaser;
 import Utils.Constants;
 import Utils.Constants.Path;
+import Utils.FontGenerator;
+
 public class LaserEnemy extends Object implements ILaser,IGameStandard {
     private final int laserSpeedX, laserSpeedY;
     private final int initPosX, initPosY;

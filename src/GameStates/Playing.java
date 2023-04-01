@@ -130,18 +130,6 @@ public class Playing extends State implements IStateMethod {
 
 
 
-    public BackgroundManager getBackground() {
-        return background;
-    }
-
-
-
-    public CollisionManager getCollisionManager() {
-        return collisionManager;
-    }
-
-
-
     public EnemyHelicopter getEnemyHelicopter() {
         return enemyHelicopter;
     }
@@ -164,11 +152,5 @@ public class Playing extends State implements IStateMethod {
         return explosionUFO;
     }
 
-
-
-
-    public FontGenerator getFontGenerator() {
-        return fontGenerator;
-    }
 
 }

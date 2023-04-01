@@ -37,7 +37,7 @@ public class AudioPlayer {
     }
 
     private void loadEffects() {
-        String[] effectNames = { "Laser-Sound", "Explosion", "Object-Hit" };
+        String[] effectNames = { "Laser-Sound", "Explosion", "Object-Hit", "8Bit-Select" };
         effects = new Clip[effectNames.length];
         for (int i = 0; i < effects.length; i++)
             effects[i] = getClip(effectNames[i]);
@@ -91,6 +91,10 @@ public class AudioPlayer {
     public void playHitSound() {
         updateEffectsVolume(10);
         playEffect(2);
+    }
+    public void playSelectSound() {
+        updateEffectsVolume(10);
+        playEffect(3);
     }
 
     public void playEffect(int effect) {

@@ -26,6 +26,22 @@ public class FontGenerator {
 
     float tempFontSize = 40;
     float change = -.3f;
+    public void drawExclamationMark(Graphics g, int x)
+    {
+        g.setFont(mainFont);
+        g.setFont(g.getFont().deriveFont(Font.PLAIN, 60));
+        g.setColor(Color.RED);
+
+        g.drawString("!", x + 50, 50);
+    }
+    public void chooseMap(Graphics g, int fontSize)
+    {
+        g.setFont(mainFont);
+        g.setFont(g.getFont().deriveFont(Font.PLAIN, fontSize));
+        g.setColor(Color.WHITE);
+
+        g.drawString("CHOOSE MAP", 480, 60);
+    }
     public void render(Graphics g, float fontSize, int health, int score)
     {
         g.setFont(mainFont);

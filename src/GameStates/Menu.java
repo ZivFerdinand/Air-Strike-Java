@@ -14,8 +14,8 @@ import UI.MenuButton;
 import Utils.*;;
 
 public class Menu extends State implements IStateMethod {
-
-    private MenuButton[] buttons = new MenuButton[3];
+    private AudioPlayer audioPlayer;
+    private MenuButton[] buttons = new MenuButton[2];
     private BufferedImage backgroundPanel, backgroundImg;
     private int menuX, menuY, menuWidth, menuHeight;
 
@@ -23,7 +23,7 @@ public class Menu extends State implements IStateMethod {
         super(gameEngine);
         loadButtons();
         loadBackground();
-
+        audioPlayer = new AudioPlayer();
     }
 
     private void loadBackground() {
@@ -61,9 +61,8 @@ public class Menu extends State implements IStateMethod {
     }
 
     private void loadButtons() {
-        buttons[0] = new MenuButton(GamePanel.GAME_WIDTH / 2, (int) 280, 0, GameState.PLAYING);
-        buttons[1] = new MenuButton(GamePanel.GAME_WIDTH / 2, (int) 410, 1, GameState.OPTIONS);
-        buttons[2] = new MenuButton(GamePanel.GAME_WIDTH / 2, (int) 540, 2, GameState.QUIT);
+        buttons[0] = new MenuButton(GamePanel.GAME_WIDTH / 2, (int) 350, 0, GameState.OPTIONS);
+        buttons[1] = new MenuButton(GamePanel.GAME_WIDTH / 2, (int) 480, 2, GameState.QUIT);
     }
 
     @Override
@@ -100,9 +99,11 @@ public class Menu extends State implements IStateMethod {
     public void mouseReleased(MouseEvent e) {
         for (MenuButton mb : buttons) {
             if (isIn(e, mb)) {
-                if (mb.isMousePressed())
+                if (mb.isMousePressed()) {
+                    audioPlayer.playSelectSound();
                     mb.applyGameState();
-                break;
+                    break;
+                }
             }
         }
 

@@ -199,8 +199,9 @@ public class PlayerPlane extends Object implements IGameStandard {
     public void reduceHealth(int health)
     {
         healthPosX = 40;
-        healthBackPos=0;
+        healthBackPos = 0;
         this.healthMax -= health;
+        this.healthMax = (this.healthMax < 0) ? 0 : this.healthMax;
     }
     private void laserUpdate(Graphics g)
     {

@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class BackgroundManager {
-
+    public static boolean isFirstMap = true;
     private final int initFirstImagePosY = -GamePanel.GAME_WIDTH * 2 + GamePanel.GAME_HEIGHT;
     private final int initSecondImagePosY = -GamePanel.GAME_WIDTH * 2;
     public static final int backgroundMovementSpeed = 1;
@@ -18,6 +18,7 @@ public class BackgroundManager {
     private final int backgroundHeight = GamePanel.GAME_WIDTH * 2;
 
     private BufferedImage backgroundImage;
+    private BufferedImage map1, map2;
     private int firstImagePosY, secondImagePosY;
 
 
@@ -27,6 +28,7 @@ public class BackgroundManager {
 
         importImg();
     }
+
     public void render(Graphics g) {
         updateBackgroundPosition();
         g.drawImage(backgroundImage, 0, firstImagePosY, backgroundWidth, backgroundHeight, null);
@@ -37,7 +39,20 @@ public class BackgroundManager {
     private void importImg() {
         InputStream is = getClass().getResourceAsStream(Constants.Path.BACKGROUND_GAME);
         try {
-            backgroundImage = ImageIO.read(is);
+            backgroundImage = map2 = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        is = getClass().getResourceAsStream(Constants.Path.MAP_1);
+        try {
+            map1 = ImageIO.read(is);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -48,18 +63,21 @@ public class BackgroundManager {
             }
         }
     }
-    private void updateBackgroundPosition(){
+
+    private void updateBackgroundPosition() {
+        backgroundImage = (isFirstMap) ? map1 : map2;
+
         firstImagePosY += backgroundMovementSpeed;
     }
-    private void validateSubtractImage(Graphics g)
-    {
+
+    private void validateSubtractImage(Graphics g) {
         if (firstImagePosY >= 0) {
             secondImagePosY += backgroundMovementSpeed;
             g.drawImage(backgroundImage, 0, secondImagePosY, backgroundWidth, backgroundHeight, null);
         }
     }
-    private void validateResetImage()
-    {
+
+    private void validateResetImage() {
         if (secondImagePosY >= initFirstImagePosY) {
             firstImagePosY = initFirstImagePosY;
             secondImagePosY = initSecondImagePosY;

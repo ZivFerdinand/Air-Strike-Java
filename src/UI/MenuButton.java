@@ -54,6 +54,8 @@ public class MenuButton {
         for (int i = 0; i < imgs.length; i++)
             imgs[i] = temp.getSubimage(i * B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT,
                     B_HEIGHT_DEFAULT);
+
+
     }
 
     public void draw(Graphics g) {
@@ -97,6 +99,10 @@ public class MenuButton {
         else if(state == GameState.MENU)
         {
             GameEngine.audioPlayer.playSong(AudioPlayer.BACKGROUND);
+        }
+        else if(state == GameState.QUIT)
+        {
+            System.exit(0);
         }
     }
 

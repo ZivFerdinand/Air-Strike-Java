@@ -13,6 +13,7 @@ public class GameEngine implements Runnable {
 
     private Playing playing;
     private Menu menu;
+    private Option option;
 
     public static Score score;
 
@@ -35,13 +36,16 @@ public class GameEngine implements Runnable {
         score = new Score();
         this.menu = new Menu(this);
         this.playing = new Playing(this);
-
+        this.option = new Option(this);
     }
 
     public void update() {
         switch (GameState.state) {
             case MENU:
                 menu.update();
+                break;
+            case OPTIONS:
+                option.update();
                 break;
             case PLAYING:
                 playing.update();
@@ -55,6 +59,9 @@ public class GameEngine implements Runnable {
         switch (GameState.state) {
             case MENU:
                 menu.draw(g);
+                break;
+            case OPTIONS:
+                option.draw(g);
                 break;
             case PLAYING:
                 playing.draw(g);
@@ -115,4 +122,7 @@ public class GameEngine implements Runnable {
         return menu;
     }
 
+    public Option getOption() {
+        return option;
+    }
 }

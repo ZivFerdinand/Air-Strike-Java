@@ -17,7 +17,7 @@ import Interfaces.IEnemy;
 import Interfaces.IGameStandard;
 
 public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
-
+    private FontGenerator fontGenerator;
     private BufferedImage imgHittingSprite;
     private BufferedImage[] animation = new BufferedImage[4];
     private BufferedImage[] imgHitting = new BufferedImage[4];
@@ -34,7 +34,7 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
     public EnemyHelicopter(Playing playing) {
         super(50, Constants.InitialPosition.HELICOPTER_INITIAL_POS_Y, 40, 1, 50, 129, Path.ENEMY_HELICOPTER, Constants.ObjectSizeData.ENEMY_HELICOPTER);
         this.playing = playing;
-
+        this.fontGenerator = new FontGenerator();
         totalMvmt = 0;
         healthReset();
         importImgAnimation();
@@ -145,6 +145,11 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
         health = Constants.Health.HELICOPTER_HEALTH;
     }
     public void render(Graphics g) {
+
         g.drawImage(img, (int) posX, (int) posY, imageWidth, imageHeight, null);
+        if (posY >= Constants.InitialPosition.HELICOPTER_INITIAL_POS_Y && posY <= -20)
+        {
+            fontGenerator.drawExclamationMark(g, (int)posX);
+        }
     }
 }
