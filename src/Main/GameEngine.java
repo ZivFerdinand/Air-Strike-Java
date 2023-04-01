@@ -78,9 +78,6 @@ public class GameEngine implements Runnable {
         double timePerUpdate = 1000000000.0 / 200;
 
         long previousTime = System.nanoTime();
-
-        int frames = 0;
-        int updates = 0;
         long lastCheck = System.currentTimeMillis();
 
         double deltaU = 0;
@@ -95,20 +92,16 @@ public class GameEngine implements Runnable {
 
             if (deltaU >= 1) {
                 update();
-                updates++;
                 deltaU--;
             }
 
             if (deltaF >= 1) {
                 gamePanel.repaint();
-                frames++;
                 deltaF--;
             }
 
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
-                frames = 0;
-                updates = 0;
             }
         }
 
