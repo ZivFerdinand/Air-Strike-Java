@@ -2,6 +2,8 @@ package Objects;
 
 import Main.GameEngine;
 import Main.GamePanel;
+import Utils.AudioPlayer;
+import Utils.Constants;
 import Utils.Constants.Path;
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,9 +11,10 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 
-public class PlayerPlane extends Object {
+public class PlayerPlane extends Object implements IGameStandard {
+    private AudioPlayer audioPlayer;
     private int counterPassed = 0;
-    private int health = 100;
+    private int healthMax = Constants.Health.PLAYER_HEALTH;
     private int healthBackPos = 0;
     private final int playerSpeedX = 3, playerSpeedY = 2;
     int healthPosX = 50;
@@ -23,15 +26,16 @@ public class PlayerPlane extends Object {
     private BufferedImage currAnimationShadow;
 
 
-    private ArrayList<Laser> laserShoot = new ArrayList<Laser>();
+    private ArrayList<LaserPlane> laserPlaneShoot = new ArrayList<LaserPlane>();
 
     private boolean isUp;
     private boolean isDown;
     private boolean isRight;
     private boolean isLeft;
 
-    public PlayerPlane(float posX, float posY) {
-        super(posX, posY, 7, 40, 135, 75, Path.PLAYER_PLANE);
+    public PlayerPlane() {
+        super((GamePanel.GAME_WIDTH - 150) / 2, 600, 7, 40, 135, 75, Path.PLAYER_PLANE, Constants.ObjectSizeData.PLAYER_PLANE);
+        this.audioPlayer = new AudioPlayer();
         importImgShadow();
         laserInstantiate(23);
         loadAnimations();
@@ -162,38 +166,38 @@ public class PlayerPlane extends Object {
     }
 
 
-    public void updateGame() {
+    public void update() {
         updateHitBox();
         laserUpdateHitBox();
         setAnimation();
     }
 
     private void laserUpdateHitBox() {
-        for (int i = 0; i < laserShoot.size(); i++) {
-            laserShoot.get(i).updateHitBox();
+        for (int i = 0; i < laserPlaneShoot.size(); i++) {
+            laserPlaneShoot.get(i).updateHitBox();
         }
     }
 
     private void laserInstantiate(int count) {
         for (int i = 0; i < count; i++) {
-            laserShoot.add(new Laser((int) posX, (int) posY));
+            laserPlaneShoot.add(new LaserPlane((int) posX, (int) posY));
         }
     }
 
-    public ArrayList<Laser> getLaserShoot() {
-        return laserShoot;
+    public ArrayList<LaserPlane> getLaserShoot() {
+        return laserPlaneShoot;
     }
 
     int counterAudio = 0;
     public int getHealth()
     {
-        return health;
+        return healthMax;
     }
     public void reduceHealth(int health)
     {
         healthPosX = 40;
         healthBackPos=0;
-        this.health -= health;
+        this.healthMax -= health;
     }
     private void laserUpdate(Graphics g)
     {
@@ -209,27 +213,27 @@ public class PlayerPlane extends Object {
         {
             GameEngine.score.setScore(1);
             counterAudio = 0;
-            GameEngine.audioPlayer.playAttackSound();
+            audioPlayer.playAttackSound();
 
 
         }
         if (counterPassed >= 460)
             counterPassed = 460;
         for (int i = 0; i < counterPassed / 20; i++) {
-            if (!laserShoot.get(i).checkHasMoved()) {
-                laserShoot.get(i).resetPos((int) posX, (int) posY);
+            if (!laserPlaneShoot.get(i).checkHasMoved()) {
+                laserPlaneShoot.get(i).resetPos((int) posX, (int) posY);
             }
-            if (laserShoot.get(i).getTotalMvmt() >= 800) {
-                laserShoot.get(i).setTotalMvmt(0);
-                laserShoot.get(i).resetPos((int) posX, (int) posY);
+            if (laserPlaneShoot.get(i).getTotalMvmt() >= 800) {
+                laserPlaneShoot.get(i).setTotalMvmt(0);
+                laserPlaneShoot.get(i).resetPos((int) posX, (int) posY);
             }
-            laserShoot.get(i).updateHitBox();
-            laserShoot.get(i).render(g);
+            laserPlaneShoot.get(i).updateHitBox();
+            laserPlaneShoot.get(i).render(g);
         }
     }
     public void render(Graphics g) {
 
-        g.drawImage(currAnimation, (int) posX, (int) posY, 150, 150, null);
+        g.drawImage(currAnimation, (int) posX, (int) posY, imageWidth, imageHeight, null);
         g.drawImage(currAnimationShadow, (int) posX - 50, (int) posY + 150, 95, 95, null);
         laserUpdate(g);
 

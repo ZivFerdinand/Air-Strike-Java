@@ -2,14 +2,15 @@ package Objects;
 
 import java.awt.*;
 
+import Utils.Constants;
 import Utils.Constants.Path;
-public class Laser extends Object{
+public class LaserPlane extends Object implements ILaser, IGameStandard{
     private final int laserSpeed = 4;
     private final int initPosX, initPosY;
     private int totalMvmt = 0;
 
-    public Laser(int posX, int posY) {
-        super(posX, posY,70, 0, 10, 38, Path.LASER);
+    public LaserPlane(int posX, int posY) {
+        super(posX, posY,70, 0, 10, 38, Path.LASER, Constants.ObjectSizeData.PLAYER_LASER);
         this.initPosX = posX;
         this.initPosY = posY;
     }
@@ -25,7 +26,10 @@ public class Laser extends Object{
         this.posX = posX;
         this.posY = posY;
     }
-
+    public void laserDisplayNone()
+    {
+        this.posX = this.posY = -100;
+    }
     public int getTotalMvmt() {
         return totalMvmt;
     }
@@ -35,12 +39,15 @@ public class Laser extends Object{
     }
 
     public void render(Graphics g) {
-//        drawHitBox(g);
-        posY -= laserSpeed;
-        totalMvmt += laserSpeed;
-        g.drawImage(img, (int) posX + 65, (int) posY, 20, 38, null);
+        updatePosition();
+        g.drawImage(img, (int) posX + 65, (int) posY, imageWidth, imageHeight, null);
     }
+private void updatePosition()
+{
 
+    posY -= laserSpeed;
+    totalMvmt += laserSpeed;
+}
     public int getPosY() {
         return (int)posY;
     }

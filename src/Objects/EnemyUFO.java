@@ -13,29 +13,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+public class EnemyUFO extends Object implements IEnemy, IGameStandard {
+    private final AudioPlayer audioPlayer;
 
-public class EnemyUFO extends Object implements Enemy{
-
-    private int totalMvmt;
-    private final int healthMax = 20;
-    private int health = healthMax;
-    private final int initPosY = -250;
-    private int enemySpeed = 1;
-    private GameEngine gameEngine;
     private BufferedImage imgShadow;
     private BufferedImage[] imgHitting = new BufferedImage[4];
-    private BufferedImage imgHittingFull;
+    private BufferedImage imgHittingSprite;
     private BufferedImage currAnimation;
+
     private boolean isHitting = false;
+
+    private int totalMvmt;
+    private int health;
+    private int enemySpeed = 1;
+    private GameEngine gameEngine;
+
     private ArrayList<LaserEnemy> laserShoot = new ArrayList<LaserEnemy>();
 
     public void setHitting(boolean isHitting) {
         this.isHitting = isHitting;
     }
 
-    public EnemyUFO(float posX, float posY, GameEngine gameEngine) {
-        super(posX, posY, 0, 0, 200, 200, Path.ENEMY_UFO);
+    public EnemyUFO(GameEngine gameEngine) {
+        super(1000, -200, 0, 0, 200, 200, Path.ENEMY_UFO, Constants.ObjectSizeData.ENEMY_UFO);
+        this.audioPlayer = new AudioPlayer();
         this.gameEngine = gameEngine;
+        healthReset();
         totalMvmt = 0;
         importImgShadow();
         laserInstantiate(5);
@@ -106,8 +109,8 @@ public class EnemyUFO extends Object implements Enemy{
     }
 
     private void resetPosition() {
-        health = healthMax;
-        posY = initPosY;
+        healthReset();
+        posY = Constants.InitialPosition.UFO_INITIAL_POS_Y;
         totalMvmt = 0;
 
         posX = Assist.getRandomNumber(300, GamePanel.GAME_WIDTH - 300);
@@ -117,11 +120,11 @@ public class EnemyUFO extends Object implements Enemy{
         health--;
 
         if (health < 0) {
-            health = healthMax;
+            healthReset();
             gameEngine.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_UFO_LASER_POINT, Constants.DamageDealer.UFO_REDUCE, false);
             posY = GamePanel.GAME_HEIGHT + 1000;
 
-            GameEngine.audioPlayer.playDestroySound();
+            audioPlayer.playDestroySound();
             GameEngine.score.setScore(Constants.DamageDealer.ENEMY_UFO_LASER_POINT);
         }
     }
@@ -129,11 +132,11 @@ public class EnemyUFO extends Object implements Enemy{
         health--;
 
         if (health < 0) {
-            health = healthMax;
+            healthReset();
             gameEngine.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT, Constants.DamageDealer.UFO_REDUCE, true);
             posY = GamePanel.GAME_HEIGHT + 1000;
 
-            GameEngine.audioPlayer.playDestroySound();
+            audioPlayer.playDestroySound();
             GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HIT_POINT);
 
             playerPlane.reduceHealth(7);
@@ -156,7 +159,7 @@ public class EnemyUFO extends Object implements Enemy{
 
         is = getClass().getResourceAsStream(Path.ENEMY_UFO_HIT);
         try {
-            imgHittingFull = ImageIO.read(is);
+            imgHittingSprite = ImageIO.read(is);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -168,7 +171,7 @@ public class EnemyUFO extends Object implements Enemy{
         }
 
         for (int i = 0; i < imgHitting.length; i++) {
-            imgHitting[i] = imgHittingFull.getSubimage(i * 600, 0, 600, 600);
+            imgHitting[i] = imgHittingSprite.getSubimage(i * 600, 0, 600, 600);
         }
     }
 
@@ -194,7 +197,10 @@ public class EnemyUFO extends Object implements Enemy{
     public void render(Graphics g) {
         laserUpdate(g);
         g.drawImage(imgShadow, (int) posX - 50, (int) posY + 125, 150, 150, null);
-        g.drawImage(currAnimation, (int) posX, (int) posY, 200, 200, null);
+        g.drawImage(currAnimation, (int) posX, (int) posY, imageWidth, imageHeight, null);
     }
-
+    public void healthReset()
+    {
+        health = Constants.Health.UFO_HEALTH;
+    }
 }

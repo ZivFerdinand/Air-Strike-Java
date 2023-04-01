@@ -24,4 +24,27 @@ public class Constants {
         public static String LASER_ENEMY = "/res/sprite/Laser-Enemy.png";
         public static String BACKGROUND_PATH = "/res/sprite/Main-Background-2-Cloud.png";
     }
+
+    public static class Health{
+        public static int PLAYER_HEALTH = 100;
+        public static int HELICOPTER_HEALTH = 10;
+        public static int UFO_HEALTH = 20;
+    }
+    public static class InitialPosition{
+        public static int HELICOPTER_INITIAL_POS_Y = -200;
+        public static int UFO_INITIAL_POS_Y = -250;
+    }
+    public static class ObjectSizeData{
+        public static ObjectSize PLAYER_PLANE = new ObjectSize(150, 150);
+        public static ObjectSize ENEMY_UFO = new ObjectSize(200, 200);
+
+        public static ObjectSize ENEMY_HELICOPTER = new ObjectSize(130, 160);
+        public static ObjectSize EXP_HELICOPTER_PLANE = new ObjectSize(100, 96);
+        public static ObjectSize EXP_UFO_PLANE = new ObjectSize(200, 192);
+        public static ObjectSize ENEMY_LASER = new ObjectSize(31, 32);
+        public static ObjectSize PLAYER_LASER = new ObjectSize(20, 38);
+
+    }
 }
+
+

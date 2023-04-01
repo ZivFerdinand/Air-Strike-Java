@@ -13,7 +13,7 @@ public class BackgroundManager {
 
     private final int initFirstImagePosY = -GamePanel.GAME_WIDTH * 2 + GamePanel.GAME_HEIGHT;
     private final int initSecondImagePosY = -GamePanel.GAME_WIDTH * 2;
-    private final int backgroundMovementSpeed = 1;
+    public static final int backgroundMovementSpeed = 1;
     private final int backgroundWidth = GamePanel.GAME_WIDTH;
     private final int backgroundHeight = GamePanel.GAME_WIDTH * 2;
 

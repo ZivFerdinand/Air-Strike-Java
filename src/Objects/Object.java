@@ -1,5 +1,8 @@
 package Objects;
 
+import Utils.Constants;
+import Utils.ObjectSize;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -10,16 +13,21 @@ public abstract class Object {
     protected BufferedImage img;
     protected float posX, posY;
     protected float hitBoxX, hitBoxY;
-    protected int width, height;
+    protected int hitBoxWidth, hitBoxHeight;
     protected Rectangle hitBox;
 
-    public Object(float posX, float posY, float hitBoxX, float hitBoxY, int width, int height, String path) {
+    protected int imageWidth, imageHeight;
+
+    public Object(float posX, float posY, float hitBoxX, float hitBoxY, int hitBoxWidth, int hitBoxHeight, String path, ObjectSize objectSize) {
         this.posX = posX;
         this.posY = posY;
         this.hitBoxX = hitBoxX;
         this.hitBoxY = hitBoxY;
-        this.width = width;
-        this.height = height;
+        this.hitBoxWidth = hitBoxWidth;
+        this.hitBoxHeight = hitBoxHeight;
+        this.imageWidth = objectSize.w;
+        this.imageHeight = objectSize.h;
+
         initHitBox();
         importImg(path);
     }
@@ -37,7 +45,7 @@ public abstract class Object {
     }
 
     private void initHitBox() {
-        hitBox = new Rectangle((int) hitBoxX, (int) hitBoxY, width, height);
+        hitBox = new Rectangle((int) hitBoxX, (int) hitBoxY, hitBoxWidth, hitBoxHeight);
     }
 
     public void updateHitBox() {

@@ -6,13 +6,9 @@ import Objects.*;
 import Utils.*;
 
 public class GameEngine implements Runnable {
-    public static AudioPlayer audioPlayer;
-
-    private final int FPS_SET = 120;
-    private final int UPS_SET = 200;
-    private GameFrame gameFrame;
-    private GamePanel gamePanel;
-    private Thread gameThread;
+    public AudioPlayer audioPlayer;
+    private final GamePanel gamePanel;
+    private final GameFrame gameFrame;
 
     private PlayerPlane playerPlane;
     private BackgroundManager background;
@@ -35,20 +31,21 @@ public class GameEngine implements Runnable {
 
     private void startGameLoop() {
         audioPlayer.playSong(AudioPlayer.LEVEL_1);
-        gameThread = new Thread(this);
+        Thread gameThread = new Thread(this);
         gameThread.start();
     }
 
     private void initClasses() {
         this.background = new BackgroundManager();
-        this.playerPlane = new PlayerPlane((GamePanel.GAME_WIDTH - 150) / 2, 600);
-        this.enemyHelicopter = new EnemyHelicopter(50, -50, this);
-        this.enemyUFO = new EnemyUFO(50, 50, this);
-        this.collisionManager = new CollisionManager(playerPlane, playerPlane.getLaserShoot(), enemyHelicopter,
-                enemyUFO, enemyUFO.getLaserShoot());
-        this.explosionHelicopter = new Explosion(10, 10, 100, 96);
-        this.explosionUFO = new Explosion(10, 10, 200, 192);
+        this.playerPlane = new PlayerPlane();
         this.score = new Score();
+
+        this.enemyHelicopter = new EnemyHelicopter(this);
+        this.enemyUFO = new EnemyUFO( this);
+        this.collisionManager = new CollisionManager(this);
+
+        this.explosionHelicopter = new Explosion(Constants.ObjectSizeData.EXP_HELICOPTER_PLANE, Constants.ObjectSizeData.EXP_HELICOPTER_PLANE);
+        this.explosionUFO = new Explosion(Constants.ObjectSizeData.EXP_UFO_PLANE, Constants.ObjectSizeData.EXP_UFO_PLANE);
     }
 
     public PlayerPlane getPlayerPlane() {
@@ -80,20 +77,21 @@ public class GameEngine implements Runnable {
     }
 
     public void update() {
+        playerPlane.update();
 
-        playerPlane.updateGame();
         collisionManager.updateCollisionDetection();
+
         enemyHelicopter.update();
         enemyUFO.update();
-        explosionHelicopter.updateGame();
-        explosionUFO.updateGame();
+        explosionHelicopter.update();
+        explosionUFO.update();
     }
 
     @Override
     public void run() {
 
-        double timePerFrame = 1000000000.0 / FPS_SET;
-        double timePerUpdate = 1000000000.0 / UPS_SET;
+        double timePerFrame = 1000000000.0 / 120;
+        double timePerUpdate = 1000000000.0 / 200;
 
         long previousTime = System.nanoTime();
 
@@ -125,7 +123,6 @@ public class GameEngine implements Runnable {
 
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
-                System.out.println("FPS: " + frames + " | UPS: " + updates);
                 frames = 0;
                 updates = 0;
             }
