@@ -38,9 +38,9 @@ public class FontGenerator {
     {
         g.setFont(mainFont);
         g.setFont(g.getFont().deriveFont(Font.PLAIN, fontSize));
-        g.setColor(Color.WHITE);
+        g.setColor(Color.BLACK);
 
-        g.drawString("CHOOSE MAP", 480, 60);
+        g.drawString("CHOOSE MAP", 480, 68);
     }
     public void render(Graphics g, float fontSize, int health, int score)
     {
