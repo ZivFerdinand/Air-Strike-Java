@@ -29,23 +29,23 @@ public class CollisionManager {
         this.enemyUFO = enemyUFO;
         this.laserEnemies = laserEnemies;
     }
-
+    private void playerLaserOnCollison(Enemy enemyObject, int i)
+    {
+        enemyObject.destroyObjectFromScreen();
+        audioPlayer.playHitSound();
+        laserShoot.get(i).resetPos(-100, -100);
+        enemyObject.setHitting(true);
+    }
     public void updateCollisionDetection()
     {
         for (int i = 0; i < laserShoot.size(); i++) {
             if(enemyHelicopter.getHitBox().intersects(laserShoot.get(i).getHitBox()))
             {
-                enemyHelicopter.destroyObjectFromScreen();
-                audioPlayer.playHitSound();
-                laserShoot.get(i).resetPos(-100, -100);
-                enemyHelicopter.setHitting(true);
+                playerLaserOnCollison(enemyHelicopter, i);
             }
             if(enemyUFO.getHitBox().intersects(laserShoot.get(i).getHitBox()))
             {
-                audioPlayer.playHitSound();
-                enemyUFO.destroyObjectFromScreen();
-                laserShoot.get(i).resetPos(-100, -100);
-                enemyUFO.setHitting(true);
+                playerLaserOnCollison(enemyUFO, i);
             }
         }
         for (int i = 0; i < laserEnemies.size(); i++) {

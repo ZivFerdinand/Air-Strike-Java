@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 
-public class EnemyUFO extends Object {
+public class EnemyUFO extends Object implements Enemy{
 
     private int totalMvmt;
     private final int healthMax = 20;

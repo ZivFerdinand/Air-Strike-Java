@@ -12,7 +12,7 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
-public class EnemyHelicopter extends Object {
+public class EnemyHelicopter extends Object implements Enemy{
     private int totalMvmt;
     private final int healthMax = 10;
     private int health = healthMax;

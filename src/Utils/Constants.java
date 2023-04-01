@@ -22,5 +22,6 @@ public class Constants {
         public static String EXPLOSION = "/res/sprite/Explosion.png";
         public static String LASER = "/res/sprite/Laser-Sprite.png";
         public static String LASER_ENEMY = "/res/sprite/Laser-Enemy.png";
+        public static String BACKGROUND_PATH = "/res/sprite/Main-Background-2-Cloud.png";
     }
 }
