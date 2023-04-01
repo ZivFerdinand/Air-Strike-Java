@@ -5,8 +5,6 @@ import java.awt.*;
 import javax.swing.JPanel;
 
 import Input.*;
-import Objects.*;
-import Utils.FontGenerator;
 
 public class GamePanel extends JPanel {
     public final static int GAME_WIDTH = 1280, GAME_HEIGHT = 800;

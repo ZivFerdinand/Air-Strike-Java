@@ -2,7 +2,6 @@ package Objects;
 
 import Background.BackgroundManager;
 import Interfaces.IGameStandard;
-import Utils.Constants;
 import Utils.FontGenerator;
 import Utils.Constants.Path;
 import Utils.AudioPlayer;

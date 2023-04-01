@@ -18,13 +18,11 @@ public class Playing extends State implements IStateMethod {
     private EnemyUFO enemyUFO;
     private Explosion explosionHelicopter;
     private Explosion explosionUFO;
-    private Score score;
     private FontGenerator fontGenerator;
 
     private void initClasses() {
         this.background = new BackgroundManager();
         this.playerPlane = new PlayerPlane();
-        this.score = gameEngine.score;
 
         this.enemyHelicopter = new EnemyHelicopter(this);
         this.enemyUFO = new EnemyUFO(this);
@@ -42,7 +40,6 @@ public class Playing extends State implements IStateMethod {
     public Playing(GameEngine gameEngine) {
         super(gameEngine);
         initClasses();
-        //TODO Auto-generated constructor stub
     }
 
     @Override
@@ -168,10 +165,6 @@ public class Playing extends State implements IStateMethod {
     }
 
 
-
-    public Score getScore() {
-        return score;
-    }
 
 
     public FontGenerator getFontGenerator() {

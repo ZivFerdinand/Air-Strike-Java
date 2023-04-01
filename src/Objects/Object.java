@@ -1,6 +1,5 @@
 package Objects;
 
-import Utils.Constants;
 import Utils.ObjectSize;
 
 import java.awt.*;

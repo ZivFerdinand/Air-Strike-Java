@@ -2,11 +2,8 @@ package Main;
 
 import java.awt.Graphics;
 
-import Background.BackgroundManager;
-import Collision.CollisionManager;
 import GameStates.*;
 import GameStates.Playing;
-import Objects.*;
 import Utils.*;
 
 public class GameEngine implements Runnable {

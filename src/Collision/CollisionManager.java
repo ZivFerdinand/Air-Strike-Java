@@ -1,6 +1,5 @@
 package Collision;
 
-import Main.GameEngine;
 import Objects.*;
 import Utils.AudioPlayer;
 import Utils.Constants;

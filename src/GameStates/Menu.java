@@ -62,8 +62,8 @@ public class Menu extends State implements IStateMethod {
 
     private void loadButtons() {
         buttons[0] = new MenuButton(GamePanel.GAME_WIDTH / 2, (int) 280, 0, GameState.PLAYING);
-        buttons[1] = new MenuButton(GamePanel.GAME_WIDTH / 2, (int) 400, 1, GameState.OPTIONS);
-        buttons[2] = new MenuButton(GamePanel.GAME_WIDTH / 2, (int) 520, 2, GameState.QUIT);
+        buttons[1] = new MenuButton(GamePanel.GAME_WIDTH / 2, (int) 410, 1, GameState.OPTIONS);
+        buttons[2] = new MenuButton(GamePanel.GAME_WIDTH / 2, (int) 540, 2, GameState.QUIT);
     }
 
     @Override
@@ -83,7 +83,6 @@ public class Menu extends State implements IStateMethod {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
 
     }
 
@@ -137,7 +136,6 @@ public class Menu extends State implements IStateMethod {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        // TODO Auto-generated method stub
 
     }
 
