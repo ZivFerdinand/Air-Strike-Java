@@ -1,20 +1,26 @@
 package Main;
 
 import Background.BackgroundManager;
-import Planes.PlayerPlane;
+import Collision.CollisionManager;
+import Objects.*;
+import Utils.*;
 
 public class GameEngine implements Runnable {
-
-    private GameFrame gameFrame;
-    private GamePanel gamePanel;
-    private Thread gameThread;
-    private final int FPS_SET = 120;
-    private final int UPS_SET = 200;
+    public AudioPlayer audioPlayer;
+    private final GamePanel gamePanel;
+    private final GameFrame gameFrame;
 
     private PlayerPlane playerPlane;
     private BackgroundManager background;
+    private CollisionManager collisionManager;
+    private EnemyHelicopter enemyHelicopter;
+    private EnemyUFO enemyUFO;
+    private Explosion explosionHelicopter;
+    private Explosion explosionUFO;
+    public static Score score;
 
     public GameEngine() {
+        audioPlayer = new AudioPlayer();
         initClasses();
         gamePanel = new GamePanel(this);
         gameFrame = new GameFrame(gamePanel);
@@ -23,33 +29,69 @@ public class GameEngine implements Runnable {
 
     }
 
+    private void startGameLoop() {
+        audioPlayer.playSong(AudioPlayer.LEVEL_1);
+        Thread gameThread = new Thread(this);
+        gameThread.start();
+    }
+
     private void initClasses() {
         this.background = new BackgroundManager();
-        this.playerPlane = new PlayerPlane((GamePanel.GAME_WIDTH - 150) / 2, 600);
+        this.playerPlane = new PlayerPlane();
+        this.score = new Score();
+
+        this.enemyHelicopter = new EnemyHelicopter(this);
+        this.enemyUFO = new EnemyUFO( this);
+        this.collisionManager = new CollisionManager(this);
+
+        this.explosionHelicopter = new Explosion(Constants.ObjectSizeData.EXP_HELICOPTER_PLANE, Constants.ObjectSizeData.EXP_HELICOPTER_PLANE);
+        this.explosionUFO = new Explosion(Constants.ObjectSizeData.EXP_UFO_PLANE, Constants.ObjectSizeData.EXP_UFO_PLANE);
     }
 
     public PlayerPlane getPlayerPlane() {
         return this.playerPlane;
     }
 
+    public EnemyHelicopter getEnemyHelicopter() {
+        return this.enemyHelicopter;
+    }
+
     public BackgroundManager getBackground() {
         return this.background;
     }
 
-    private void startGameLoop() {
-        gameThread = new Thread(this);
-        gameThread.start();
+    public CollisionManager getCollisionManager() {
+        return this.collisionManager;
+    }
+
+    public Explosion getExplosionHelicopter() {
+        return explosionHelicopter;
+    }
+
+    public Explosion getExplosionUFO() {
+        return explosionUFO;
+    }
+
+    public EnemyUFO getEnemyUFO() {
+        return enemyUFO;
     }
 
     public void update() {
-        playerPlane.updateGame();
+        playerPlane.update();
+
+        collisionManager.updateCollisionDetection();
+
+        enemyHelicopter.update();
+        enemyUFO.update();
+        explosionHelicopter.update();
+        explosionUFO.update();
     }
 
     @Override
     public void run() {
 
-        double timePerFrame = 1000000000.0 / FPS_SET;
-        double timePerUpdate = 1000000000.0 / UPS_SET;
+        double timePerFrame = 1000000000.0 / 120;
+        double timePerUpdate = 1000000000.0 / 200;
 
         long previousTime = System.nanoTime();
 
@@ -81,7 +123,6 @@ public class GameEngine implements Runnable {
 
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
-                System.out.println("FPS: " + frames + " | UPS: " + updates);
                 frames = 0;
                 updates = 0;
             }

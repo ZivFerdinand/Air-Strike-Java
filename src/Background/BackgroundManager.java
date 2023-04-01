@@ -1,6 +1,7 @@
 package Background;
 
 import Main.GamePanel;
+import Utils.Constants;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,24 +10,34 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class BackgroundManager {
-    private BufferedImage img;
-    private int posY, secondImagePosY;
 
-    private final int initYPos = -GamePanel.GAME_WIDTH * 2 + GamePanel.GAME_HEIGHT;
+    private final int initFirstImagePosY = -GamePanel.GAME_WIDTH * 2 + GamePanel.GAME_HEIGHT;
     private final int initSecondImagePosY = -GamePanel.GAME_WIDTH * 2;
-    private final int backgroundMovementSpeed = 1;
+    public static final int backgroundMovementSpeed = 1;
+    private final int backgroundWidth = GamePanel.GAME_WIDTH;
+    private final int backgroundHeight = GamePanel.GAME_WIDTH * 2;
+
+    private BufferedImage backgroundImage;
+    private int firstImagePosY, secondImagePosY;
+
 
     public BackgroundManager() {
         secondImagePosY = initSecondImagePosY;
-        posY = initYPos;
+        firstImagePosY = initFirstImagePosY;
 
         importImg();
     }
+    public void render(Graphics g) {
+        updateBackgroundPosition();
+        g.drawImage(backgroundImage, 0, firstImagePosY, backgroundWidth, backgroundHeight, null);
+        validateSubtractImage(g);
+        validateResetImage();
+    }
 
     private void importImg() {
-        InputStream is = getClass().getResourceAsStream("/res/Main-Background-2.png");
+        InputStream is = getClass().getResourceAsStream(Constants.Path.BACKGROUND_PATH);
         try {
-            img = ImageIO.read(is);
+            backgroundImage = ImageIO.read(is);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -37,17 +48,20 @@ public class BackgroundManager {
             }
         }
     }
-
-    public void render(Graphics g) {
-        posY += backgroundMovementSpeed;
-        g.drawImage(img, 0, posY, GamePanel.GAME_WIDTH, GamePanel.GAME_WIDTH * 2, null);
-
-        if (posY >= 0) {
+    private void updateBackgroundPosition(){
+        firstImagePosY += backgroundMovementSpeed;
+    }
+    private void validateSubtractImage(Graphics g)
+    {
+        if (firstImagePosY >= 0) {
             secondImagePosY += backgroundMovementSpeed;
-            g.drawImage(img, 0, secondImagePosY, GamePanel.GAME_WIDTH, GamePanel.GAME_WIDTH * 2, null);
+            g.drawImage(backgroundImage, 0, secondImagePosY, backgroundWidth, backgroundHeight, null);
         }
-        if (secondImagePosY >= initYPos) {
-            posY = initYPos;
+    }
+    private void validateResetImage()
+    {
+        if (secondImagePosY >= initFirstImagePosY) {
+            firstImagePosY = initFirstImagePosY;
             secondImagePosY = initSecondImagePosY;
         }
     }
