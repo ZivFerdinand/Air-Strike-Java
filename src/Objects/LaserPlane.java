@@ -2,6 +2,8 @@ package Objects;
 
 import java.awt.*;
 
+import Interfaces.IGameStandard;
+import Interfaces.ILaser;
 import Utils.Constants;
 import Utils.Constants.Path;
 public class LaserPlane extends Object implements ILaser, IGameStandard{

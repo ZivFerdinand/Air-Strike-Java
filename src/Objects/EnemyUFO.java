@@ -7,6 +7,10 @@ import Utils.Constants.Path;
 
 import javax.imageio.ImageIO;
 
+import GameStates.Playing;
+import Interfaces.IEnemy;
+import Interfaces.IGameStandard;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -26,7 +30,8 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
     private int totalMvmt;
     private int health;
     private int enemySpeed = 1;
-    private GameEngine gameEngine;
+
+    private Playing playing;
 
     private ArrayList<LaserEnemy> laserShoot = new ArrayList<LaserEnemy>();
 
@@ -34,10 +39,10 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
         this.isHitting = isHitting;
     }
 
-    public EnemyUFO(GameEngine gameEngine) {
+    public EnemyUFO(Playing playing) {
         super(1000, -200, 0, 0, 200, 200, Path.ENEMY_UFO, Constants.ObjectSizeData.ENEMY_UFO);
         this.audioPlayer = new AudioPlayer();
-        this.gameEngine = gameEngine;
+        this.playing = playing;
         healthReset();
         totalMvmt = 0;
         importImgShadow();
@@ -121,7 +126,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
 
         if (health < 0) {
             healthReset();
-            gameEngine.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_UFO_LASER_POINT, Constants.DamageDealer.UFO_REDUCE, false);
+            playing.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_UFO_LASER_POINT, Constants.DamageDealer.UFO_REDUCE, false);
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             audioPlayer.playDestroySound();
@@ -133,7 +138,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
 
         if (health < 0) {
             healthReset();
-            gameEngine.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT, Constants.DamageDealer.UFO_REDUCE, true);
+            playing.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT, Constants.DamageDealer.UFO_REDUCE, true);
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             audioPlayer.playDestroySound();

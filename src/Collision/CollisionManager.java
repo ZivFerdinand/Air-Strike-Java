@@ -7,6 +7,10 @@ import Utils.Constants;
 import Utils.FontGenerator;
 
 import java.util.ArrayList;
+
+import GameStates.Playing;
+import Interfaces.IEnemy;
+
 import java.awt.*;
 
 public class CollisionManager {
@@ -23,13 +27,13 @@ public class CollisionManager {
     private float minusSignFontSize = 50F;
     private boolean minusSignDisplay = false;
 
-    public CollisionManager(GameEngine gameEngine)
+    public CollisionManager(Playing playing)
     {
-        this.playerPlane = gameEngine.getPlayerPlane();
-        this.laserPlaneShoot = gameEngine.getPlayerPlane().getLaserShoot();
-        this.enemyHelicopter = gameEngine.getEnemyHelicopter();
-        this.enemyUFO = gameEngine.getEnemyUFO();
-        this.laserEnemies = gameEngine.getEnemyUFO().getLaserShoot();
+        this.playerPlane = playing.getPlayerPlane();
+        this.laserPlaneShoot = playing.getPlayerPlane().getLaserShoot();
+        this.enemyHelicopter = playing.getEnemyHelicopter();
+        this.enemyUFO = playing.getEnemyUFO();
+        this.laserEnemies = playing.getEnemyUFO().getLaserShoot();
 
         this.audioPlayer = new AudioPlayer();
         this.fontGenerator = new FontGenerator();

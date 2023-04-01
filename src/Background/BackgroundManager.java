@@ -35,7 +35,7 @@ public class BackgroundManager {
     }
 
     private void importImg() {
-        InputStream is = getClass().getResourceAsStream(Constants.Path.BACKGROUND_PATH);
+        InputStream is = getClass().getResourceAsStream(Constants.Path.BACKGROUND_GAME);
         try {
             backgroundImage = ImageIO.read(is);
         } catch (IOException e) {

@@ -1,90 +1,70 @@
 package Main;
 
+import java.awt.Graphics;
+
 import Background.BackgroundManager;
 import Collision.CollisionManager;
+import GameStates.*;
+import GameStates.Playing;
 import Objects.*;
 import Utils.*;
 
 public class GameEngine implements Runnable {
-    public AudioPlayer audioPlayer;
+    public static AudioPlayer audioPlayer;
     private final GamePanel gamePanel;
     private final GameFrame gameFrame;
 
-    private PlayerPlane playerPlane;
-    private BackgroundManager background;
-    private CollisionManager collisionManager;
-    private EnemyHelicopter enemyHelicopter;
-    private EnemyUFO enemyUFO;
-    private Explosion explosionHelicopter;
-    private Explosion explosionUFO;
+    private Playing playing;
+    private Menu menu;
+
     public static Score score;
 
     public GameEngine() {
         audioPlayer = new AudioPlayer();
         initClasses();
         gamePanel = new GamePanel(this);
-        gameFrame = new GameFrame(gamePanel);
+        gameFrame = new GameFrame(gamePanel, this);
         gamePanel.requestFocus();
         startGameLoop();
-
     }
 
     private void startGameLoop() {
-        audioPlayer.playSong(AudioPlayer.LEVEL_1);
+        audioPlayer.playSong(AudioPlayer.BACKGROUND);
         Thread gameThread = new Thread(this);
         gameThread.start();
     }
 
     private void initClasses() {
-        this.background = new BackgroundManager();
-        this.playerPlane = new PlayerPlane();
-        this.score = new Score();
+        score = new Score();
+        this.menu = new Menu(this);
+        this.playing = new Playing(this);
 
-        this.enemyHelicopter = new EnemyHelicopter(this);
-        this.enemyUFO = new EnemyUFO( this);
-        this.collisionManager = new CollisionManager(this);
-
-        this.explosionHelicopter = new Explosion(Constants.ObjectSizeData.EXP_HELICOPTER_PLANE, Constants.ObjectSizeData.EXP_HELICOPTER_PLANE);
-        this.explosionUFO = new Explosion(Constants.ObjectSizeData.EXP_UFO_PLANE, Constants.ObjectSizeData.EXP_UFO_PLANE);
-    }
-
-    public PlayerPlane getPlayerPlane() {
-        return this.playerPlane;
-    }
-
-    public EnemyHelicopter getEnemyHelicopter() {
-        return this.enemyHelicopter;
-    }
-
-    public BackgroundManager getBackground() {
-        return this.background;
-    }
-
-    public CollisionManager getCollisionManager() {
-        return this.collisionManager;
-    }
-
-    public Explosion getExplosionHelicopter() {
-        return explosionHelicopter;
-    }
-
-    public Explosion getExplosionUFO() {
-        return explosionUFO;
-    }
-
-    public EnemyUFO getEnemyUFO() {
-        return enemyUFO;
     }
 
     public void update() {
-        playerPlane.update();
+        switch (GameState.state) {
+            case MENU:
+                menu.update();
+                break;
+            case PLAYING:
+                playing.update();
+                break;
+            default:
+                break;
+        }
+    }
 
-        collisionManager.updateCollisionDetection();
-
-        enemyHelicopter.update();
-        enemyUFO.update();
-        explosionHelicopter.update();
-        explosionUFO.update();
+    public void render(Graphics g) {
+        switch (GameState.state) {
+            case MENU:
+                menu.draw(g);
+                break;
+            case PLAYING:
+                playing.draw(g);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -128,6 +108,14 @@ public class GameEngine implements Runnable {
             }
         }
 
+    }
+
+    public Playing getPlaying() {
+        return playing;
+    }
+
+    public Menu getMenu() {
+        return menu;
     }
 
 }

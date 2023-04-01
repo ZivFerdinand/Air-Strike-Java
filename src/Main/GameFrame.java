@@ -1,12 +1,15 @@
 package Main;
 
 import javax.swing.JFrame;
+
+import GameStates.GameState;
+
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
 public class GameFrame {
 
-    public GameFrame(GamePanel gamePanel) {
+    public GameFrame(GamePanel gamePanel, GameEngine gameEngine) {
 
         JFrame jFrame = new JFrame();
 
@@ -25,7 +28,8 @@ public class GameFrame {
 
             @Override
             public void windowLostFocus(WindowEvent e) {
-                gamePanel.getPlayerPlane().resetMovement();
+                if (GameState.state == GameState.PLAYING)
+                    gameEngine.getPlaying().getPlayerPlane().resetMovement();
             }
         });
     }

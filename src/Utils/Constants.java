@@ -1,6 +1,15 @@
 package Utils;
 
 public class Constants {
+
+    public static class UIData {
+        public static class Buttons {
+            public static final int B_WIDTH_DEFAULT = 140;
+            public static final int B_HEIGHT_DEFAULT = 56;
+            public static final int B_WIDTH = (int) (B_WIDTH_DEFAULT * 2);
+            public static final int B_HEIGHT = (int) (B_HEIGHT_DEFAULT * 2);
+        }
+    }
     public static class DamageDealer {
         public static final int ENEMY_UFO_LASER_POINT = 50;
         public static final int ENEMY_HELICOPTER_LASER_POINT = 30;
@@ -12,6 +21,12 @@ public class Constants {
     }
     
     public static class Path {
+        public static String MAIN_MENU_BG = "/res/sprite/Main-Menu-BG.jpg";
+        public static String BACKGROUND_GAME = "/res/sprite/Main-Background-2-Cloud.png";
+        public static String BUTTON_MAINMENU = "/res/sprite/Button-MainMenu.png";
+        public static String MAINMENU_PANEL = "/res/sprite/Button-MainMenu-Panel.png";
+
+        
         public static String PLAYER_PLANE = "/res/sprite/Plane-Blue.png";
         public static String PLAYER_PLANE_SHADOW = "/res/sprite/Plane-Shadow-40.png";
         public static String ENEMY_HELICOPTER = "/res/sprite/Enemy-Helicopter.png";
@@ -22,7 +37,6 @@ public class Constants {
         public static String EXPLOSION = "/res/sprite/Explosion.png";
         public static String LASER = "/res/sprite/Laser-Sprite.png";
         public static String LASER_ENEMY = "/res/sprite/Laser-Enemy.png";
-        public static String BACKGROUND_PATH = "/res/sprite/Main-Background-2-Cloud.png";
     }
 
     public static class Health{

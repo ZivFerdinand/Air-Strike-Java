@@ -6,6 +6,9 @@ import Utils.AudioPlayer;
 import Utils.Constants;
 import Utils.Constants.Path;
 import javax.imageio.ImageIO;
+
+import Interfaces.IGameStandard;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;

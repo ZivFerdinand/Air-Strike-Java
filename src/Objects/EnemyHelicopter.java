@@ -12,6 +12,10 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import GameStates.Playing;
+import Interfaces.IEnemy;
+import Interfaces.IGameStandard;
+
 public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
 
     private BufferedImage imgHittingSprite;
@@ -25,11 +29,11 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
     private int health;
     private int enemySpeed = 3;
     private int totalMvmt;
-    private final GameEngine gameEngine;
+    private Playing playing;
     
-    public EnemyHelicopter(GameEngine gameEngine) {
+    public EnemyHelicopter(Playing playing) {
         super(50, Constants.InitialPosition.HELICOPTER_INITIAL_POS_Y, 40, 1, 50, 129, Path.ENEMY_HELICOPTER, Constants.ObjectSizeData.ENEMY_HELICOPTER);
-        this.gameEngine = gameEngine;
+        this.playing = playing;
 
         totalMvmt = 0;
         healthReset();
@@ -120,7 +124,7 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
 
         if (health < 0) {
             healthReset();
-            gameEngine.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, false);
+            playing.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, false);
             posY = GamePanel.GAME_HEIGHT + 1000;
             GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT);
         }
@@ -130,7 +134,7 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
 
         if (health < 0) {
             healthReset();
-            gameEngine.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, true);
+            playing.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, true);
             posY = GamePanel.GAME_HEIGHT + 1000;
             GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HIT_POINT);
             playerPlane.reduceHealth(5);

@@ -3,6 +3,7 @@ package Input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import GameStates.GameState;
 import Main.*;
 
 public class KeyboardInput implements KeyListener {
@@ -20,36 +21,28 @@ public class KeyboardInput implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_W, KeyEvent.VK_UP:
-                gamePanel.getPlayerPlane().setUp(false);
+        switch (GameState.state) {
+            case MENU:
+                gamePanel.getGameEngine().getMenu().keyReleased(e);
                 break;
-            case KeyEvent.VK_A, KeyEvent.VK_LEFT:
-                gamePanel.getPlayerPlane().setLeft(false);
+            case PLAYING:
+                gamePanel.getGameEngine().getPlaying().keyReleased(e);
                 break;
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN:
-                gamePanel.getPlayerPlane().setDown(false);
-                break;
-            case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
-                gamePanel.getPlayerPlane().setRight(false);
+            default:
                 break;
         }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_W, KeyEvent.VK_UP:
-                gamePanel.getPlayerPlane().setUp(true);
+        switch (GameState.state) {
+            case MENU:
+                gamePanel.getGameEngine().getMenu().keyPressed(e);
                 break;
-            case KeyEvent.VK_A, KeyEvent.VK_LEFT:
-                gamePanel.getPlayerPlane().setLeft(true);
+            case PLAYING:
+                gamePanel.getGameEngine().getPlaying().keyPressed(e);
                 break;
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN:
-                gamePanel.getPlayerPlane().setDown(true);
-                break;
-            case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
-                gamePanel.getPlayerPlane().setRight(true);
+            default:
                 break;
         }
     }
