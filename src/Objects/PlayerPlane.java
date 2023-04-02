@@ -1,6 +1,5 @@
 package Objects;
 
-import Main.GameEngine;
 import Main.GamePanel;
 import Utils.AudioPlayer;
 import Utils.Constants;
@@ -216,7 +215,7 @@ public class PlayerPlane extends Object implements IGameStandard {
         }
         if (counterAudio == 20)
         {
-            GameEngine.score.setScore(1);
+            Playing.score.setScore(1);
             counterAudio = 0;
 
             if(Playing.paused == false)

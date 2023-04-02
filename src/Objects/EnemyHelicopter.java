@@ -1,6 +1,5 @@
 package Objects;
 
-import Main.GameEngine;
 import Main.GamePanel;
 import Utils.*;
 import Utils.Constants.Path;
@@ -129,7 +128,7 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
             playing.getStar().get(4).startAnimation(posX+ Assist.getRandomNumber(0, 100), posY+Assist.getRandomNumber(0, 96));
 
             posY = GamePanel.GAME_HEIGHT + 1000;
-            GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT);
+            Playing.score.setScore(Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT);
         }
     }
     public void destroyObjectFromScreen(PlayerPlane playerPlane) {
@@ -139,7 +138,7 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
             healthReset();
             playing.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, true);
             posY = GamePanel.GAME_HEIGHT + 1000;
-            GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HIT_POINT);
+            Playing.score.setScore(Constants.DamageDealer.ENEMY_HIT_POINT);
             playerPlane.reduceHealth(5);
         }
     }

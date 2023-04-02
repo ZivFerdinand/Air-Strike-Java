@@ -5,7 +5,6 @@ import Utils.Constants;
 
 import javax.imageio.ImageIO;
 
-import GameStates.GameState;
 import GameStates.Playing;
 
 import java.awt.*;

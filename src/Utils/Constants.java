@@ -50,8 +50,9 @@ public class Constants {
         public static String LASER_ENEMY = "/res/sprite/Laser-Enemy.png";
         public static String COIN = "/res/sprite/Coin.png";
 
-        public static String PAUSE_PANEL = "/res/sprite/Pause-Menu-Panel.png";
+        public static String PAUSE_PANEL = "/res/sprite/Pause-Menu.png";
         public static String URM_BUTTONS = "/res/sprite/URM-Buttons.png";
+        public static String CHOOSE_MAP = "/res/sprite/Choose-Map-Title.png";
     }
 
     public static class Health{
@@ -73,7 +74,7 @@ public class Constants {
         public static ObjectSize ENEMY_LASER = new ObjectSize(31, 32);
         public static ObjectSize PLAYER_LASER = new ObjectSize(20, 38);
         public static ObjectSize STAR = new ObjectSize(25, 25);
-
+        public static ObjectSize PAUSE_PANEL = new ObjectSize(516, 440);
     }
 }
 

@@ -1,7 +1,7 @@
 package Objects;
 
 import Background.BackgroundManager;
-import Main.GameEngine;
+import GameStates.Playing;
 import Main.GamePanel;
 import Utils.Constants;
 import Utils.FontGenerator;
@@ -70,7 +70,7 @@ public class Coin extends Object{
     }
     public void resetPosition()
     {
-        GameEngine.score.setScore(5);
+        Playing.score.setScore(5);
         plusRenderX = (int)posX;
         plusRenderY = (int)posY;
         fontSize = 30;

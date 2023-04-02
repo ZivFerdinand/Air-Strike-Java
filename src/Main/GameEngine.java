@@ -13,7 +13,6 @@ public class GameEngine implements Runnable {
     private Menu menu;
     private Option option;
 
-    public static Score score;
 
     public GameEngine() {
         audioPlayer = new AudioPlayer();
@@ -31,7 +30,6 @@ public class GameEngine implements Runnable {
     }
 
     private void initClasses() {
-        score = new Score();
         this.menu = new Menu(this);
         this.playing = new Playing(this);
         this.option = new Option(this);

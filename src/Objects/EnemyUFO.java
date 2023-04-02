@@ -1,6 +1,5 @@
 package Objects;
 
-import Main.GameEngine;
 import Main.GamePanel;
 import Utils.*;
 import Utils.Constants.Path;
@@ -120,7 +119,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             audioPlayer.playDestroySound();
-            GameEngine.score.setScore(Constants.DamageDealer.ENEMY_UFO_LASER_POINT);
+            Playing.score.setScore(Constants.DamageDealer.ENEMY_UFO_LASER_POINT);
         }
     }
     public void destroyObjectFromScreen(PlayerPlane playerPlane) {
@@ -132,7 +131,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             audioPlayer.playDestroySound();
-            GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HIT_POINT);
+            Playing.score.setScore(Constants.DamageDealer.ENEMY_HIT_POINT);
 
             playerPlane.reduceHealth(7);
         }

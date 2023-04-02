@@ -57,6 +57,7 @@ public class Menu extends State implements IStateMethod {
         menuHeight = (int) backgroundPanel.getHeight() * 2;
         menuX = GamePanel.GAME_WIDTH / 2 - menuWidth / 2;
         menuY = GamePanel.GAME_HEIGHT / 2 - menuHeight / 2;
+        
 
     }
 

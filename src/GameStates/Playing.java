@@ -23,6 +23,7 @@ public class Playing extends State implements IStateMethod {
     private ArrayList<Coin> star;
     private FontGenerator fontGenerator;
     private PausePanel pausePanel;
+    public static Score score;
     public static boolean paused = false;
 
     public Playing(GameEngine gameEngine) {
@@ -30,7 +31,8 @@ public class Playing extends State implements IStateMethod {
         initClasses();
     }
 
-    private void initClasses() {
+    public void initClasses() {
+        score = new Score();
         this.background = new BackgroundManager();
         this.playerPlane = new PlayerPlane();
 
@@ -89,7 +91,7 @@ public class Playing extends State implements IStateMethod {
         }
         playerPlane.render(g);
         collisionManager.render(g);
-        fontGenerator.render(g, 40F, playerPlane.getHealth(), GameEngine.score.getScore());
+        fontGenerator.render(g, 40F, playerPlane.getHealth(), score.getScore());
 
         if (paused) {
             pausePanel.draw(g);

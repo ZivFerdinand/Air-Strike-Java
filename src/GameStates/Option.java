@@ -20,13 +20,12 @@ public class Option extends State implements IStateMethod {
     private BufferedImage map1_Hvr, map2_Hvr;
     private BufferedImage map1_Clk, map2_Clk;
     private BufferedImage currMap1, currMap2;
+    private BufferedImage chooseMap;
 
-    private FontGenerator fontGenerator;
     private Rectangle map1_HB, map2_HB;
 
     public Option(GameEngine gameEngine) {
         super(gameEngine);
-        fontGenerator = new FontGenerator();
         audioPlayer = new AudioPlayer();
         instantiateHitBox();
         loadBackground();
@@ -130,6 +129,20 @@ public class Option extends State implements IStateMethod {
                 e.printStackTrace();
             }
         }
+
+        is = getClass().getResourceAsStream(Constants.Path.CHOOSE_MAP);
+        try {
+
+            chooseMap = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -147,9 +160,9 @@ public class Option extends State implements IStateMethod {
     @Override
     public void draw(Graphics g) {
         g.drawImage(backgroundImg, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
-        fontGenerator.chooseMap(g, 40);
-        g.drawImage(currMap1, x, 100, 300, 600, null);
-        g.drawImage(currMap2, 660, 100, 300, 600, null);
+        g.drawImage(chooseMap, 499, 40, 282, 96, null);
+        g.drawImage(currMap1, x, 150, 300, 600, null);
+        g.drawImage(currMap2, 660, 150, 300, 600, null);
     }
 
     @Override

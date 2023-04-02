@@ -52,7 +52,7 @@ public class URMButton extends PauseButton {
     }
 
     public void draw(Graphics g) {
-        g.drawImage(imgs[index], x, y, URM_SIZE, URM_SIZE, null);
+        g.drawImage(imgs[index], x, y, URM_SIZE*2, URM_SIZE*2, null);
     }
 
     public void resetBools() {
