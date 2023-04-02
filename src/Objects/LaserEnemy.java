@@ -34,7 +34,7 @@ public class LaserEnemy extends Object implements ILaser,IGameStandard {
 
     public void laserDisplayNone()
     {
-        this.posX = this.posY = -100;
+        this.posX = this.posY = -1000;
     }
 
     public void render(Graphics g) {
