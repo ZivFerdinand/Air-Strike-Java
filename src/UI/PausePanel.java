@@ -92,8 +92,8 @@ public class PausePanel {
     public void mouseReleased(MouseEvent e) {
         if (isIn(e, menuB)) {
             if (menuB.isMousePressed()) {
-                GameEngine.audioPlayer.playSong(AudioPlayer.BACKGROUND);
                 GameState.state = GameState.MENU;
+                GameEngine.audioPlayer.playSong(AudioPlayer.BACKGROUND);
                 playing.initClasses();
                 playing.unpauseGame();
 
@@ -101,9 +101,9 @@ public class PausePanel {
         } else if (isIn(e, replayB)) {
             if (replayB.isMousePressed())
             {
-                playing.unpauseGame();
+                GameEngine.audioPlayer.playSong(AudioPlayer.LEVEL_1);
                 playing.initClasses();
-                System.out.println("replay lvl!");
+                playing.unpauseGame();
             }
         } else if (isIn(e, unpauseB)) {
             if (unpauseB.isMousePressed())
