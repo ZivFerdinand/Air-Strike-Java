@@ -36,7 +36,7 @@ public class Constants {
         public static String MAP_2 = "/res/sprite/Main-Background-2.png";
         public static String MAP_2_HVR = "/res/sprite/Main-Background-2-Hover.png";
         public static String MAP_2_CLK = "/res/sprite/Main-Background-2-Click.png";
-
+        public static String ICON = "src/res/sprite/Game-Logo.png";
         
         public static String PLAYER_PLANE = "/res/sprite/Plane-Blue.png";
         public static String PLAYER_PLANE_SHADOW = "/res/sprite/Plane-Shadow-40.png";
