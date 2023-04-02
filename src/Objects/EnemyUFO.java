@@ -36,6 +36,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
 
     private ArrayList<LaserEnemy> laserShoot = new ArrayList<LaserEnemy>();
 
+
     public void setHitting(boolean isHitting) {
         this.isHitting = isHitting;
     }
@@ -129,6 +130,9 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
         if (health < 0) {
             healthReset();
             playing.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_UFO_LASER_POINT, Constants.DamageDealer.UFO_REDUCE, false);
+            playing.getStar().get(0).startAnimation(posX + Assist.getRandomNumber(0, 200), posY + Assist.getRandomNumber(0, 192));
+            playing.getStar().get(1).startAnimation(posX + Assist.getRandomNumber(0, 200), posY +Assist.getRandomNumber(0, 192));
+            playing.getStar().get(2).startAnimation(posX + Assist.getRandomNumber(0, 200), posY +Assist.getRandomNumber(0, 192));
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             audioPlayer.playDestroySound();

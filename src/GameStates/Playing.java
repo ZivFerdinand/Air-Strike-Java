@@ -3,6 +3,7 @@ package GameStates;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import Main.*;
 import Objects.*;
@@ -18,6 +19,7 @@ public class Playing extends State implements IStateMethod {
     private EnemyUFO enemyUFO;
     private Explosion explosionHelicopter;
     private Explosion explosionUFO;
+    private ArrayList<Star> star;
     private FontGenerator fontGenerator;
 
     private void initClasses() {
@@ -26,7 +28,10 @@ public class Playing extends State implements IStateMethod {
 
         this.enemyHelicopter = new EnemyHelicopter(this);
         this.enemyUFO = new EnemyUFO(this);
+        this.star = new ArrayList<>();
+        instantiateStars();
         this.collisionManager = new CollisionManager(this);
+
 
         this.explosionHelicopter = new Explosion(Constants.ObjectSizeData.EXP_HELICOPTER_PLANE,
                 Constants.ObjectSizeData.EXP_HELICOPTER_PLANE);
@@ -35,6 +40,11 @@ public class Playing extends State implements IStateMethod {
         this.fontGenerator = new FontGenerator();
     }
 
+    private void instantiateStars() {
+        for(int i = 0;i<5;i++){
+            star.add(new Star(Constants.ObjectSizeData.STAR));
+        }
+    }
 
 
     public Playing(GameEngine gameEngine) {
@@ -52,6 +62,10 @@ public class Playing extends State implements IStateMethod {
         enemyUFO.update();
         explosionHelicopter.update();
         explosionUFO.update();
+        for (Star s: star
+        ) {
+            s.update();
+        }
     }
 
     @Override
@@ -61,6 +75,10 @@ public class Playing extends State implements IStateMethod {
         enemyUFO.render(g);
         explosionHelicopter.render(g);
         explosionUFO.render(g);
+        for (Star s: star
+             ) {
+            s.render(g);
+        }
         playerPlane.render(g);
         collisionManager.render(g);
         fontGenerator.render(g, 40F, playerPlane.getHealth(), GameEngine.score.getScore());
@@ -152,5 +170,7 @@ public class Playing extends State implements IStateMethod {
         return explosionUFO;
     }
 
-
+    public ArrayList<Star> getStar() {
+        return star;
+    }
 }

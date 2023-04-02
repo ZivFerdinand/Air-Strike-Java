@@ -90,4 +90,12 @@ public class FontGenerator {
 
         g.drawString("-" + score, x, y);
     }
+    public void renderPlus(Graphics g, int fontSize, int x, int y)
+    {
+        g.setFont(mainFont);
+        g.setFont(g.getFont().deriveFont(Font.PLAIN, fontSize));
+        g.setColor(Color.ORANGE);
+
+        g.drawString("+" + 5 + "c", x, y);
+    }
 }
