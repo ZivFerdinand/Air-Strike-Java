@@ -1,7 +1,6 @@
 package UI;
 
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +18,6 @@ public class PauseButton extends Button {
     public PauseButton(int x, int y, int width, int height) {
         super(x, y, width, height);
         loadImgs();
-        //TODO Auto-generated constructor stub
     }
 
     private void loadImgs() {
