@@ -4,6 +4,10 @@ import Main.GamePanel;
 import Utils.Constants;
 
 import javax.imageio.ImageIO;
+
+import GameStates.GameState;
+import GameStates.Playing;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -30,10 +34,13 @@ public class BackgroundManager {
     }
 
     public void render(Graphics g) {
-        updateBackgroundPosition();
+        if(Playing.paused == false)
+            updateBackgroundPosition();
         g.drawImage(backgroundImage, 0, firstImagePosY, backgroundWidth, backgroundHeight, null);
         validateSubtractImage(g);
-        validateResetImage();
+        
+        if(Playing.paused == false)
+            validateResetImage();
     }
 
     private void importImg() {
@@ -72,7 +79,9 @@ public class BackgroundManager {
 
     private void validateSubtractImage(Graphics g) {
         if (firstImagePosY >= 0) {
-            secondImagePosY += backgroundMovementSpeed;
+            
+            if(Playing.paused == false)
+                secondImagePosY += backgroundMovementSpeed;
             g.drawImage(backgroundImage, 0, secondImagePosY, backgroundWidth, backgroundHeight, null);
         }
     }

@@ -2,6 +2,7 @@ package Objects;
 
 import java.awt.*;
 
+import GameStates.Playing;
 import Interfaces.IGameStandard;
 import Interfaces.ILaser;
 import Utils.Constants;
@@ -41,15 +42,16 @@ public class LaserPlane extends Object implements ILaser, IGameStandard{
     }
 
     public void render(Graphics g) {
-        updatePosition();
+        if(Playing.paused == false)
+            updatePosition();
         g.drawImage(img, (int) posX + 65, (int) posY, imageWidth, imageHeight, null);
     }
-private void updatePosition()
-{
+    private void updatePosition()
+    {
 
-    posY -= laserSpeed;
-    totalMvmt += laserSpeed;
-}
+        posY -= laserSpeed;
+        totalMvmt += laserSpeed;
+    }
     public int getPosY() {
         return (int)posY;
     }

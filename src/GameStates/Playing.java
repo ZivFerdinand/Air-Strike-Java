@@ -10,6 +10,7 @@ import Objects.*;
 import Background.BackgroundManager;
 import Collision.CollisionManager;
 import Utils.*;
+import UI.*;
 
 public class Playing extends State implements IStateMethod {
     private PlayerPlane playerPlane;
@@ -21,6 +22,13 @@ public class Playing extends State implements IStateMethod {
     private Explosion explosionUFO;
     private ArrayList<Coin> star;
     private FontGenerator fontGenerator;
+    private PausePanel pausePanel;
+    public static boolean paused = false;
+
+    public Playing(GameEngine gameEngine) {
+        super(gameEngine);
+        initClasses();
+    }
 
     private void initClasses() {
         this.background = new BackgroundManager();
@@ -38,6 +46,7 @@ public class Playing extends State implements IStateMethod {
         this.explosionUFO = new Explosion(Constants.ObjectSizeData.EXP_UFO_PLANE,
                 Constants.ObjectSizeData.EXP_UFO_PLANE);
         this.fontGenerator = new FontGenerator();
+        this.pausePanel = new PausePanel(this);
     }
 
     private void instantiateStars() {
@@ -46,26 +55,25 @@ public class Playing extends State implements IStateMethod {
         }
     }
 
-
-    public Playing(GameEngine gameEngine) {
-        super(gameEngine);
-        initClasses();
-    }
-
     @Override
     public void update() {
-        playerPlane.update();
+        if (!paused) {
+            playerPlane.update();
+            // background.update();
+            collisionManager.updateCollisionDetection();
 
-        collisionManager.updateCollisionDetection();
-
-        enemyHelicopter.update();
-        enemyUFO.update();
-        explosionHelicopter.update();
-        explosionUFO.update();
-        for (Coin s: star
-        ) {
-            s.update();
+            enemyHelicopter.update();
+            enemyUFO.update();
+            explosionHelicopter.update();
+            explosionUFO.update();
+            for (Coin s : star) {
+                s.update();
+            }
         }
+        else {
+            pausePanel.update();
+        }
+
     }
 
     @Override
@@ -82,6 +90,10 @@ public class Playing extends State implements IStateMethod {
         playerPlane.render(g);
         collisionManager.render(g);
         fontGenerator.render(g, 40F, playerPlane.getHealth(), GameEngine.score.getScore());
+
+        if (paused) {
+            pausePanel.draw(g);
+        }
     }
 
     @Override
@@ -91,17 +103,20 @@ public class Playing extends State implements IStateMethod {
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if (paused)
+            pausePanel.mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        if (paused)
+            pausePanel.mouseReleased(e);
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        if (paused)
+            pausePanel.mouseMoved(e);
     }
 
     @Override
@@ -118,6 +133,9 @@ public class Playing extends State implements IStateMethod {
                 break;
             case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
                 playerPlane.setRight(true);
+                break;
+            case KeyEvent.VK_ESCAPE:
+                paused = !paused;
                 break;
         }
     }
@@ -139,8 +157,10 @@ public class Playing extends State implements IStateMethod {
                 break;
         }
     }
-
-
+    
+    public void unpauseGame() {
+        paused = false;
+    }
 
     public PlayerPlane getPlayerPlane() {
         return playerPlane;

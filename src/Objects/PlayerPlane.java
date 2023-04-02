@@ -7,6 +7,7 @@ import Utils.Constants;
 import Utils.Constants.Path;
 import javax.imageio.ImageIO;
 
+import GameStates.Playing;
 import Interfaces.IGameStandard;
 
 import java.awt.*;
@@ -217,7 +218,9 @@ public class PlayerPlane extends Object implements IGameStandard {
         {
             GameEngine.score.setScore(1);
             counterAudio = 0;
-            audioPlayer.playAttackSound();
+
+            if(Playing.paused == false)
+                audioPlayer.playAttackSound();
 
 
         }

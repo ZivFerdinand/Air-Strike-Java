@@ -2,6 +2,7 @@ package Objects;
 
 import java.awt.*;
 
+import GameStates.Playing;
 import Interfaces.IGameStandard;
 import Interfaces.ILaser;
 import Utils.Constants;
@@ -37,8 +38,12 @@ public class LaserEnemy extends Object implements ILaser,IGameStandard {
         this.posX = this.posY = -1000;
     }
 
+    public void update() {
+        if(Playing.paused == false)
+            updatePosition();
+    }
+
     public void render(Graphics g) {
-        updatePosition();
         g.drawImage(img, (int) posX + 85, (int) posY+85, imageWidth, imageHeight, null);
     }
 

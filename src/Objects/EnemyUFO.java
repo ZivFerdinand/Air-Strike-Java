@@ -86,23 +86,6 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
     }
     private void laserUpdate(Graphics g)
     {
-//        counterPassed++;
-//        counterAudio++;
-//        if(healthBackPos == 20)
-//        {
-//            healthBackPos=0;
-//            healthPosX=50;
-//        }
-//        if (counterAudio == 20)
-//        {
-//            GameEngine.score.setScore(1);
-//            counterAudio = 0;
-//            GameEngine.audioPlayer.playAttackSound(25);
-//
-//
-//        }
-//        if (counterPassed >= 80)
-//            counterPassed = 80;
         for (int i = 0; i < laserShoot.size(); i++) {
             if (!laserShoot.get(i).checkHasMoved()) {
                 laserShoot.get(i).resetPos((int) posX, (int) posY);
@@ -112,6 +95,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
                 laserShoot.get(i).resetPos((int) posX, (int) posY);
             }
             laserShoot.get(i).updateHitBox();
+            laserShoot.get(i).update();
             laserShoot.get(i).render(g);
         }
     }

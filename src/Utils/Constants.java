@@ -9,6 +9,10 @@ public class Constants {
             public static final int B_WIDTH = (int) (B_WIDTH_DEFAULT * 2);
             public static final int B_HEIGHT = (int) (B_HEIGHT_DEFAULT * 2);
         }
+
+        public static class URMButtons {
+            public static final int URM_SIZE = 56;
+        }
     }
     public static class DamageDealer {
         public static final int ENEMY_UFO_LASER_POINT = 50;
@@ -45,6 +49,9 @@ public class Constants {
         public static String LASER = "/res/sprite/Laser-Sprite.png";
         public static String LASER_ENEMY = "/res/sprite/Laser-Enemy.png";
         public static String COIN = "/res/sprite/Coin.png";
+
+        public static String PAUSE_PANEL = "/res/sprite/Pause-Menu-Panel.png";
+        public static String URM_BUTTONS = "/res/sprite/URM-Buttons.png";
     }
 
     public static class Health{

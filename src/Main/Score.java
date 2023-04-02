@@ -1,5 +1,7 @@
 package Main;
 
+import GameStates.Playing;
+
 public class Score {
     private int score;
     public Score()
@@ -9,7 +11,8 @@ public class Score {
 
     public void setScore(int score)
     {
-        this.score +=score;
+        if(Playing.paused == false)
+            this.score +=score;
     }
     public int getScore()
     {
