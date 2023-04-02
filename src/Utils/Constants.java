@@ -44,7 +44,7 @@ public class Constants {
         public static String EXPLOSION = "/res/sprite/Explosion.png";
         public static String LASER = "/res/sprite/Laser-Sprite.png";
         public static String LASER_ENEMY = "/res/sprite/Laser-Enemy.png";
-        public static String STAR = "/res/sprite/Star.png";
+        public static String COIN = "/res/sprite/Coin.png";
     }
 
     public static class Health{
@@ -65,7 +65,7 @@ public class Constants {
         public static ObjectSize EXP_UFO_PLANE = new ObjectSize(200, 192);
         public static ObjectSize ENEMY_LASER = new ObjectSize(31, 32);
         public static ObjectSize PLAYER_LASER = new ObjectSize(20, 38);
-        public static ObjectSize STAR = new ObjectSize(20, 20);
+        public static ObjectSize STAR = new ObjectSize(25, 25);
 
     }
 }

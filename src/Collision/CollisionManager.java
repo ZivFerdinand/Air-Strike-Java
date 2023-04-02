@@ -20,7 +20,7 @@ public class CollisionManager {
     private final EnemyHelicopter enemyHelicopter;
     private final EnemyUFO enemyUFO;
     private final FontGenerator fontGenerator;
-    private final ArrayList<Star> stars;
+    private final ArrayList<Coin> coins;
 
 
     private int counterPassed = 0;
@@ -34,7 +34,7 @@ public class CollisionManager {
         this.enemyHelicopter = playing.getEnemyHelicopter();
         this.enemyUFO = playing.getEnemyUFO();
         this.laserEnemies = playing.getEnemyUFO().getLaserShoot();
-        this.stars = playing.getStar();
+        this.coins = playing.getStar();
 
         this.audioPlayer = new AudioPlayer();
         this.fontGenerator = new FontGenerator();
@@ -59,11 +59,11 @@ public class CollisionManager {
                 playerPlaneOnLaserCollision(laserEnemies, i);
             }
         }
-        for (int i = 0; i < stars.size(); i++) {
-            if(playerPlane.getHitBox().intersects(stars.get(i).getHitBox()))
+        for (int i = 0; i < coins.size(); i++) {
+            if(playerPlane.getHitBox().intersects(coins.get(i).getHitBox()))
             {
                 audioPlayer.playSelectSound();
-                stars.get(i).resetPosition();
+                coins.get(i).resetPosition();
             }
         }
 

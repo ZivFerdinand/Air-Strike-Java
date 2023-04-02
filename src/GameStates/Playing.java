@@ -19,7 +19,7 @@ public class Playing extends State implements IStateMethod {
     private EnemyUFO enemyUFO;
     private Explosion explosionHelicopter;
     private Explosion explosionUFO;
-    private ArrayList<Star> star;
+    private ArrayList<Coin> star;
     private FontGenerator fontGenerator;
 
     private void initClasses() {
@@ -42,7 +42,7 @@ public class Playing extends State implements IStateMethod {
 
     private void instantiateStars() {
         for(int i = 0;i<5;i++){
-            star.add(new Star(Constants.ObjectSizeData.STAR));
+            star.add(new Coin(Constants.ObjectSizeData.STAR));
         }
     }
 
@@ -62,7 +62,7 @@ public class Playing extends State implements IStateMethod {
         enemyUFO.update();
         explosionHelicopter.update();
         explosionUFO.update();
-        for (Star s: star
+        for (Coin s: star
         ) {
             s.update();
         }
@@ -75,7 +75,7 @@ public class Playing extends State implements IStateMethod {
         enemyUFO.render(g);
         explosionHelicopter.render(g);
         explosionUFO.render(g);
-        for (Star s: star
+        for (Coin s: star
              ) {
             s.render(g);
         }
@@ -170,7 +170,7 @@ public class Playing extends State implements IStateMethod {
         return explosionUFO;
     }
 
-    public ArrayList<Star> getStar() {
+    public ArrayList<Coin> getStar() {
         return star;
     }
 }

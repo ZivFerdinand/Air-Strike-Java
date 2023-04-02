@@ -3,7 +3,6 @@ package Objects;
 import Background.BackgroundManager;
 import Main.GameEngine;
 import Main.GamePanel;
-import Utils.AudioPlayer;
 import Utils.Constants;
 import Utils.FontGenerator;
 import Utils.ObjectSize;
@@ -11,10 +10,10 @@ import Utils.ObjectSize;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Star extends Object{
+public class Coin extends Object{
     private FontGenerator fontGenerator;
     private BufferedImage currAnimation;
-    private BufferedImage[] animations = new BufferedImage[13];
+    private BufferedImage[] animations = new BufferedImage[5];
     private int expWidth, expHeight;
     private int plusRenderX, plusRenderY;
     private int counterPassed = 0;
@@ -22,8 +21,8 @@ public class Star extends Object{
     private int fontSize = 50;
     private boolean isAnimating = false;
 
-    public Star(ObjectSize imageSize) {
-        super(0, 0, 0, 0, imageSize.w, imageSize.h, Constants.Path.STAR, imageSize);
+    public Coin(ObjectSize imageSize) {
+        super(0, 0, 0, 0, imageSize.w, imageSize.h, Constants.Path.COIN, imageSize);
         this.expWidth = imageSize.w;
         this.expHeight = imageSize.h;
         this.fontGenerator = new FontGenerator();
@@ -31,8 +30,8 @@ public class Star extends Object{
     }
 
     private void loadAnimations() {
-        for (int i = 0; i < 13; i++) {
-            animations[i] = img.getSubimage(i * 95, 0, 95, 102);
+        for (int i = 0; i < animations.length; i++) {
+            animations[i] = img.getSubimage(i * 84, 0, 84, 84);
         }
     }
 
