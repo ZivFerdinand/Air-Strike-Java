@@ -62,7 +62,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
 
             img = Assist.rotate(img, -90);
         }
-        if (totalMvmt >= GamePanel.GAME_HEIGHT + 300) {
+        if (totalMvmt >= GamePanel.GAME_HEIGHT + 600) {
             resetPosition();
         }
     }
@@ -206,7 +206,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
         g.drawImage(imgShadow, (int) posX - 50, (int) posY + 125, 150, 150, null);
         g.drawImage(currAnimation, (int) posX, (int) posY, imageWidth, imageHeight, null);
 
-        if(posY >= Constants.InitialPosition.UFO_INITIAL_POS_Y && posY <= -20)
+        if(posY >= Constants.InitialPosition.UFO_INITIAL_POS_Y && posY <= -imageHeight)
         {
             fontGenerator.drawExclamationMark(g, (int)posX + 20);
         }

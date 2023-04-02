@@ -78,7 +78,7 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
 
         posY += enemySpeed;
         totalMvmt += enemySpeed;
-        if (totalMvmt >= GamePanel.GAME_HEIGHT + 100) {
+        if (totalMvmt >= GamePanel.GAME_HEIGHT + 400) {
             resetPosition();
         }
     }

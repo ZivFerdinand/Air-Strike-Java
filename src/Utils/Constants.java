@@ -52,8 +52,8 @@ public class Constants {
         public static int UFO_HEALTH = 20;
     }
     public static class InitialPosition{
-        public static int HELICOPTER_INITIAL_POS_Y = -200;
-        public static int UFO_INITIAL_POS_Y = -250;
+        public static int HELICOPTER_INITIAL_POS_Y = -400;
+        public static int UFO_INITIAL_POS_Y = -450;
     }
     public static class ObjectSizeData{
         public static ObjectSize PLAYER_PLANE = new ObjectSize(150, 150);
