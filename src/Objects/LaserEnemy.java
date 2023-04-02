@@ -39,7 +39,7 @@ public class LaserEnemy extends Object implements ILaser,IGameStandard {
     }
 
     public void update() {
-        if(Playing.paused == false)
+        if(Playing.paused == false && Playing.gameOver == false)
             updatePosition();
     }
 

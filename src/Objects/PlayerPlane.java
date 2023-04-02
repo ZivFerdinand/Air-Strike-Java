@@ -168,11 +168,15 @@ public class PlayerPlane extends Object implements IGameStandard {
         }
     }
 
-
     public void update() {
         updateHitBox();
         laserUpdateHitBox();
         setAnimation();
+
+        if(healthMax == 0)
+        {
+            posX = posY = -1000;
+        }
     }
 
     private void laserUpdateHitBox() {
@@ -218,7 +222,7 @@ public class PlayerPlane extends Object implements IGameStandard {
             Playing.score.setScore(1);
             counterAudio = 0;
 
-            if(Playing.paused == false)
+            if(Playing.paused == false && Playing.gameOver == false)
                 audioPlayer.playAttackSound();
 
 
@@ -237,6 +241,7 @@ public class PlayerPlane extends Object implements IGameStandard {
             laserPlaneShoot.get(i).render(g);
         }
     }
+
     public void render(Graphics g) {
 
         g.drawImage(currAnimation, (int) posX, (int) posY, imageWidth, imageHeight, null);
@@ -244,6 +249,10 @@ public class PlayerPlane extends Object implements IGameStandard {
         laserUpdate(g);
 
         g.drawImage(healthStatus, healthPosX, 45, 80, 80, null);
+    }
+    public void setHealth(int health)
+    {
+        this.healthMax = health;
     }
 
 }

@@ -24,21 +24,22 @@ public class BackgroundManager {
     private BufferedImage map1, map2;
     private int firstImagePosY, secondImagePosY;
 
+    private Playing playing;
 
-    public BackgroundManager() {
+    public BackgroundManager(Playing playing) {
         secondImagePosY = initSecondImagePosY;
         firstImagePosY = initFirstImagePosY;
-
+        this.playing = playing;
         importImg();
     }
 
     public void render(Graphics g) {
-        if(Playing.paused == false)
+        if(Playing.paused == false && Playing.gameOver == false && playing.getPlayerPlane().getHealth() != 0)
             updateBackgroundPosition();
         g.drawImage(backgroundImage, 0, firstImagePosY, backgroundWidth, backgroundHeight, null);
         validateSubtractImage(g);
         
-        if(Playing.paused == false)
+        if(Playing.paused == false && Playing.gameOver == false && playing.getPlayerPlane().getHealth() != 0)
             validateResetImage();
     }
 
@@ -79,7 +80,7 @@ public class BackgroundManager {
     private void validateSubtractImage(Graphics g) {
         if (firstImagePosY >= 0) {
             
-            if(Playing.paused == false)
+            if(Playing.paused == false && Playing.gameOver == false && playing.getPlayerPlane().getHealth() != 0)
                 secondImagePosY += backgroundMovementSpeed;
             g.drawImage(backgroundImage, 0, secondImagePosY, backgroundWidth, backgroundHeight, null);
         }

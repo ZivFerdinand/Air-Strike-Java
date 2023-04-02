@@ -1,6 +1,7 @@
 package Objects;
 
 import Background.BackgroundManager;
+import GameStates.Playing;
 import Interfaces.IGameStandard;
 import Utils.FontGenerator;
 import Utils.Constants.Path;
@@ -24,7 +25,7 @@ public class Explosion extends Object implements IGameStandard {
     private int fontSize = 50;
     private boolean healthShow;
     private boolean isAnimating = false;
-
+    private boolean isPlayerDeath = false;
     public Explosion(ObjectSize objectSize, ObjectSize imageSize) {
         super(0, 0, 0, 0, 0, 0, Path.EXPLOSION, imageSize);
         this.score = 0;
@@ -50,8 +51,14 @@ public class Explosion extends Object implements IGameStandard {
                 animIndex++;
                 fontSize--;
                 if (animIndex >= animations.length) {
+                    
                     animIndex = 0;
                     isAnimating = false;
+                    if (isPlayerDeath) {
+                        isPlayerDeath = false;
+                        Playing.gameOver = true;
+
+                    }
                 }
 
                 currAnimation = animations[animIndex];
@@ -62,14 +69,17 @@ public class Explosion extends Object implements IGameStandard {
     }
 
     public void update() {
-        posY += BackgroundManager.backgroundMovementSpeed;
+        if(!isPlayerDeath)
+            posY += BackgroundManager.backgroundMovementSpeed;
         updateAnimation();
     }
     public void render(Graphics g) {
         if (isAnimating) {
 
             g.drawImage(currAnimation, (int) posX, (int) posY, expWidth, expHeight, null);
-            fontGenerator.render(g, score, fontSize, (int) posX, (int) posY);
+
+            if(!isPlayerDeath)
+                fontGenerator.render(g, score, fontSize, (int) posX, (int) posY);
 
             if (healthShow)
                 fontGenerator.renderMinus(g, healthReduce, fontSize, (int) posX + 100, (int) posY + 96);
@@ -86,6 +96,17 @@ public class Explosion extends Object implements IGameStandard {
         this.healthShow = healthShow;
         this.posX = posX;
         this.posY = posY;
+    }
+
+    public void startAnimation(float posX, float posY) {
+        audioPlayer.playDestroySound();
+        isAnimating = true;
+        fontSize = 0;
+        animIndex = 0;
+        isPlayerDeath = true;
+        this.posX = posX;
+        this.posY = posY;
+        this.healthShow = false;
     }
 
 }

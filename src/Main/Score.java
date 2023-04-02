@@ -11,7 +11,7 @@ public class Score {
 
     public void setScore(int score)
     {
-        if(Playing.paused == false)
+        if(Playing.paused == false && Playing.gameOver == false)
             this.score +=score;
     }
     public int getScore()

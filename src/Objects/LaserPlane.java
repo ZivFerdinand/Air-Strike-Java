@@ -42,7 +42,7 @@ public class LaserPlane extends Object implements ILaser, IGameStandard{
     }
 
     public void render(Graphics g) {
-        if(Playing.paused == false)
+        if(Playing.paused == false && Playing.gameOver == false)
             updatePosition();
         g.drawImage(img, (int) posX + 65, (int) posY, imageWidth, imageHeight, null);
     }

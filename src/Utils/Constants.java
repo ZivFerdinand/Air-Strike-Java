@@ -11,7 +11,14 @@ public class Constants {
         }
 
         public static class URMButtons {
-            public static final int URM_SIZE = 56;
+            public static final int URM_SIZE_DEFAULT = 56;
+            public static final int URM_SIZE = 112;
+        }
+
+        public static class PauseButton {
+            public static final int PAUSE_SIZE_DEFAULT = 56;
+            public static final int PAUSE_SIZE = 56;
+
         }
     }
     public static class DamageDealer {
@@ -52,7 +59,9 @@ public class Constants {
 
         public static String PAUSE_PANEL = "/res/sprite/Pause-Menu.png";
         public static String URM_BUTTONS = "/res/sprite/URM-Buttons.png";
+        public static String PAUSE_BUTTON = "/res/sprite/Pause-Button.png";
         public static String CHOOSE_MAP = "/res/sprite/Choose-Map-Title.png";
+        public static String DEATH_PANEL = "/res/sprite/Death-Panel.png";
     }
 
     public static class Health{
@@ -71,10 +80,12 @@ public class Constants {
         public static ObjectSize ENEMY_HELICOPTER = new ObjectSize(130, 160);
         public static ObjectSize EXP_HELICOPTER_PLANE = new ObjectSize(100, 96);
         public static ObjectSize EXP_UFO_PLANE = new ObjectSize(200, 192);
+        public static ObjectSize EXP_PLAYER_PLANE = new ObjectSize(250, 250);
         public static ObjectSize ENEMY_LASER = new ObjectSize(31, 32);
         public static ObjectSize PLAYER_LASER = new ObjectSize(20, 38);
         public static ObjectSize STAR = new ObjectSize(25, 25);
         public static ObjectSize PAUSE_PANEL = new ObjectSize(516, 440);
+        public static ObjectSize GAMEOVER_PANEL = new ObjectSize(516, 516);
     }
 }
 

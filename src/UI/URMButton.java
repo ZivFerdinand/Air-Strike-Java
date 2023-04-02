@@ -7,10 +7,10 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
-import static Utils.Constants.UIData.URMButtons.URM_SIZE;
+import static Utils.Constants.UIData.URMButtons.*;
 import static Utils.Constants.Path.URM_BUTTONS;;
 
-public class URMButton extends PauseButton {
+public class URMButton extends Button {
     private BufferedImage[] imgs;
     private int rowIndex, index;
     private boolean mouseOver, mousePressed;
@@ -37,8 +37,8 @@ public class URMButton extends PauseButton {
         }
         imgs = new BufferedImage[3];
         for (int i = 0; i < imgs.length; i++)
-            imgs[i] = temp.getSubimage(i * URM_SIZE, rowIndex * URM_SIZE, URM_SIZE,
-                    URM_SIZE);
+            imgs[i] = temp.getSubimage(i * URM_SIZE_DEFAULT, rowIndex * URM_SIZE_DEFAULT, URM_SIZE_DEFAULT,
+                    URM_SIZE_DEFAULT);
 
     }
 
@@ -52,7 +52,7 @@ public class URMButton extends PauseButton {
     }
 
     public void draw(Graphics g) {
-        g.drawImage(imgs[index], x, y, URM_SIZE*2, URM_SIZE*2, null);
+        g.drawImage(imgs[index], x, y, URM_SIZE, URM_SIZE, null);
     }
 
     public void resetBools() {

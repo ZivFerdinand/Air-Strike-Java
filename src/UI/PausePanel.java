@@ -32,14 +32,14 @@ public class PausePanel {
 	}
     
     private void createURMButtons() {
-        int menuX = 217*2;
-        int replayX = 292*2;
-        int unpauseX = 367*2;
-        int bY = 200*2;
+        int menuX = 434;
+        int replayX = 584;
+        int unpauseX = 734;
+        int bY = 400;
 
-        menuB = new URMButton(menuX, bY, URM_SIZE*2, URM_SIZE*2, 2);
-        replayB = new URMButton(replayX, bY,URM_SIZE*2,URM_SIZE*2, 1);
-        unpauseB = new URMButton(unpauseX, bY,URM_SIZE*2,URM_SIZE*2, 0);
+        menuB = new URMButton(menuX, bY, URM_SIZE, URM_SIZE, 2);
+        replayB = new URMButton(replayX, bY,URM_SIZE,URM_SIZE, 1);
+        unpauseB = new URMButton(unpauseX, bY,URM_SIZE,URM_SIZE, 0);
 
     }
 
@@ -129,7 +129,7 @@ public class PausePanel {
 
     }
 
-    private boolean isIn(MouseEvent e, PauseButton b) {
+    private boolean isIn(MouseEvent e, Button b) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
 }
