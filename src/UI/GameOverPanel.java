@@ -1,7 +1,6 @@
 package UI;
 
-import GameStates.GameState;
-import GameStates.Playing;
+import GameStates.*;
 import Interfaces.IStateMethod;
 import Main.GamePanel;
 import Utils.*;
