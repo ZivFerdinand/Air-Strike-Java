@@ -13,7 +13,6 @@ import static Utils.Constants.Path.*;
 
 public class PlayerPlane extends Object implements IGameStandard {
     private AudioPlayer audioPlayer;
-    private int counterPassed = 0;
     private int healthMax = Constants.Health.PLAYER_HEALTH;
     private int healthBackPos = 0;
     private final int playerSpeedX = 3, playerSpeedY = 2;
@@ -34,10 +33,10 @@ public class PlayerPlane extends Object implements IGameStandard {
     private boolean isLeft;
 
     public PlayerPlane() {
-        super((GamePanel.GAME_WIDTH - 150) / 2, 600, 7, 40, 135, 75, PLAYER_PLANE, Constants.ObjectSizeData.PLAYER_PLANE);
+        super((GamePanel.GAME_WIDTH - 150) / 2, 600, 7, 40, 135, 75, PLAYER_PLANE, Constants.ObjectSizeData.PLAYER_PLANE, 0);
         this.audioPlayer = new AudioPlayer();
         importImgShadow();
-        laserInstantiate(23);
+        laserInstantiate();
         loadAnimations();
     }
 
@@ -50,7 +49,7 @@ public class PlayerPlane extends Object implements IGameStandard {
         healthPosX = 50;
         counterPassed = counterAudio = 0;
         laserPlaneShoot.clear();
-        laserInstantiate(23);
+        laserInstantiate();
     }
 
     private void loadAnimations() {
@@ -171,8 +170,8 @@ public class PlayerPlane extends Object implements IGameStandard {
         }
     }
 
-    private void laserInstantiate(int count) {
-        for (int i = 0; i < count; i++) {
+    private void laserInstantiate() {
+        for (int i = 0; i < 23; i++) {
             laserPlaneShoot.add(new LaserPlane((int) posX, (int) posY));
         }
     }

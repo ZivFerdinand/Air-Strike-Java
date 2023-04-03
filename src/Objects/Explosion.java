@@ -16,7 +16,6 @@ public class Explosion extends Object implements IGameStandard {
     private BufferedImage currAnimation;
     private BufferedImage[] animations = new BufferedImage[36];
 
-    private int counterPassed = 0;
     private int animIndex = 0;
     private int score;
     private int healthReduce;
@@ -26,7 +25,7 @@ public class Explosion extends Object implements IGameStandard {
     private boolean isAnimating = false;
     private boolean isPlayerDeath = false;
     public Explosion(ObjectSize objectSize, ObjectSize imageSize) {
-        super(0, 0, 0, 0, 0, 0, EXPLOSION, imageSize);
+        super(0, 0, 0, 0, 0, 0, EXPLOSION, imageSize, BackgroundManager.backgroundMovementSpeed);
         this.score = 0;
         this.audioPlayer = new AudioPlayer();
         this.fontGenerator = new FontGenerator();
@@ -72,7 +71,7 @@ public class Explosion extends Object implements IGameStandard {
 
     public void update() {
         if(!isPlayerDeath)
-            posY += BackgroundManager.backgroundMovementSpeed;
+            posY += speed;
         updateAnimation();
     }
     public void render(Graphics g) {

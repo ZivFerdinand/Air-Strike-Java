@@ -14,13 +14,12 @@ public class Coin extends Object {
     private BufferedImage[] animations = new BufferedImage[5];
     private int expWidth, expHeight;
     private int plusRenderX, plusRenderY;
-    private int counterPassed = 0;
     private int animIndex = 0;
     private int fontSize = 50;
     private boolean isAnimating = false;
 
     public Coin(ObjectSize imageSize) {
-        super(0, 0, 0, 0, imageSize.w, imageSize.h, COIN, imageSize);
+        super(0, 0, 0, 0, imageSize.w, imageSize.h, COIN, imageSize, BackgroundManager.backgroundMovementSpeed);
         this.expWidth = imageSize.w;
         this.expHeight = imageSize.h;
         this.fontGenerator = new FontGenerator();
@@ -54,7 +53,7 @@ public class Coin extends Object {
 
     public void update() {
         updateHitBox();
-        posY += BackgroundManager.backgroundMovementSpeed;
+        posY += speed;
         updateAnimation();
     }
 

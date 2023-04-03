@@ -65,7 +65,7 @@ public class Constants {
     }
 
     public static class Health{
-        public static int PLAYER_HEALTH = 5;
+        public static int PLAYER_HEALTH = 50;
         public static int HELICOPTER_HEALTH = 10;
         public static int UFO_HEALTH = 20;
     }

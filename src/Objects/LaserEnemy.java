@@ -14,7 +14,7 @@ public class LaserEnemy extends Object implements ILaser,IGameStandard {
     private int totalMvmt = 0;
 
     public LaserEnemy(int posX, int posY, int laserSpeedX, int laserSpeedY) {
-        super(posX, posY,85, 85, 31, 32, LASER_ENEMY, ENEMY_LASER);
+        super(posX, posY,85, 85, 31, 32, LASER_ENEMY, ENEMY_LASER, 4);
         this.initPosX = posX;
         this.initPosY = posY;
         this.laserSpeedX = laserSpeedX;
@@ -51,7 +51,7 @@ public class LaserEnemy extends Object implements ILaser,IGameStandard {
 
         posY += laserSpeedY;
         posX += laserSpeedX;
-        totalMvmt += 4;
+        totalMvmt += speed;
     }
 
     public int getPosY() {

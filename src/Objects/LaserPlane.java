@@ -8,12 +8,11 @@ import Interfaces.ILaser;
 import static Utils.Constants.Path.*;
 import static Utils.Constants.ObjectSizeData.*;
 public class LaserPlane extends Object implements ILaser, IGameStandard{
-    private final int laserSpeed = 4;
     private final int initPosX, initPosY;
     private int totalMvmt = 0;
 
     public LaserPlane(int posX, int posY) {
-        super(posX, posY,70, 0, 10, 38, LASER, PLAYER_LASER);
+        super(posX, posY,70, 0, 10, 38, LASER, PLAYER_LASER, 4);
         this.initPosX = posX;
         this.initPosY = posY;
     }
@@ -49,8 +48,8 @@ public class LaserPlane extends Object implements ILaser, IGameStandard{
     private void updatePosition()
     {
 
-        posY -= laserSpeed;
-        totalMvmt += laserSpeed;
+        posY -= speed;
+        totalMvmt += speed;
     }
     public int getPosY() {
         return (int)posY;

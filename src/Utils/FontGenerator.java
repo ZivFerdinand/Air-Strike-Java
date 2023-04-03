@@ -61,6 +61,7 @@ public class FontGenerator {
         if (health <= 15) {
             g.setColor(Color.RED);
         }
+        g.setFont(g.getFont().deriveFont(Font.PLAIN, fontSize));
     }
 
     public void drawExclamationMark(Graphics g, int x) {
@@ -76,12 +77,12 @@ public class FontGenerator {
         setFontSizeColor(g, fontSize, Color.WHITE);
         g.drawString(String.format("%08d", score), 510, 100);
 
-        healthStatusUpdate(g, health, fontSize);
         setFontSizeColor(g, fontSize, Color.WHITE);
+        healthStatusUpdate(g, health, fontSize);
         g.drawString("" + health + "%", 140, 100);
 
+        setFontSizeColor(g, 18.5f, 255, 255, 255, opacity);
         pauseBlinking(g);
-        setFontSizeColor(g, fontSize, 255, 255, 255, opacity);
         g.drawString("\'ESC\' -> PAUSE", 55, 45);
     }
 

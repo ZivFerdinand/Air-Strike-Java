@@ -24,19 +24,17 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
 
     private int totalMvmt;
     private int health;
-    private int enemySpeed = 1;
 
     private Playing playing;
 
     private ArrayList<LaserEnemy> laserShoot = new ArrayList<LaserEnemy>();
-
 
     public void setHitting(boolean isHitting) {
         this.isHitting = isHitting;
     }
 
     public EnemyUFO(Playing playing) {
-        super(1000, -200, 0, 0, 200, 200, Path.ENEMY_UFO, Constants.ObjectSizeData.ENEMY_UFO);
+        super(1000, -200, 0, 0, 200, 200, Path.ENEMY_UFO, Constants.ObjectSizeData.ENEMY_UFO, 1);
         this.audioPlayer = new AudioPlayer();
         this.playing = playing;
         fontGenerator = new FontGenerator();
@@ -46,8 +44,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
         laserInstantiate(5);
     }
 
-    public void reset()
-    {
+    public void reset() {
         resetPosition();
     }
 
@@ -55,8 +52,8 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
         updateHitBox();
         laserUpdateHitBox();
         updateAnimation();
-        posY += enemySpeed;
-        totalMvmt += enemySpeed;
+        posY += speed;
+        totalMvmt += speed;
 
         if (totalMvmt % 30 == 0) {
 
@@ -66,6 +63,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
             resetPosition();
         }
     }
+
     private void laserUpdateHitBox() {
         for (int i = 0; i < laserShoot.size(); i++) {
             laserShoot.get(i).updateHitBox();
@@ -83,8 +81,8 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
     public ArrayList<LaserEnemy> getLaserShoot() {
         return laserShoot;
     }
-    private void laserUpdate(Graphics g)
-    {
+
+    private void laserUpdate(Graphics g) {
         for (int i = 0; i < laserShoot.size(); i++) {
             if (!laserShoot.get(i).checkHasMoved()) {
                 laserShoot.get(i).resetPos((int) posX, (int) posY);
@@ -112,22 +110,28 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
 
         if (health < 0) {
             healthReset();
-            playing.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_UFO_LASER_POINT, Constants.DamageDealer.UFO_REDUCE, false);
-            playing.getCoins().get(0).startAnimation(posX + Assist.getRandomNumber(0, 200), posY + Assist.getRandomNumber(0, 192));
-            playing.getCoins().get(1).startAnimation(posX + Assist.getRandomNumber(0, 200), posY +Assist.getRandomNumber(0, 192));
-            playing.getCoins().get(2).startAnimation(posX + Assist.getRandomNumber(0, 200), posY +Assist.getRandomNumber(0, 192));
+            playing.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_UFO_LASER_POINT,
+                    Constants.DamageDealer.UFO_REDUCE, false);
+            playing.getCoins().get(0).startAnimation(posX + Assist.getRandomNumber(0, 200),
+                    posY + Assist.getRandomNumber(0, 192));
+            playing.getCoins().get(1).startAnimation(posX + Assist.getRandomNumber(0, 200),
+                    posY + Assist.getRandomNumber(0, 192));
+            playing.getCoins().get(2).startAnimation(posX + Assist.getRandomNumber(0, 200),
+                    posY + Assist.getRandomNumber(0, 192));
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             audioPlayer.playDestroySound();
             Playing.score.setScore(Constants.DamageDealer.ENEMY_UFO_LASER_POINT);
         }
     }
+
     public void destroyObjectFromScreen(PlayerPlane playerPlane) {
         health--;
 
         if (health < 0) {
             healthReset();
-            playing.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT, Constants.DamageDealer.UFO_REDUCE, true);
+            playing.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT,
+                    Constants.DamageDealer.UFO_REDUCE, true);
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             audioPlayer.playDestroySound();
@@ -151,31 +155,30 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
     private void updateAnimation() {
         if (isHitting) {
             currAnimation = imgHitting[animIndex];
-            if(counterPassed++ % 10 == 0){
-                animIndex++; counterPassed=0;}
+            if (counterPassed++ % 10 == 0) {
+                animIndex++;
+                counterPassed = 0;
+            }
             if (animIndex >= imgHitting.length) {
                 animIndex = 0;
                 isHitting = false;
             }
-        }
-        else {
+        } else {
             currAnimation = this.img;
         }
     }
-
 
     public void render(Graphics g) {
         laserUpdate(g);
         g.drawImage(imgShadow, (int) posX - 50, (int) posY + 125, 150, 150, null);
         g.drawImage(currAnimation, (int) posX, (int) posY, imageWidth, imageHeight, null);
 
-        if(posY >= Constants.InitialPosition.UFO_INITIAL_POS_Y && posY <= -imageHeight)
-        {
-            fontGenerator.drawExclamationMark(g, (int)posX + 20);
+        if (posY >= Constants.InitialPosition.UFO_INITIAL_POS_Y && posY <= -imageHeight) {
+            fontGenerator.drawExclamationMark(g, (int) posX + 20);
         }
     }
-    public void healthReset()
-    {
+
+    public void healthReset() {
         health = Constants.Health.UFO_HEALTH;
     }
 }

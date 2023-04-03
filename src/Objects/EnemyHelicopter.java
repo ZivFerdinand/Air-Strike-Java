@@ -19,16 +19,14 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
 
     private boolean isHitting = false;
     
-    private int counterPassed = 0;
     private int animIndex = 0;
     private int health;
-    private int enemySpeed = 3;
     private int totalMvmt;
     private Playing playing;
     
     public EnemyHelicopter(Playing playing) {
         super(50, Constants.InitialPosition.HELICOPTER_INITIAL_POS_Y, 40, 1, 50, 129, Path.ENEMY_HELICOPTER,
-                Constants.ObjectSizeData.ENEMY_HELICOPTER);
+                Constants.ObjectSizeData.ENEMY_HELICOPTER, 3);
         this.playing = playing;
         this.fontGenerator = new FontGenerator();
         totalMvmt = 0;
@@ -64,8 +62,8 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
     private void updatePosition()
     {
 
-        posY += enemySpeed;
-        totalMvmt += enemySpeed;
+        posY += speed;
+        totalMvmt += speed;
         if (totalMvmt >= GamePanel.GAME_HEIGHT + 400) {
             resetPosition();
         }
@@ -102,7 +100,7 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
         healthReset();
         posY = Constants.InitialPosition.HELICOPTER_INITIAL_POS_Y;
         totalMvmt = 0;
-        enemySpeed = Assist.getRandomNumber(2, 3);
+        speed = Assist.getRandomNumber(2, 3);
 
         posX = Assist.getRandomNumber(100, GamePanel.GAME_WIDTH - 100);
     }

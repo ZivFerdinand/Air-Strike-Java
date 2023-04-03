@@ -14,8 +14,10 @@ public abstract class Object {
     protected Rectangle hitBox;
     protected BufferedImage img;
 
+    protected int counterPassed, speed;
+
     public Object(float posX, float posY, float hitBoxX, float hitBoxY, int hitBoxWidth, int hitBoxHeight, String path,
-            ObjectSize objectSize) {
+            ObjectSize objectSize, int speed) {
         this.posX = posX;
         this.posY = posY;
         this.hitBoxX = hitBoxX;
@@ -24,7 +26,8 @@ public abstract class Object {
         this.hitBoxHeight = hitBoxHeight;
         this.imageWidth = objectSize.w;
         this.imageHeight = objectSize.h;
-
+        this.counterPassed = 0;
+        this.speed = speed;
         initHitBox();
         importImg(path);
     }
