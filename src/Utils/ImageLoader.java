@@ -1,5 +1,6 @@
 package Utils;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,5 +26,19 @@ public class ImageLoader {
         return img;
     }
 
-    
+    public static BufferedImage rotate(BufferedImage img, int degree) {
+
+        int width = img.getWidth();
+        int height = img.getHeight();
+
+        BufferedImage newImage = new BufferedImage(img.getWidth(), img.getHeight(), img.getType());
+
+        Graphics2D g2 = newImage.createGraphics();
+
+        g2.rotate(Math.toRadians(degree), width / 2,
+                height / 2);
+        g2.drawImage(img, null, 0, 0);
+
+        return newImage;
+    }
 }

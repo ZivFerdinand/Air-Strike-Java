@@ -9,24 +9,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 
+import static Utils.Constants.ObjectSizeData.*;
 import static Utils.Constants.Path.*;
 import static Utils.Constants.UIData.URMButtons.*;
 
-public class GameOverPanel implements IStateMethod {
-    private Playing playing;
-    private BufferedImage img;
+public class GameOverPanel extends Panels implements IStateMethod {
     private FontGenerator fontGenerator;
-    private int imgX, imgY, imgW, imgH;
     private URMButton menu, play;
 
     public GameOverPanel(Playing playing) {
-		this.playing = playing;
+        super(playing);
         this.fontGenerator = new FontGenerator();
-		createImg();
+        loadBackground(GAMEOVER_PANEL, GAMEOVER_PANEL_SPRITE);
         createButtons();
-	}
+    }
 
     private void createButtons() {
         int menuX = 470;
@@ -36,24 +33,16 @@ public class GameOverPanel implements IStateMethod {
         menu = new URMButton(menuX, y, URM_SIZE, URM_SIZE, 2, URM_BUTTONS);
     }
 
-    private void createImg() {
-        img = ImageLoader.GetSpriteAtlas(DEATH_PANEL);
-        imgW = Constants.ObjectSizeData.GAMEOVER_PANEL.w;
-        imgH = Constants.ObjectSizeData.GAMEOVER_PANEL.h;
-        imgX = GamePanel.GAME_WIDTH / 2 - imgW / 2;
-        imgY = GamePanel.GAME_HEIGHT / 2 - imgH / 2;
-    }
-
     public void draw(Graphics g) {
         g.setColor(new Color(0, 0, 0, 200));
         g.fillRect(0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT);
 
-        g.drawImage(img, imgX, imgY, imgW, imgH, null);
+        g.drawImage(backgroundImg, bgX, bgY, bgW, bgH, null);
 
         menu.draw(g);
         play.draw(g);
 
-        fontGenerator.showScore(g, 30, 515, 350);
+        fontGenerator.drawScoreOnDeath(g, 30, 515, 350);
     }
 
     public void update() {
@@ -61,31 +50,30 @@ public class GameOverPanel implements IStateMethod {
         play.update();
     }
 
+    @Override
     public void keyPressed(KeyEvent e) {
 
     }
 
-    private boolean isIn(URMButton b, MouseEvent e) {
-        return b.getBounds().contains(e.getX(), e.getY());
-    }
-
+    @Override
     public void mouseMoved(MouseEvent e) {
         play.setMouseOver(false);
         menu.setMouseOver(false);
 
-        if (isIn(menu, e))
+        if (isIn(e, menu))
             menu.setMouseOver(true);
-        else if (isIn(play, e))
+        else if (isIn(e, play))
             play.setMouseOver(true);
     }
 
+    @Override
     public void mouseReleased(MouseEvent e) {
-        if (isIn(menu, e)) {
+        if (isIn(e, menu)) {
             if (menu.isMousePressed()) {
                 GameState.setState(GameState.MENU);
                 playing.resetClasses();
             }
-        } else if (isIn(play, e)){
+        } else if (isIn(e, play)) {
             if (play.isMousePressed()) {
                 GameState.setState(GameState.PLAYING);
                 playing.resetClasses();
@@ -96,10 +84,11 @@ public class GameOverPanel implements IStateMethod {
         play.resetBools();
     }
 
+    @Override
     public void mousePressed(MouseEvent e) {
-        if (isIn(menu, e))
+        if (isIn(e, menu))
             menu.setMousePressed(true);
-        else if (isIn(play, e))
+        else if (isIn(e, play))
             play.setMousePressed(true);
     }
 

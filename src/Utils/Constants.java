@@ -57,11 +57,11 @@ public class Constants {
         public static String COIN = "/res/sprite/Coin.png";
         public static String HEALTH_ICON = "/res/sprite/Health-Icon.png";
 
-        public static String PAUSE_PANEL = "/res/sprite/Pause-Menu.png";
+        public static String PAUSE_PANEL_SPRITE = "/res/sprite/Pause-Menu.png";
         public static String URM_BUTTONS = "/res/sprite/URM-Buttons.png";
         public static String PAUSE_BUTTON = "/res/sprite/Pause-Button.png";
         public static String CHOOSE_MAP = "/res/sprite/Choose-Map-Title.png";
-        public static String DEATH_PANEL = "/res/sprite/Death-Panel.png";
+        public static String GAMEOVER_PANEL_SPRITE = "/res/sprite/Death-Panel.png";
     }
 
     public static class Health{
@@ -86,6 +86,7 @@ public class Constants {
         public static ObjectSize STAR = new ObjectSize(25, 25);
         public static ObjectSize PAUSE_PANEL = new ObjectSize(516, 440);
         public static ObjectSize GAMEOVER_PANEL = new ObjectSize(516, 516);
+
     }
 }
 

@@ -7,15 +7,15 @@ import java.awt.image.BufferedImage;
 import Utils.ImageLoader;
 
 public abstract class Object {
-    protected BufferedImage img;
     protected float posX, posY;
     protected float hitBoxX, hitBoxY;
     protected int hitBoxWidth, hitBoxHeight;
-    protected Rectangle hitBox;
-
     protected int imageWidth, imageHeight;
+    protected Rectangle hitBox;
+    protected BufferedImage img;
 
-    public Object(float posX, float posY, float hitBoxX, float hitBoxY, int hitBoxWidth, int hitBoxHeight, String path, ObjectSize objectSize) {
+    public Object(float posX, float posY, float hitBoxX, float hitBoxY, int hitBoxWidth, int hitBoxHeight, String path,
+            ObjectSize objectSize) {
         this.posX = posX;
         this.posY = posY;
         this.hitBoxX = hitBoxX;
@@ -28,21 +28,21 @@ public abstract class Object {
         initHitBox();
         importImg(path);
     }
-    public int getPosX()
-    {
-        return (int)posX;
+
+    public int getPosX() {
+        return (int) posX;
     }
-    public int getPosY()
-    {
+
+    public int getPosY() {
         return (int) posY;
-    }
-    protected void drawHitBox(Graphics g) {
-        g.setColor(Color.GREEN);
-        g.drawRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
     }
 
     private void initHitBox() {
         hitBox = new Rectangle((int) hitBoxX, (int) hitBoxY, hitBoxWidth, hitBoxHeight);
+    }
+
+    private void importImg(String path) {
+        img = ImageLoader.GetSpriteAtlas(path);
     }
 
     public void updateHitBox() {
@@ -50,11 +50,12 @@ public abstract class Object {
         hitBox.y = (int) posY + (int) hitBoxY;
     }
 
-    private void importImg(String path) {
-        img = ImageLoader.GetSpriteAtlas(path);
-    }
-
     public Rectangle getHitBox() {
         return hitBox;
+    }
+
+    protected void drawDebuggingHitBox(Graphics g) {
+        g.setColor(Color.GREEN);
+        g.drawRect(hitBox.x, hitBox.y, hitBox.width, hitBox.height);
     }
 }

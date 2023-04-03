@@ -113,8 +113,8 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
         if (health < 0) {
             healthReset();
             playing.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, false);
-            playing.getCoin().get(3).startAnimation(posX + Assist.getRandomNumber(0, 100), posY + Assist.getRandomNumber(0, 96));
-            playing.getCoin().get(4).startAnimation(posX+ Assist.getRandomNumber(0, 100), posY+Assist.getRandomNumber(0, 96));
+            playing.getCoins().get(3).startAnimation(posX + Assist.getRandomNumber(0, 100), posY + Assist.getRandomNumber(0, 96));
+            playing.getCoins().get(4).startAnimation(posX+ Assist.getRandomNumber(0, 100), posY+Assist.getRandomNumber(0, 96));
 
             posY = GamePanel.GAME_HEIGHT + 1000;
             Playing.score.setScore(Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT);

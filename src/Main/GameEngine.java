@@ -13,14 +13,13 @@ public class GameEngine implements Runnable {
     private Menu menu;
     private Option option;
 
-
     public GameEngine() {
         audioPlayer = new AudioPlayer();
         initClasses();
         gamePanel = new GamePanel(this);
         new GameFrame(gamePanel, this);
-        gamePanel.requestFocus();
         startGameLoop();
+        gamePanel.requestFocus();
     }
 
     private void startGameLoop() {

@@ -27,15 +27,13 @@ public class Option extends State implements IStateMethod {
         instantiateHitBox();
         loadBackground();
 
-        currMap1 = map1;
-        currMap2 = map2;
     }
 
     private void loadBackground() {
         backgroundImg = ImageLoader.GetSpriteAtlas(MAIN_MENU_BG);
         map1 = ImageLoader.GetSpriteAtlas(MAP_1);
         map2 = ImageLoader.GetSpriteAtlas(MAP_2);
-        
+
         map1_Hvr = ImageLoader.GetSpriteAtlas(MAP_1_HVR);
         map2_Hvr = ImageLoader.GetSpriteAtlas(MAP_2_HVR);
 
@@ -43,11 +41,9 @@ public class Option extends State implements IStateMethod {
         map2_Clk = ImageLoader.GetSpriteAtlas(MAP_2_CLK);
 
         chooseMapImg = ImageLoader.GetSpriteAtlas(CHOOSE_MAP);
-    }
 
-
-    @Override
-    public void update() {
+        currMap1 = map1;
+        currMap2 = map2;
     }
 
     private void instantiateHitBox() {
@@ -55,13 +51,20 @@ public class Option extends State implements IStateMethod {
         map2_HB = new Rectangle(660, 100, 300, 600);
     }
 
-    int x = 320;
+    private void moveScene() {
+        GameState.setState(GameState.PLAYING);
+        audioPlayer.playSelectSound();
+    }
+
+    @Override
+    public void update() {
+    }
 
     @Override
     public void draw(Graphics g) {
         g.drawImage(backgroundImg, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
         g.drawImage(chooseMapImg, 499, 40, 282, 96, null);
-        g.drawImage(currMap1, x, 150, 300, 600, null);
+        g.drawImage(currMap1, 320, 150, 300, 600, null);
         g.drawImage(currMap2, 660, 150, 300, 600, null);
     }
 
@@ -91,13 +94,6 @@ public class Option extends State implements IStateMethod {
             BackgroundManager.isFirstMap = false;
             moveScene();
         }
-
-    }
-
-    private void moveScene() {
-        GameState.state = GameState.PLAYING;
-        GameEngine.audioPlayer.playSong(AudioPlayer.LEVEL_1);
-        audioPlayer.playSelectSound();
     }
 
     @Override

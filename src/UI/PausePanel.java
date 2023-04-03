@@ -4,26 +4,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import GameStates.GameState;
 import GameStates.Playing;
 import Interfaces.IStateMethod;
 import Main.GamePanel;
-import Utils.ImageLoader;
-import Utils.Constants.ObjectSizeData;
 
-import static Utils.Constants.UIData.URMButtons.URM_SIZE;
+import static Utils.Constants.ObjectSizeData.*;
+import static Utils.Constants.UIData.URMButtons.*;
 import static Utils.Constants.Path.*;
 
-public class PausePanel implements IStateMethod{
-    private Playing playing;
-    private BufferedImage backgroundImg;
-    private int bgX, bgY, bgW, bgH;
+public class PausePanel extends Panels implements IStateMethod{
     private URMButton menuB, replayB, unpauseB;
 
     public PausePanel(Playing playing) {
-		this.playing = playing;
-		loadBackground();
+        super(playing);
+		loadBackground(PAUSE_PANEL, PAUSE_PANEL_SPRITE);
 		createURMButtons();
 	}
     
@@ -37,14 +32,6 @@ public class PausePanel implements IStateMethod{
         replayB = new URMButton(replayX, bY,URM_SIZE,URM_SIZE, 1, URM_BUTTONS);
         unpauseB = new URMButton(unpauseX, bY,URM_SIZE,URM_SIZE, 0, URM_BUTTONS);
 
-    }
-
-    private void loadBackground() {
-        backgroundImg = ImageLoader.GetSpriteAtlas(PAUSE_PANEL);
-        bgW = ObjectSizeData.PAUSE_PANEL.w;
-        bgH = ObjectSizeData.PAUSE_PANEL.h;
-        bgX = GamePanel.GAME_WIDTH / 2 - bgW / 2;
-        bgY = GamePanel.GAME_HEIGHT / 2 - bgH / 2;
     }
 
     public void update() {
@@ -64,6 +51,7 @@ public class PausePanel implements IStateMethod{
         unpauseB.draw(g);
     }
 
+    @Override
     public void mousePressed(MouseEvent e) {
         if (isIn(e, menuB))
             menuB.setMousePressed(true);
@@ -73,6 +61,7 @@ public class PausePanel implements IStateMethod{
             unpauseB.setMousePressed(true);
     }
 
+    @Override
     public void mouseReleased(MouseEvent e) {
         if (isIn(e, menuB)) {
             if (menuB.isMousePressed()) {
@@ -98,6 +87,7 @@ public class PausePanel implements IStateMethod{
         unpauseB.resetBools();
     }
 
+    @Override
     public void mouseMoved(MouseEvent e) {
         menuB.setMouseOver(false);
         replayB.setMouseOver(false);
@@ -110,10 +100,6 @@ public class PausePanel implements IStateMethod{
         else if (isIn(e, unpauseB))
             unpauseB.setMouseOver(true);
 
-    }
-
-    private boolean isIn(MouseEvent e, Button b) {
-        return b.getBounds().contains(e.getX(), e.getY());
     }
 
     @Override

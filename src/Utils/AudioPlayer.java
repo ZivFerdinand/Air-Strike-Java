@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.BooleanControl;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
@@ -22,7 +21,6 @@ public class AudioPlayer {
     private Clip[] songs, effects;
     private int currentSongId;
     private float volume = 1f;
-    private boolean songMute, effectMute;
 
     public AudioPlayer() {
         loadSongs();
@@ -64,12 +62,6 @@ public class AudioPlayer {
 
     }
 
-    public void setVolume(float volume) {
-        this.volume = volume;
-        updateSongVolume();
-        updateEffectsVolume(0);
-    }
-
     public void stopSong() {
         if (songs[currentSongId].isActive())
             songs[currentSongId].stop();
@@ -79,19 +71,21 @@ public class AudioPlayer {
         playSong(LEVEL_1);
     }
 
-
     public void playAttackSound() {
         updateEffectsVolume(30);
         playEffect(0);
     }
+
     public void playDestroySound() {
         updateEffectsVolume(20);
         playEffect(1);
     }
+
     public void playHitSound() {
         updateEffectsVolume(10);
         playEffect(2);
     }
+
     public void playSelectSound() {
         updateEffectsVolume(10);
         playEffect(3);
@@ -111,26 +105,7 @@ public class AudioPlayer {
         songs[currentSongId].loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    public void toggleSongMute() {
-        this.songMute = !songMute;
-        for (Clip c : songs) {
-            BooleanControl booleanControl = (BooleanControl) c.getControl(BooleanControl.Type.MUTE);
-            booleanControl.setValue(songMute);
-        }
-    }
-
-    public void toggleEffectMute() {
-        this.effectMute = !effectMute;
-        for (Clip c : effects) {
-            BooleanControl booleanControl = (BooleanControl) c.getControl(BooleanControl.Type.MUTE);
-            booleanControl.setValue(effectMute);
-        }
-//        if (!effectMute)
-//            playEffect(JUMP);
-    }
-
     private void updateSongVolume() {
-
         FloatControl gainControl = (FloatControl) songs[currentSongId].getControl(FloatControl.Type.MASTER_GAIN);
         float range = gainControl.getMaximum() - gainControl.getMinimum();
         float gain = (range * volume) + gainControl.getMinimum();
@@ -146,5 +121,4 @@ public class AudioPlayer {
             gainControl.setValue(gain - reduce);
         }
     }
-
 }

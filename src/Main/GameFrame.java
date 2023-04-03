@@ -12,6 +12,7 @@ public class GameFrame {
     public GameFrame(GamePanel gamePanel, GameEngine gameEngine) {
 
         JFrame jFrame = new JFrame();
+        ImageIcon image = new ImageIcon(ICON);
 
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.add(gamePanel);
@@ -20,7 +21,6 @@ public class GameFrame {
         jFrame.pack();
         jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
-        ImageIcon image = new ImageIcon(ICON);
         jFrame.setIconImage(image.getImage());
         jFrame.addWindowFocusListener(new WindowFocusListener() {
             @Override

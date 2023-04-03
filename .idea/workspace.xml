@@ -5,8 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73b5f575-a523-4217-923e-fa6b56053c65" name="Changes" comment="Finished Moving Plane Animation">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Background/BackgroundManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Background/BackgroundManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Collision/CollisionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Collision/CollisionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameStates/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameStates/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameStates/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameStates/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameStates/Option.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameStates/Option.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameStates/Playing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameStates/Playing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/GameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/Score.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Score.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Objects/Coin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Objects/Coin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Objects/EnemyHelicopter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Objects/EnemyHelicopter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Objects/EnemyUFO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Objects/EnemyUFO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Objects/Explosion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Objects/Explosion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Objects/Object.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Objects/Object.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/Button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/GameOverPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/GameOverPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UI/MenuButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/MenuButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/UI/PausePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UI/PausePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Assist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Assist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/AudioPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/AudioPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/FontGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/FontGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/ImageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/ImageLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/ObjectSize.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/ObjectSize.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

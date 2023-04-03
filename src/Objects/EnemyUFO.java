@@ -60,7 +60,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
 
         if (totalMvmt % 30 == 0) {
 
-            img = Assist.rotate(img, -90);
+            img = ImageLoader.rotate(img, -90);
         }
         if (totalMvmt >= GamePanel.GAME_HEIGHT + 600) {
             resetPosition();
@@ -113,9 +113,9 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
         if (health < 0) {
             healthReset();
             playing.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_UFO_LASER_POINT, Constants.DamageDealer.UFO_REDUCE, false);
-            playing.getCoin().get(0).startAnimation(posX + Assist.getRandomNumber(0, 200), posY + Assist.getRandomNumber(0, 192));
-            playing.getCoin().get(1).startAnimation(posX + Assist.getRandomNumber(0, 200), posY +Assist.getRandomNumber(0, 192));
-            playing.getCoin().get(2).startAnimation(posX + Assist.getRandomNumber(0, 200), posY +Assist.getRandomNumber(0, 192));
+            playing.getCoins().get(0).startAnimation(posX + Assist.getRandomNumber(0, 200), posY + Assist.getRandomNumber(0, 192));
+            playing.getCoins().get(1).startAnimation(posX + Assist.getRandomNumber(0, 200), posY +Assist.getRandomNumber(0, 192));
+            playing.getCoins().get(2).startAnimation(posX + Assist.getRandomNumber(0, 200), posY +Assist.getRandomNumber(0, 192));
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             audioPlayer.playDestroySound();

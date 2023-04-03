@@ -3,20 +3,19 @@ package Objects;
 import Background.BackgroundManager;
 import GameStates.Playing;
 import Main.GamePanel;
-import Utils.FontGenerator;
-import Utils.ObjectSize;
+import Utils.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import static Utils.Constants.Path.*;
 
-public class Coin extends Object{
+public class Coin extends Object {
     private FontGenerator fontGenerator;
     private BufferedImage currAnimation;
     private BufferedImage[] animations = new BufferedImage[5];
     private int expWidth, expHeight;
     private int plusRenderX, plusRenderY;
     private int counterPassed = 0;
-    private int animIndex= 0;
+    private int animIndex = 0;
     private int fontSize = 50;
     private boolean isAnimating = false;
 
@@ -35,8 +34,7 @@ public class Coin extends Object{
     }
 
     private void updateAnimation() {
-        if(posY > 50 + GamePanel.GAME_HEIGHT)
-        {
+        if (posY > 50 + GamePanel.GAME_HEIGHT) {
             isAnimating = false;
         }
         if (isAnimating) {
@@ -59,22 +57,24 @@ public class Coin extends Object{
         posY += BackgroundManager.backgroundMovementSpeed;
         updateAnimation();
     }
+
     public void render(Graphics g) {
 
         if (isAnimating) {
             g.drawImage(currAnimation, (int) posX, (int) posY, expWidth, expHeight, null);
-            if(fontSize > 10)
-                fontGenerator.renderPlus(g, fontSize, plusRenderX, plusRenderY);
+            if (fontSize > 10)
+                fontGenerator.drawPointsTaken(g, fontSize, plusRenderX, plusRenderY);
         }
     }
-    public void resetPosition()
-    {
+
+    public void resetPosition() {
         Playing.score.setScore(5);
-        plusRenderX = (int)posX;
-        plusRenderY = (int)posY;
+        plusRenderX = (int) posX;
+        plusRenderY = (int) posY;
         fontSize = 30;
         this.posX = this.posY = -100;
     }
+
     public void startAnimation(float posX, float posY) {
         isAnimating = true;
         fontSize = 0;

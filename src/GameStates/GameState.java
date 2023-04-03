@@ -11,16 +11,11 @@ public enum GameState {
     public static void setState(GameState state) {
         GameState.state = state;
 
-        if(state == GameState.PLAYING)
-        {
+        if (state == GameState.PLAYING) {
             GameEngine.audioPlayer.playSong(AudioPlayer.LEVEL_1);
-        }
-        else if(state == GameState.MENU)
-        {
+        } else if (state == GameState.MENU) {
             GameEngine.audioPlayer.playSong(AudioPlayer.BACKGROUND);
-        }
-        else if(state == GameState.QUIT)
-        {
+        } else if (state == GameState.QUIT) {
             System.exit(0);
         }
     }

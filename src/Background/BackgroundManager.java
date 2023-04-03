@@ -27,16 +27,8 @@ public class BackgroundManager {
     public BackgroundManager(Playing playing) {
         secondImagePosY = initSecondImagePosY;
         firstImagePosY = initFirstImagePosY;
-
         this.playing = playing;
-
         importImg();
-    }
-
-    public void reset()
-    {
-        secondImagePosY = initSecondImagePosY;
-        firstImagePosY = initFirstImagePosY;
     }
 
     private void importImg() {
@@ -44,20 +36,24 @@ public class BackgroundManager {
         map1Img = ImageLoader.GetSpriteAtlas(BACKGROUND_GAME_1);
     }
 
-    public void render(Graphics g) {
-        if(checkStatusToUpdate())
-            updateBackgroundPosition();
-        g.drawImage(backgroundImage, 0, firstImagePosY, backgroundWidth, backgroundHeight, null);
-        validateSubtractImage(g);
-        
-        if(checkStatusToUpdate())
-            validateResetImage();
+    public void reset() {
+        secondImagePosY = initSecondImagePosY;
+        firstImagePosY = initFirstImagePosY;
     }
 
-    private boolean checkStatusToUpdate()
-    {
+    public void render(Graphics g) {
+        if (checkStatusToUpdate()) {
+            updateBackgroundPosition();
+            validateResetImage();
+        }
+        g.drawImage(backgroundImage, 0, firstImagePosY, backgroundWidth, backgroundHeight, null);
+        validateSubtractImage(g);
+    }
+
+    private boolean checkStatusToUpdate() {
         return (!Playing.isPaused() && !Playing.isGameOver() && playing.getPlayerPlane().getHealth() != 0);
     }
+
     private void updateBackgroundPosition() {
         backgroundImage = (isFirstMap) ? map1Img : map2Img;
         firstImagePosY += backgroundMovementSpeed;
@@ -65,7 +61,7 @@ public class BackgroundManager {
 
     private void validateSubtractImage(Graphics g) {
         if (firstImagePosY >= 0) {
-            if(checkStatusToUpdate())
+            if (checkStatusToUpdate())
                 secondImagePosY += backgroundMovementSpeed;
             g.drawImage(backgroundImage, 0, secondImagePosY, backgroundWidth, backgroundHeight, null);
         }

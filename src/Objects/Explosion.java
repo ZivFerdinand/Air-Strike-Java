@@ -81,10 +81,10 @@ public class Explosion extends Object implements IGameStandard {
             g.drawImage(currAnimation, (int) posX, (int) posY, expWidth, expHeight, null);
 
             if(!isPlayerDeath)
-                fontGenerator.render(g, score, fontSize, (int) posX, (int) posY);
+                fontGenerator.drawScoreGained(g, score, fontSize, (int) posX, (int) posY);
 
             if (healthShow)
-                fontGenerator.renderMinus(g, healthReduce, fontSize, (int) posX + 100, (int) posY + 96);
+                fontGenerator.drawPlayerDamaged(g, healthReduce, fontSize, (int) posX + 100, (int) posY + 96);
         }
     }
 
