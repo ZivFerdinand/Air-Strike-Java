@@ -12,17 +12,16 @@ import Interfaces.IGameStandard;
 import static Utils.Constants.Path.*;
 
 public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
-    private FontGenerator fontGenerator;
-    private BufferedImage imgHittingSprite;
-    private BufferedImage[] animation = new BufferedImage[4];
-    private BufferedImage[] imgHitting = new BufferedImage[4];
+    private final FontGenerator fontGenerator;
+    private BufferedImage[] animation;
+    private BufferedImage[] imgHitting;
 
     private boolean isHitting = false;
     
     private int animIndex = 0;
     private int health;
     private int totalMvmt;
-    private Playing playing;
+    private final Playing playing;
     
     public EnemyHelicopter(Playing playing) {
         super(50, Constants.InitialPosition.HELICOPTER_INITIAL_POS_Y, 40, 1, 50, 129, Path.ENEMY_HELICOPTER,
@@ -44,10 +43,12 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
     }
 
     private void importImgAnimation() {
+        animation = new BufferedImage[4];
+        imgHitting = new BufferedImage[4];
         for (int i = 0; i < animation.length; i++) {
             animation[i] = img.getSubimage(i * 96, 0, 96, 128);
         }
-        imgHittingSprite = ImageLoader.GetSpriteAtlas(ENEMY_HELICOPTER_HIT);
+        BufferedImage imgHittingSprite = ImageLoader.GetSpriteAtlas(ENEMY_HELICOPTER_HIT);
         for (int i = 0; i < animation.length; i++) {
             imgHitting[i] = imgHittingSprite.getSubimage(i * 96, 0, 96, 128);
         }
@@ -81,7 +82,6 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
                 img = imgHitting[animIndex];
                 counterPassed = 0;
             }
-            counterPassed++;
         }
         else {
             if (counterPassed % 15 == 0) {
@@ -92,8 +92,8 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
                 img = animation[animIndex];
                 counterPassed = 0;
             }
-            counterPassed++;
         }
+        counterPassed++;
     }
 
     private void resetPosition() {

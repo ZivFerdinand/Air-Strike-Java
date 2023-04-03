@@ -8,7 +8,7 @@ import Main.*;
 
 public class KeyboardInput implements KeyListener {
 
-    private GamePanel gamePanel;
+    private final GamePanel gamePanel;
 
     public KeyboardInput(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -22,31 +22,21 @@ public class KeyboardInput implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         switch (GameState.state) {
-            case MENU:
-                gamePanel.getGameEngine().getMenu().keyReleased(e);
-                break;
-            case PLAYING:
-                gamePanel.getGameEngine().getPlaying().keyReleased(e);
-                break;
-            default:
-                break;
+            case MENU -> gamePanel.getGameEngine().getMenu().keyReleased(e);
+            case PLAYING -> gamePanel.getGameEngine().getPlaying().keyReleased(e);
+            default -> {
+            }
         }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         switch (GameState.state) {
-            case MENU:
-                gamePanel.getGameEngine().getMenu().keyPressed(e);
-                break;
-            case PLAYING:
-                gamePanel.getGameEngine().getPlaying().keyPressed(e);
-                break;
-            case SPLASH_SCREEN:
-                gamePanel.getGameEngine().getSplashScreen().keyPressed(e);
-                break;
-            default:
-                break;
+            case MENU -> gamePanel.getGameEngine().getMenu().keyPressed(e);
+            case PLAYING -> gamePanel.getGameEngine().getPlaying().keyPressed(e);
+            case SPLASH_SCREEN -> gamePanel.getGameEngine().getSplashScreen().keyPressed(e);
+            default -> {
+            }
         }
     }
 }

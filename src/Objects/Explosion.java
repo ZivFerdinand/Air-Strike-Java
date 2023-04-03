@@ -9,21 +9,24 @@ import Utils.ObjectSize;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+
 import static Utils.Constants.Path.*;
+
 public class Explosion extends Object implements IGameStandard {
-    private AudioPlayer audioPlayer;
-    private FontGenerator fontGenerator;
+    private final AudioPlayer audioPlayer;
+    private final FontGenerator fontGenerator;
     private BufferedImage currAnimation;
-    private BufferedImage[] animations = new BufferedImage[36];
+    private BufferedImage[] animations;
 
     private int animIndex = 0;
     private int score;
     private int healthReduce;
-    private int expWidth, expHeight;
+    private final int expWidth, expHeight;
     private int fontSize = 50;
     private boolean healthShow;
     private boolean isAnimating = false;
     private boolean isPlayerDeath = false;
+
     public Explosion(ObjectSize objectSize, ObjectSize imageSize) {
         super(0, 0, 0, 0, 0, 0, EXPLOSION, imageSize, BackgroundManager.backgroundMovementSpeed);
         this.score = 0;
@@ -34,11 +37,12 @@ public class Explosion extends Object implements IGameStandard {
         loadAnimations();
     }
 
-    public void reset()
-    {
+    public void reset() {
         isAnimating = false;
     }
+
     private void loadAnimations() {
+        animations = new BufferedImage[36];
         int count = 0;
         for (int j = 0; j < 6; j++)
             for (int i = 0; i < 6; i++) {
@@ -53,7 +57,7 @@ public class Explosion extends Object implements IGameStandard {
                 animIndex++;
                 fontSize--;
                 if (animIndex >= animations.length) {
-                    
+
                     animIndex = 0;
                     isAnimating = false;
                     if (isPlayerDeath) {
@@ -70,16 +74,17 @@ public class Explosion extends Object implements IGameStandard {
     }
 
     public void update() {
-        if(!isPlayerDeath)
+        if (!isPlayerDeath)
             posY += speed;
         updateAnimation();
     }
+
     public void render(Graphics g) {
         if (isAnimating) {
 
             g.drawImage(currAnimation, (int) posX, (int) posY, expWidth, expHeight, null);
 
-            if(!isPlayerDeath)
+            if (!isPlayerDeath)
                 fontGenerator.drawScoreGained(g, score, fontSize, (int) posX, (int) posY);
 
             if (healthShow)

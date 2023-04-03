@@ -22,7 +22,7 @@ public class BackgroundManager {
 
     private int firstImagePosY, secondImagePosY;
 
-    private Playing playing;
+    private final Playing playing;
 
     public BackgroundManager(Playing playing) {
         secondImagePosY = initSecondImagePosY;
@@ -34,6 +34,7 @@ public class BackgroundManager {
     private void importImg() {
         backgroundImage = ImageLoader.GetSpriteAtlas(BACKGROUND_GAME_2);
         map1Img = ImageLoader.GetSpriteAtlas(BACKGROUND_GAME_1);
+        map2Img = ImageLoader.GetSpriteAtlas(BACKGROUND_GAME_2);
     }
 
     public void reset() {

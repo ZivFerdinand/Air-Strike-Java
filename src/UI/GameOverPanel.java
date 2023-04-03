@@ -15,7 +15,7 @@ import static Utils.Constants.Path.*;
 import static Utils.Constants.UIData.URMButtons.*;
 
 public class GameOverPanel extends Panels implements IStateMethod {
-    private FontGenerator fontGenerator;
+    private final FontGenerator fontGenerator;
     private URMButton menu, play;
 
     public GameOverPanel(Playing playing) {
@@ -28,7 +28,7 @@ public class GameOverPanel extends Panels implements IStateMethod {
     private void createButtons() {
         int menuX = 470;
         int playX = 690;
-        int y = 400;
+        int y = 420;
         play = new URMButton(playX, y, URM_SIZE, URM_SIZE, 0, URM_BUTTONS);
         menu = new URMButton(menuX, y, URM_SIZE, URM_SIZE, 2, URM_BUTTONS);
     }
@@ -42,7 +42,7 @@ public class GameOverPanel extends Panels implements IStateMethod {
         menu.draw(g);
         play.draw(g);
 
-        fontGenerator.drawScoreOnDeath(g, 30, 515, 350);
+        fontGenerator.drawScoreOnDeath(g, 30, 515, 360);
     }
 
     public void update() {

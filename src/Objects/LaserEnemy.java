@@ -22,10 +22,7 @@ public class LaserEnemy extends Object implements ILaser,IGameStandard {
     }
 
     public boolean checkHasMoved() {
-        if (posX != initPosX || posY != initPosY)
-            return true;
-
-        return false;
+        return posX != initPosX || posY != initPosY;
     }
 
     public void resetPos(int posX, int posY) {

@@ -14,13 +14,9 @@ public class AudioPlayer {
     public static int BACKGROUND = 0;
     public static int LEVEL_1 = 1;
 
-    public static int LASER_SOUND = 0;
-    public static int EXPLORE_SOUND = 1;
-    public static int HIT_SOUND = 2;
-
     private Clip[] songs, effects;
     private int currentSongId;
-    private float volume = 1f;
+    private final float volume = 1f;
 
     public AudioPlayer() {
         loadSongs();
@@ -48,6 +44,7 @@ public class AudioPlayer {
         AudioInputStream audio;
 
         try {
+            assert url != null;
             audio = AudioSystem.getAudioInputStream(url);
             Clip c = AudioSystem.getClip();
             c.open(audio);
@@ -65,10 +62,6 @@ public class AudioPlayer {
     public void stopSong() {
         if (songs[currentSongId].isActive())
             songs[currentSongId].stop();
-    }
-
-    public void setLevelSong() {
-        playSong(LEVEL_1);
     }
 
     public void playAttackSound() {

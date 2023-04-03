@@ -9,10 +9,10 @@ import java.awt.image.BufferedImage;
 import static Utils.Constants.Path.*;
 
 public class Coin extends Object {
-    private FontGenerator fontGenerator;
+    private final FontGenerator fontGenerator;
     private BufferedImage currAnimation;
-    private BufferedImage[] animations = new BufferedImage[5];
-    private int expWidth, expHeight;
+    private BufferedImage[] animations;
+    private final int expWidth, expHeight;
     private int plusRenderX, plusRenderY;
     private int animIndex = 0;
     private int fontSize = 50;
@@ -27,6 +27,7 @@ public class Coin extends Object {
     }
 
     private void loadAnimations() {
+        animations = new BufferedImage[5];
         for (int i = 0; i < animations.length; i++) {
             animations[i] = img.getSubimage(i * 84, 0, 84, 84);
         }

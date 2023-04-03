@@ -4,7 +4,7 @@ import GameStates.Playing;
 
 public class Score {
     private int score;
-    private Playing playing;
+    private final Playing playing;
 
     public Score(Playing playing) {
         this.playing = playing;

@@ -6,8 +6,8 @@ public class Constants {
         public static class Buttons {
             public static final int B_WIDTH_DEFAULT = 140;
             public static final int B_HEIGHT_DEFAULT = 56;
-            public static final int B_WIDTH = (int) (B_WIDTH_DEFAULT * 2);
-            public static final int B_HEIGHT = (int) (B_HEIGHT_DEFAULT * 2);
+            public static final int B_WIDTH = (B_WIDTH_DEFAULT * 2);
+            public static final int B_HEIGHT = (B_HEIGHT_DEFAULT * 2);
         }
 
         public static class URMButtons {
@@ -66,7 +66,7 @@ public class Constants {
     }
 
     public static class Health{
-        public static int PLAYER_HEALTH = 50;
+        public static int PLAYER_HEALTH = 100;
         public static int HELICOPTER_HEALTH = 10;
         public static int UFO_HEALTH = 20;
     }

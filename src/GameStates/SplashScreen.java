@@ -16,7 +16,7 @@ import static Utils.Constants.Path.*;
 public class SplashScreen extends State implements IStateMethod {
     private BufferedImage logoTitle;
     private FontGenerator fontGenerator;
-    private AudioPlayer audioPlayer;
+    private final AudioPlayer audioPlayer;
     public static BufferedImage backgroundImg = ImageLoader.GetSpriteAtlas(MAIN_MENU_BG);
 
     public SplashScreen()
@@ -39,8 +39,8 @@ public class SplashScreen extends State implements IStateMethod {
     @Override
     public void draw(Graphics g) {
         g.drawImage(backgroundImg, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
-        g.drawImage(logoTitle, GamePanel.GAME_WIDTH / 2 - 480, GamePanel.GAME_HEIGHT / 2 - 200, 960, 400, null);
-        fontGenerator.drawInstruction(g, 40);
+        g.drawImage(logoTitle, GamePanel.GAME_WIDTH / 2 - 500, GamePanel.GAME_HEIGHT / 2 - 250, 1000, 500, null);
+        fontGenerator.drawInstruction(g);
     }
 
     @Override
@@ -65,11 +65,9 @@ public class SplashScreen extends State implements IStateMethod {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_ENTER:
-                GameState.setState(GameState.MENU);
-                audioPlayer.playSelectSound();
-                break;
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            GameState.setState(GameState.MENU);
+            audioPlayer.playSelectSound();
         }
     }
 

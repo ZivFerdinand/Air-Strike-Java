@@ -3,6 +3,7 @@ package UI;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import Utils.Constants;
 import Utils.ImageLoader;
 
 public abstract class Button {
@@ -28,25 +29,25 @@ public abstract class Button {
         createBounds();
     }
 
-    protected void loadImgs(int size) {
+    protected void loadImgs() {
         imgs = new BufferedImage[3];
         for (int i = 0; i < imgs.length; i++)
-            imgs[i] = temp.getSubimage(i * size, 0, size,
-                    size);
+            imgs[i] = temp.getSubimage(i * Utils.Constants.UIData.PauseButton.PAUSE_SIZE_DEFAULT, 0, Utils.Constants.UIData.PauseButton.PAUSE_SIZE_DEFAULT,
+                    Utils.Constants.UIData.PauseButton.PAUSE_SIZE_DEFAULT);
     }
 
-    protected void loadImgs(int size, int rowIndex) {
+    protected void loadImgs(int rowIndex) {
         imgs = new BufferedImage[3];
         for (int i = 0; i < imgs.length; i++)
-            imgs[i] = temp.getSubimage(i * size, rowIndex * size, size,
-                    size);
+            imgs[i] = temp.getSubimage(i * Utils.Constants.UIData.URMButtons.URM_SIZE_DEFAULT, rowIndex * Utils.Constants.UIData.URMButtons.URM_SIZE_DEFAULT, Utils.Constants.UIData.URMButtons.URM_SIZE_DEFAULT,
+                    Utils.Constants.UIData.URMButtons.URM_SIZE_DEFAULT);
     }
 
-    protected void loadImgs(int widthDef, int heightDef, int rowIndex) {
+    protected void loadImgs2(int rowIndex) {
         imgs = new BufferedImage[3];
         for (int i = 0; i < imgs.length; i++)
-            imgs[i] = temp.getSubimage(i * widthDef, rowIndex * heightDef, widthDef,
-                    heightDef);
+            imgs[i] = temp.getSubimage(i * Utils.Constants.UIData.Buttons.B_WIDTH_DEFAULT, rowIndex * Constants.UIData.Buttons.B_HEIGHT_DEFAULT, Utils.Constants.UIData.Buttons.B_WIDTH_DEFAULT,
+                        Constants.UIData.Buttons.B_HEIGHT_DEFAULT);
     }
 
     public void update() {
@@ -66,48 +67,8 @@ public abstract class Button {
         bounds = new Rectangle(x, y, width, height);
     }
 
-    protected int getX() {
-        return x;
-    }
-
-    protected void setX(int x) {
-        this.x = x;
-    }
-
-    protected int getY() {
-        return y;
-    }
-
-    protected void setY(int y) {
-        this.y = y;
-    }
-
-    protected int getWidth() {
-        return width;
-    }
-
-    protected void setWidth(int width) {
-        this.width = width;
-    }
-
-    protected int getHeight() {
-        return height;
-    }
-
-    protected void setHeight(int height) {
-        this.height = height;
-    }
-
     public Rectangle getBounds() {
         return bounds;
-    }
-
-    protected void setBounds(Rectangle bounds) {
-        this.bounds = bounds;
-    }
-
-    protected boolean isMouseOver() {
-        return mouseOver;
     }
 
     public void setMouseOver(boolean mouseOver) {

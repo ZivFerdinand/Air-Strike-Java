@@ -13,11 +13,10 @@ import static Utils.Constants.Path.*;
 
 public class EnemyUFO extends Object implements IEnemy, IGameStandard {
     private final AudioPlayer audioPlayer;
-    private FontGenerator fontGenerator;
+    private final FontGenerator fontGenerator;
 
     private BufferedImage imgShadow;
-    private BufferedImage[] imgHitting = new BufferedImage[4];
-    private BufferedImage imgHittingSprite;
+    private BufferedImage[] imgHitting;
     private BufferedImage currAnimation;
 
     private boolean isHitting = false;
@@ -25,9 +24,9 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
     private int totalMvmt;
     private int health;
 
-    private Playing playing;
+    private final Playing playing;
 
-    private ArrayList<LaserEnemy> laserShoot = new ArrayList<LaserEnemy>();
+    private final ArrayList<LaserEnemy> laserShoot = new ArrayList<>();
 
     public void setHitting(boolean isHitting) {
         this.isHitting = isHitting;
@@ -41,7 +40,7 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
         healthReset();
         totalMvmt = 0;
         importImgShadow();
-        laserInstantiate(5);
+        laserInstantiate();
     }
 
     public void reset() {
@@ -65,12 +64,12 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
     }
 
     private void laserUpdateHitBox() {
-        for (int i = 0; i < laserShoot.size(); i++) {
-            laserShoot.get(i).updateHitBox();
+        for (LaserEnemy laserEnemy : laserShoot) {
+            laserEnemy.updateHitBox();
         }
     }
 
-    private void laserInstantiate(int count) {
+    private void laserInstantiate() {
 
         laserShoot.add(new LaserEnemy((int) posX, (int) posY, 2, 4));
         laserShoot.add(new LaserEnemy((int) posX, (int) posY, -2, -2));
@@ -83,17 +82,17 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
     }
 
     private void laserUpdate(Graphics g) {
-        for (int i = 0; i < laserShoot.size(); i++) {
-            if (!laserShoot.get(i).checkHasMoved()) {
-                laserShoot.get(i).resetPos((int) posX, (int) posY);
+        for (LaserEnemy laserEnemy : laserShoot) {
+            if (!laserEnemy.checkHasMoved()) {
+                laserEnemy.resetPos((int) posX, (int) posY);
             }
-            if (laserShoot.get(i).getTotalMvmt() >= 500) {
-                laserShoot.get(i).setTotalMvmt(0);
-                laserShoot.get(i).resetPos((int) posX, (int) posY);
+            if (laserEnemy.getTotalMvmt() >= 500) {
+                laserEnemy.setTotalMvmt(0);
+                laserEnemy.resetPos((int) posX, (int) posY);
             }
-            laserShoot.get(i).updateHitBox();
-            laserShoot.get(i).update();
-            laserShoot.get(i).render(g);
+            laserEnemy.updateHitBox();
+            laserEnemy.update();
+            laserEnemy.render(g);
         }
     }
 
@@ -142,8 +141,9 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
     }
 
     private void importImgShadow() {
+        imgHitting = new BufferedImage[4];
         imgShadow = ImageLoader.GetSpriteAtlas(ENEMY_UFO_SHADOW);
-        imgHittingSprite = ImageLoader.GetSpriteAtlas(ENEMY_UFO_HIT);
+        BufferedImage imgHittingSprite = ImageLoader.GetSpriteAtlas(ENEMY_UFO_HIT);
         for (int i = 0; i < imgHitting.length; i++) {
             imgHitting[i] = imgHittingSprite.getSubimage(i * 600, 0, 600, 600);
         }

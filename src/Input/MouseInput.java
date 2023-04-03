@@ -9,7 +9,7 @@ import Main.*;
 
 public class MouseInput implements MouseListener, MouseMotionListener {
 
-    private GamePanel gamePanel;
+    private final GamePanel gamePanel;
 
     public MouseInput(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -23,72 +23,44 @@ public class MouseInput implements MouseListener, MouseMotionListener {
     @Override
     public void mouseMoved(MouseEvent e) {
         switch (GameState.state) {
-            case OPTIONS:
-                gamePanel.getGameEngine().getOption().mouseMoved(e);
-                break;
-            case MENU:
-                gamePanel.getGameEngine().getMenu().mouseMoved(e);
-                break;
-            case PLAYING:
-                gamePanel.getGameEngine().getPlaying().mouseMoved(e);
-                break;
-            default:
-                break;
-
+            case OPTIONS -> gamePanel.getGameEngine().getOption().mouseMoved(e);
+            case MENU -> gamePanel.getGameEngine().getMenu().mouseMoved(e);
+            case PLAYING -> gamePanel.getGameEngine().getPlaying().mouseMoved(e);
+            default -> {
+            }
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         switch (GameState.state) {
-            case SPLASH_SCREEN:
-                gamePanel.getGameEngine().getSplashScreen().mouseClicked(e);
-                break;
-            case OPTIONS:
-                gamePanel.getGameEngine().getOption().mouseClicked(e);
-                break;
-            case PLAYING:
-                gamePanel.getGameEngine().getPlaying().mouseClicked(e);
-                break;
-            default:
-                break;
-
+            case SPLASH_SCREEN -> gamePanel.getGameEngine().getSplashScreen().mouseClicked(e);
+            case OPTIONS -> gamePanel.getGameEngine().getOption().mouseClicked(e);
+            case PLAYING -> gamePanel.getGameEngine().getPlaying().mouseClicked(e);
+            default -> {
+            }
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         switch (GameState.state) {
-            case OPTIONS:
-                gamePanel.getGameEngine().getOption().mousePressed(e);
-                break;
-            case MENU:
-                gamePanel.getGameEngine().getMenu().mousePressed(e);
-                break;
-            case PLAYING:
-                gamePanel.getGameEngine().getPlaying().mousePressed(e);
-                break;
-            default:
-                break;
-
+            case OPTIONS -> gamePanel.getGameEngine().getOption().mousePressed(e);
+            case MENU -> gamePanel.getGameEngine().getMenu().mousePressed(e);
+            case PLAYING -> gamePanel.getGameEngine().getPlaying().mousePressed(e);
+            default -> {
+            }
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         switch (GameState.state) {
-            case OPTIONS:
-                gamePanel.getGameEngine().getOption().mouseReleased(e);
-                break;
-            case MENU:
-                gamePanel.getGameEngine().getMenu().mouseReleased(e);
-                break;
-            case PLAYING:
-                gamePanel.getGameEngine().getPlaying().mouseReleased(e);
-                break;
-            default:
-                break;
-
+            case OPTIONS -> gamePanel.getGameEngine().getOption().mouseReleased(e);
+            case MENU -> gamePanel.getGameEngine().getMenu().mouseReleased(e);
+            case PLAYING -> gamePanel.getGameEngine().getPlaying().mouseReleased(e);
+            default -> {
+            }
         }
     }
 

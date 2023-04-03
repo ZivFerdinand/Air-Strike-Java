@@ -90,7 +90,7 @@ public class Playing extends State implements IStateMethod {
         if (gameOver) {
             gameOverPanel.update();
 
-        } else if (!paused && !gameOver) {
+        } else if (!paused) {
             playerPlane.update();
             collisionManager.updateCollisionDetection();
             enemyHelicopter.update();
@@ -114,11 +114,11 @@ public class Playing extends State implements IStateMethod {
         explosionHelicopter.render(g);
         explosionUFO.render(g);
         explosionPlayer.render(g);
-        pauseButton.draw(g);
         renderCoins(coins, g);
         playerPlane.render(g);
         collisionManager.render(g);
         fontGenerator.drawHealthAndScore(g, 40F, playerPlane.getHealth(), score.getScore());
+        pauseButton.draw(g);
 
         if (paused) {
             pausePanel.draw(g);
@@ -170,39 +170,21 @@ public class Playing extends State implements IStateMethod {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W, KeyEvent.VK_UP:
-                playerPlane.setUp(true);
-                break;
-            case KeyEvent.VK_A, KeyEvent.VK_LEFT:
-                playerPlane.setLeft(true);
-                break;
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN:
-                playerPlane.setDown(true);
-                break;
-            case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
-                playerPlane.setRight(true);
-                break;
-            case KeyEvent.VK_ESCAPE:
-                paused = !paused;
-                break;
+            case KeyEvent.VK_W, KeyEvent.VK_UP -> playerPlane.setUp(true);
+            case KeyEvent.VK_A, KeyEvent.VK_LEFT -> playerPlane.setLeft(true);
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> playerPlane.setDown(true);
+            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> playerPlane.setRight(true);
+            case KeyEvent.VK_ESCAPE -> paused = !paused;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W, KeyEvent.VK_UP:
-                playerPlane.setUp(false);
-                break;
-            case KeyEvent.VK_A, KeyEvent.VK_LEFT:
-                playerPlane.setLeft(false);
-                break;
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN:
-                playerPlane.setDown(false);
-                break;
-            case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
-                playerPlane.setRight(false);
-                break;
+            case KeyEvent.VK_W, KeyEvent.VK_UP -> playerPlane.setUp(false);
+            case KeyEvent.VK_A, KeyEvent.VK_LEFT -> playerPlane.setLeft(false);
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> playerPlane.setDown(false);
+            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> playerPlane.setRight(false);
         }
     }
 
@@ -247,7 +229,7 @@ public class Playing extends State implements IStateMethod {
     }
 
     private ArrayList<Coin> instantiateCoins() {
-        ArrayList<Coin> newC = new ArrayList<Coin>();
+        ArrayList<Coin> newC = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             newC.add(new Coin(Constants.ObjectSizeData.STAR));
         }

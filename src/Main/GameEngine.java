@@ -38,39 +38,23 @@ public class GameEngine implements Runnable {
 
     public void update() {
         switch (GameState.state) {
-            case SPLASH_SCREEN:
-                splashScreen.update();
-                break;
-            case MENU:
-                menu.update();
-                break;
-            case OPTIONS:
-                option.update();
-                break;
-            case PLAYING:
-                playing.update();
-                break;
-            default:
-                break;
+            case SPLASH_SCREEN -> splashScreen.update();
+            case MENU -> menu.update();
+            case OPTIONS -> option.update();
+            case PLAYING -> playing.update();
+            default -> {
+            }
         }
     }
 
     public void render(Graphics g) {
         switch (GameState.state) {
-            case SPLASH_SCREEN:
-                splashScreen.draw(g);
-                break;
-            case MENU:
-                menu.draw(g);
-                break;
-            case OPTIONS:
-                option.draw(g);
-                break;
-            case PLAYING:
-                playing.draw(g);
-                break;
-            default:
-                break;
+            case SPLASH_SCREEN -> splashScreen.draw(g);
+            case MENU -> menu.draw(g);
+            case OPTIONS -> option.draw(g);
+            case PLAYING -> playing.draw(g);
+            default -> {
+            }
         }
     }
 

@@ -7,7 +7,7 @@ public class PauseButton extends Button {
 
     public PauseButton(int x, int y, int width, int height, String path) {
         super(x, y, width, height, path);
-        loadImgs(PAUSE_SIZE_DEFAULT);
+        loadImgs();
     }
 
     public void draw(Graphics g) {

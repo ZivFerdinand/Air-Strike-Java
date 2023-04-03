@@ -20,10 +20,9 @@ public class FontGenerator {
     private void importFont() {
         try {
             InputStream is = getClass().getResourceAsStream("../res/font/mainFont.ttf");
+            assert is != null;
             mainFont = Font.createFont(Font.TRUETYPE_FONT, is);
-        } catch (FontFormatException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -33,12 +32,12 @@ public class FontGenerator {
         g.setColor(color);
     }
 
-    private void setFontSizeColor(Graphics g, float fontSize, int r, int green, int b, int a) {
-        g.setFont(g.getFont().deriveFont(Font.PLAIN, fontSize));
-        g.setColor(new Color(r, green, b, a));
+    private void setFontSizeColor(Graphics g, int a) {
+        g.setFont(g.getFont().deriveFont(Font.PLAIN, (float) 18.5));
+        g.setColor(new Color(255, 255, 255, a));
     }
 
-    private void blinkingText(Graphics g) {
+    private void blinkingText() {
         opacity += opacityChange;
         if (opacity == 125 || opacity == 255) {
             opacityChange *= -1;
@@ -81,15 +80,15 @@ public class FontGenerator {
         healthStatusUpdate(g, health, fontSize);
         g.drawString("" + health + "%", 140, 100);
 
-        setFontSizeColor(g, 18.5f, 255, 255, 255, opacity);
-        blinkingText(g);
-        g.drawString("\'ESC\' -> PAUSE", 55, 45);
+        setFontSizeColor(g, opacity);
+        blinkingText();
+        g.drawString("'ESC' -> PAUSE", 55, 45);
     }
-    public void drawInstruction(Graphics g, float fontSize) {
+    public void drawInstruction(Graphics g) {
         g.setFont(mainFont);
 
-        setFontSizeColor(g, 18.5f, 255, 255, 255, opacity);
-        blinkingText(g);
+        setFontSizeColor(g, opacity);
+        blinkingText();
         g.drawString("PRESS ENTER OR CLICK ANYWHERE TO START", 360, 700);
     }
 

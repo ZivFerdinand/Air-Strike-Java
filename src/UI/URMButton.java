@@ -7,7 +7,7 @@ public class URMButton extends Button {
     
     public URMButton(int x, int y, int width, int height, int rowIndex, String path) {
 		super(x, y, width, height, path);
-		loadImgs(URM_SIZE_DEFAULT, rowIndex);
+		loadImgs(rowIndex);
 	}
 
     public void draw(Graphics g) {

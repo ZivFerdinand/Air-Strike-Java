@@ -12,10 +12,9 @@ import java.util.ArrayList;
 import static Utils.Constants.Path.*;
 
 public class PlayerPlane extends Object implements IGameStandard {
-    private AudioPlayer audioPlayer;
+    private final AudioPlayer audioPlayer;
     private int healthMax = Constants.Health.PLAYER_HEALTH;
     private int healthBackPos = 0;
-    private final int playerSpeedX = 3, playerSpeedY = 2;
     int healthPosX = 50;
     private BufferedImage imgShadow;
     private BufferedImage healthStatus;
@@ -25,7 +24,7 @@ public class PlayerPlane extends Object implements IGameStandard {
     private BufferedImage currAnimationShadow;
 
 
-    private ArrayList<LaserPlane> laserPlaneShoot = new ArrayList<LaserPlane>();
+    private final ArrayList<LaserPlane> laserPlaneShoot = new ArrayList<>();
 
     private boolean isUp;
     private boolean isDown;
@@ -118,6 +117,7 @@ public class PlayerPlane extends Object implements IGameStandard {
         currAnimation = idleAnim;
         currAnimationShadow = idleAnimShadow;
 
+        int playerSpeedX = 3;
         if (isRight && !isLeft && posX + playerSpeedX + 150 <= GamePanel.GAME_WIDTH) {
             posX += playerSpeedX;
             currAnimation = rightAnim;
@@ -128,6 +128,7 @@ public class PlayerPlane extends Object implements IGameStandard {
             currAnimationShadow = leftAnimShadow;
         }
 
+        int playerSpeedY = 2;
         if (isUp && !isDown && posY - playerSpeedY >= 0) {
             posY -= playerSpeedY;
             currAnimation = upAnim;
@@ -165,8 +166,8 @@ public class PlayerPlane extends Object implements IGameStandard {
     }
 
     private void laserUpdateHitBox() {
-        for (int i = 0; i < laserPlaneShoot.size(); i++) {
-            laserPlaneShoot.get(i).updateHitBox();
+        for (LaserPlane laserPlane : laserPlaneShoot) {
+            laserPlane.updateHitBox();
         }
     }
 
@@ -190,7 +191,7 @@ public class PlayerPlane extends Object implements IGameStandard {
         healthPosX = 40;
         healthBackPos = 0;
         this.healthMax -= health;
-        this.healthMax = (this.healthMax < 0) ? 0 : this.healthMax;
+        this.healthMax = Math.max(this.healthMax, 0);
     }
     private void laserUpdate(Graphics g)
     {
@@ -233,9 +234,4 @@ public class PlayerPlane extends Object implements IGameStandard {
 
         g.drawImage(healthStatus, healthPosX, 45, 80, 80, null);
     }
-    public void setHealth(int health)
-    {
-        this.healthMax = health;
-    }
-
 }

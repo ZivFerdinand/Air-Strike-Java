@@ -57,10 +57,10 @@ public class CollisionManager {
                 playerPlaneOnLaserCollision(laserEnemies, i);
             }
         }
-        for (int i = 0; i < coins.size(); i++) {
-            if (playerPlane.getHitBox().intersects(coins.get(i).getHitBox())) {
+        for (Coin coin : coins) {
+            if (playerPlane.getHitBox().intersects(coin.getHitBox())) {
                 audioPlayer.playSelectSound();
-                coins.get(i).resetPosition();
+                coin.resetPosition();
             }
         }
 

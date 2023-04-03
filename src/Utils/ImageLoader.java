@@ -12,12 +12,14 @@ public class ImageLoader {
         BufferedImage img = null;
         InputStream is = ImageLoader.class.getResourceAsStream(fileName);
         try {
+            assert is != null;
             img = ImageIO.read(is);
 
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             try {
+                assert is != null;
                 is.close();
             } catch (IOException e) {
                 e.printStackTrace();

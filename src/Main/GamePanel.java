@@ -8,12 +8,11 @@ import Input.*;
 
 public class GamePanel extends JPanel {
     public final static int GAME_WIDTH = 1280, GAME_HEIGHT = 800;
-    private MouseInput mouseInput;
-    private GameEngine gameEngine;
+    private final GameEngine gameEngine;
 
     public GamePanel(GameEngine gameEngine) {
         this.gameEngine = gameEngine;
-        mouseInput = new MouseInput(this);
+        MouseInput mouseInput = new MouseInput(this);
 
         setPanelSize();
         addKeyListener(new KeyboardInput(this));

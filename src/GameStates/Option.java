@@ -11,7 +11,7 @@ import Utils.*;
 import static Utils.Constants.Path.*;
 
 public class Option extends State implements IStateMethod {
-    private AudioPlayer audioPlayer;
+    private final AudioPlayer audioPlayer;
 
     private BufferedImage map1, map2;
     private BufferedImage map1_Hvr, map2_Hvr;
