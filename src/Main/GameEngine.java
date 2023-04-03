@@ -3,7 +3,6 @@ package Main;
 import java.awt.Graphics;
 
 import GameStates.*;
-import GameStates.Playing;
 import Utils.*;
 
 public class GameEngine implements Runnable {

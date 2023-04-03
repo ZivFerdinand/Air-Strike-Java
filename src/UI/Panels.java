@@ -5,8 +5,7 @@ import java.awt.image.BufferedImage;
 
 import GameStates.Playing;
 import Main.GamePanel;
-import Utils.ImageLoader;
-import Utils.ObjectSize;
+import Utils.*;
 
 public abstract class Panels {
     protected Playing playing;

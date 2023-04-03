@@ -3,8 +3,7 @@ package UI;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import Utils.Constants;
-import Utils.ImageLoader;
+import Utils.*;
 
 public abstract class Button {
     protected int x, y, width, height;

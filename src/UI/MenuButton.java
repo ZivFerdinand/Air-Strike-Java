@@ -1,7 +1,6 @@
 package UI;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import GameStates.GameState;
 import Main.GameEngine;
 import Utils.*;

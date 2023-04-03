@@ -1,9 +1,7 @@
 package Objects;
 
 import Main.GamePanel;
-import Utils.AudioPlayer;
-import Utils.Constants;
-import Utils.ImageLoader;
+import Utils.*;
 import GameStates.Playing;
 import Interfaces.IGameStandard;
 import java.awt.*;

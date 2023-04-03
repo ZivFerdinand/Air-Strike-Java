@@ -3,8 +3,7 @@ package Objects;
 import java.awt.*;
 
 import GameStates.Playing;
-import Interfaces.IGameStandard;
-import Interfaces.ILaser;
+import Interfaces.*;
 import static Utils.Constants.Path.*;
 import static Utils.Constants.ObjectSizeData.*;
 public class LaserPlane extends Object implements ILaser, IGameStandard{

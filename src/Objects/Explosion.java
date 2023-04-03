@@ -3,9 +3,7 @@ package Objects;
 import Background.BackgroundManager;
 import GameStates.Playing;
 import Interfaces.IGameStandard;
-import Utils.FontGenerator;
-import Utils.AudioPlayer;
-import Utils.ObjectSize;
+import Utils.*;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

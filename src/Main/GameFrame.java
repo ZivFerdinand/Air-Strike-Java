@@ -4,8 +4,7 @@ import javax.swing.*;
 
 import GameStates.GameState;
 import static Utils.Constants.Path.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
+import java.awt.event.*;
 
 public class GameFrame {
 

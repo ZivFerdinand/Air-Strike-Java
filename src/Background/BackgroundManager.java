@@ -4,7 +4,7 @@ import Main.GamePanel;
 import Utils.ImageLoader;
 import GameStates.Playing;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.image.*;
 import static Utils.Constants.Path.*;
 
 public class BackgroundManager {

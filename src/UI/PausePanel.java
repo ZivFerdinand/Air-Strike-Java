@@ -1,11 +1,8 @@
 package UI;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import GameStates.GameState;
-import GameStates.Playing;
+import java.awt.*;
+import java.awt.event.*;
+import GameStates.*;
 import Interfaces.IStateMethod;
 import Main.GamePanel;
 

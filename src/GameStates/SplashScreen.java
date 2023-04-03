@@ -1,15 +1,12 @@
 package GameStates;
 
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 import Interfaces.IStateMethod;
 import Main.GamePanel;
-import Utils.AudioPlayer;
-import Utils.FontGenerator;
-import Utils.ImageLoader;
+import Utils.*;
 
 import static Utils.Constants.Path.*;
 
