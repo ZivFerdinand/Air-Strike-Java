@@ -1,39 +1,41 @@
 package Objects;
 
-import Main.GameEngine;
 import Main.GamePanel;
 import Utils.*;
 import Utils.Constants.Path;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
+import GameStates.Playing;
+import Interfaces.IEnemy;
+import Interfaces.IGameStandard;
+import static Utils.Constants.Path.*;
 
 public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
-
-    private BufferedImage imgHittingSprite;
-    private BufferedImage[] animation = new BufferedImage[4];
-    private BufferedImage[] imgHitting = new BufferedImage[4];
+    private final FontGenerator fontGenerator;
+    private BufferedImage[] animation;
+    private BufferedImage[] imgHitting;
 
     private boolean isHitting = false;
     
-    private int counterPassed = 0;
     private int animIndex = 0;
     private int health;
-    private int enemySpeed = 3;
     private int totalMvmt;
-    private final GameEngine gameEngine;
+    private final Playing playing;
     
-    public EnemyHelicopter(GameEngine gameEngine) {
-        super(50, Constants.InitialPosition.HELICOPTER_INITIAL_POS_Y, 40, 1, 50, 129, Path.ENEMY_HELICOPTER, Constants.ObjectSizeData.ENEMY_HELICOPTER);
-        this.gameEngine = gameEngine;
-
+    public EnemyHelicopter(Playing playing) {
+        super(50, Constants.InitialPosition.HELICOPTER_INITIAL_POS_Y, 40, 1, 50, 129, Path.ENEMY_HELICOPTER,
+                Constants.ObjectSizeData.ENEMY_HELICOPTER, 3);
+        this.playing = playing;
+        this.fontGenerator = new FontGenerator();
         totalMvmt = 0;
         healthReset();
         importImgAnimation();
+    }
+    
+    public void reset()
+    {
+        resetPosition();
     }
     
     public void setHitting(boolean isHitting) {
@@ -41,23 +43,12 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
     }
 
     private void importImgAnimation() {
+        animation = new BufferedImage[4];
+        imgHitting = new BufferedImage[4];
         for (int i = 0; i < animation.length; i++) {
             animation[i] = img.getSubimage(i * 96, 0, 96, 128);
         }
-
-        InputStream is = getClass().getResourceAsStream(Path.ENEMY_HELICOPTER_HIT);
-        try {
-            imgHittingSprite = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+        BufferedImage imgHittingSprite = ImageLoader.GetSpriteAtlas(ENEMY_HELICOPTER_HIT);
         for (int i = 0; i < animation.length; i++) {
             imgHitting[i] = imgHittingSprite.getSubimage(i * 96, 0, 96, 128);
         }
@@ -72,9 +63,9 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
     private void updatePosition()
     {
 
-        posY += enemySpeed;
-        totalMvmt += enemySpeed;
-        if (totalMvmt >= GamePanel.GAME_HEIGHT + 100) {
+        posY += speed;
+        totalMvmt += speed;
+        if (totalMvmt >= GamePanel.GAME_HEIGHT + 400) {
             resetPosition();
         }
     }
@@ -91,7 +82,6 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
                 img = imgHitting[animIndex];
                 counterPassed = 0;
             }
-            counterPassed++;
         }
         else {
             if (counterPassed % 15 == 0) {
@@ -102,15 +92,15 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
                 img = animation[animIndex];
                 counterPassed = 0;
             }
-            counterPassed++;
         }
+        counterPassed++;
     }
 
     private void resetPosition() {
         healthReset();
         posY = Constants.InitialPosition.HELICOPTER_INITIAL_POS_Y;
         totalMvmt = 0;
-        enemySpeed = Assist.getRandomNumber(2, 3);
+        speed = Assist.getRandomNumber(2, 3);
 
         posX = Assist.getRandomNumber(100, GamePanel.GAME_WIDTH - 100);
     }
@@ -120,9 +110,12 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
 
         if (health < 0) {
             healthReset();
-            gameEngine.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, false);
+            playing.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, false);
+            playing.getCoins().get(3).startAnimation(posX + Assist.getRandomNumber(0, 100), posY + Assist.getRandomNumber(0, 96));
+            playing.getCoins().get(4).startAnimation(posX+ Assist.getRandomNumber(0, 100), posY+Assist.getRandomNumber(0, 96));
+
             posY = GamePanel.GAME_HEIGHT + 1000;
-            GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT);
+            Playing.score.setScore(Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT);
         }
     }
     public void destroyObjectFromScreen(PlayerPlane playerPlane) {
@@ -130,9 +123,9 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
 
         if (health < 0) {
             healthReset();
-            gameEngine.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, true);
+            playing.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HIT_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, true);
             posY = GamePanel.GAME_HEIGHT + 1000;
-            GameEngine.score.setScore(Constants.DamageDealer.ENEMY_HIT_POINT);
+            Playing.score.setScore(Constants.DamageDealer.ENEMY_HIT_POINT);
             playerPlane.reduceHealth(5);
         }
     }
@@ -141,6 +134,11 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
         health = Constants.Health.HELICOPTER_HEALTH;
     }
     public void render(Graphics g) {
+
         g.drawImage(img, (int) posX, (int) posY, imageWidth, imageHeight, null);
+        if (posY >= Constants.InitialPosition.HELICOPTER_INITIAL_POS_Y && posY <= -20)
+        {
+            fontGenerator.drawExclamationMark(g, (int)posX);
+        }
     }
 }

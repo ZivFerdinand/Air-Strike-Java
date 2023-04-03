@@ -1,22 +1,20 @@
 package Objects;
 
-import Main.GameEngine;
 import Main.GamePanel;
 import Utils.AudioPlayer;
 import Utils.Constants;
-import Utils.Constants.Path;
-import javax.imageio.ImageIO;
+import Utils.ImageLoader;
+import GameStates.Playing;
+import Interfaces.IGameStandard;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
 import java.util.ArrayList;
+import static Utils.Constants.Path.*;
 
 public class PlayerPlane extends Object implements IGameStandard {
-    private AudioPlayer audioPlayer;
-    private int counterPassed = 0;
+    private final AudioPlayer audioPlayer;
     private int healthMax = Constants.Health.PLAYER_HEALTH;
     private int healthBackPos = 0;
-    private final int playerSpeedX = 3, playerSpeedY = 2;
     int healthPosX = 50;
     private BufferedImage imgShadow;
     private BufferedImage healthStatus;
@@ -26,7 +24,7 @@ public class PlayerPlane extends Object implements IGameStandard {
     private BufferedImage currAnimationShadow;
 
 
-    private ArrayList<LaserPlane> laserPlaneShoot = new ArrayList<LaserPlane>();
+    private final ArrayList<LaserPlane> laserPlaneShoot = new ArrayList<>();
 
     private boolean isUp;
     private boolean isDown;
@@ -34,11 +32,23 @@ public class PlayerPlane extends Object implements IGameStandard {
     private boolean isLeft;
 
     public PlayerPlane() {
-        super((GamePanel.GAME_WIDTH - 150) / 2, 600, 7, 40, 135, 75, Path.PLAYER_PLANE, Constants.ObjectSizeData.PLAYER_PLANE);
+        super((GamePanel.GAME_WIDTH - 150) / 2, 600, 7, 40, 135, 75, PLAYER_PLANE, Constants.ObjectSizeData.PLAYER_PLANE, 0);
         this.audioPlayer = new AudioPlayer();
         importImgShadow();
-        laserInstantiate(23);
+        laserInstantiate();
         loadAnimations();
+    }
+
+    public void reset()
+    {
+        healthMax = Constants.Health.PLAYER_HEALTH;
+        posX = (GamePanel.GAME_WIDTH - 150) / 2;
+        posY = 600;
+        healthBackPos = 0;
+        healthPosX = 50;
+        counterPassed = counterAudio = 0;
+        laserPlaneShoot.clear();
+        laserInstantiate();
     }
 
     private void loadAnimations() {
@@ -79,31 +89,8 @@ public class PlayerPlane extends Object implements IGameStandard {
     }
 
     private void importImgShadow() {
-        InputStream is = getClass().getResourceAsStream(Path.PLAYER_PLANE_SHADOW);
-        try {
-            imgShadow = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        is = getClass().getResourceAsStream("/res/sprite/Health-Icon.png");
-        try {
-            healthStatus = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        imgShadow = ImageLoader.GetSpriteAtlas(PLAYER_PLANE_SHADOW);
+        healthStatus = ImageLoader.GetSpriteAtlas(HEALTH_ICON);
     }
 
     public void setUp(boolean up) {
@@ -130,6 +117,7 @@ public class PlayerPlane extends Object implements IGameStandard {
         currAnimation = idleAnim;
         currAnimationShadow = idleAnimShadow;
 
+        int playerSpeedX = 3;
         if (isRight && !isLeft && posX + playerSpeedX + 150 <= GamePanel.GAME_WIDTH) {
             posX += playerSpeedX;
             currAnimation = rightAnim;
@@ -140,6 +128,7 @@ public class PlayerPlane extends Object implements IGameStandard {
             currAnimationShadow = leftAnimShadow;
         }
 
+        int playerSpeedY = 2;
         if (isUp && !isDown && posY - playerSpeedY >= 0) {
             posY -= playerSpeedY;
             currAnimation = upAnim;
@@ -165,21 +154,25 @@ public class PlayerPlane extends Object implements IGameStandard {
         }
     }
 
-
     public void update() {
         updateHitBox();
         laserUpdateHitBox();
         setAnimation();
-    }
 
-    private void laserUpdateHitBox() {
-        for (int i = 0; i < laserPlaneShoot.size(); i++) {
-            laserPlaneShoot.get(i).updateHitBox();
+        if(healthMax == 0)
+        {
+            posX = posY = -1000;
         }
     }
 
-    private void laserInstantiate(int count) {
-        for (int i = 0; i < count; i++) {
+    private void laserUpdateHitBox() {
+        for (LaserPlane laserPlane : laserPlaneShoot) {
+            laserPlane.updateHitBox();
+        }
+    }
+
+    private void laserInstantiate() {
+        for (int i = 0; i < 23; i++) {
             laserPlaneShoot.add(new LaserPlane((int) posX, (int) posY));
         }
     }
@@ -196,12 +189,13 @@ public class PlayerPlane extends Object implements IGameStandard {
     public void reduceHealth(int health)
     {
         healthPosX = 40;
-        healthBackPos=0;
+        healthBackPos = 0;
         this.healthMax -= health;
+        this.healthMax = Math.max(this.healthMax, 0);
     }
     private void laserUpdate(Graphics g)
     {
-        healthBackPos ++;
+        healthBackPos++;
         counterPassed++;
         counterAudio++;
         if(healthBackPos == 20)
@@ -211,11 +205,11 @@ public class PlayerPlane extends Object implements IGameStandard {
         }
         if (counterAudio == 20)
         {
-            GameEngine.score.setScore(1);
+            Playing.score.setScore(1);
             counterAudio = 0;
-            audioPlayer.playAttackSound();
 
-
+            if(!Playing.isPaused() && !Playing.isGameOver() && healthMax!=0)
+                audioPlayer.playAttackSound();
         }
         if (counterPassed >= 460)
             counterPassed = 460;
@@ -231,6 +225,7 @@ public class PlayerPlane extends Object implements IGameStandard {
             laserPlaneShoot.get(i).render(g);
         }
     }
+
     public void render(Graphics g) {
 
         g.drawImage(currAnimation, (int) posX, (int) posY, imageWidth, imageHeight, null);
@@ -239,5 +234,4 @@ public class PlayerPlane extends Object implements IGameStandard {
 
         g.drawImage(healthStatus, healthPosX, 45, 80, 80, null);
     }
-
 }

@@ -3,11 +3,12 @@ package Input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import GameStates.GameState;
 import Main.*;
 
 public class KeyboardInput implements KeyListener {
 
-    private GamePanel gamePanel;
+    private final GamePanel gamePanel;
 
     public KeyboardInput(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
@@ -20,37 +21,22 @@ public class KeyboardInput implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_W, KeyEvent.VK_UP:
-                gamePanel.getPlayerPlane().setUp(false);
-                break;
-            case KeyEvent.VK_A, KeyEvent.VK_LEFT:
-                gamePanel.getPlayerPlane().setLeft(false);
-                break;
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN:
-                gamePanel.getPlayerPlane().setDown(false);
-                break;
-            case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
-                gamePanel.getPlayerPlane().setRight(false);
-                break;
+        switch (GameState.state) {
+            case MENU -> gamePanel.getGameEngine().getMenu().keyReleased(e);
+            case PLAYING -> gamePanel.getGameEngine().getPlaying().keyReleased(e);
+            default -> {
+            }
         }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_W, KeyEvent.VK_UP:
-                gamePanel.getPlayerPlane().setUp(true);
-                break;
-            case KeyEvent.VK_A, KeyEvent.VK_LEFT:
-                gamePanel.getPlayerPlane().setLeft(true);
-                break;
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN:
-                gamePanel.getPlayerPlane().setDown(true);
-                break;
-            case KeyEvent.VK_D, KeyEvent.VK_RIGHT:
-                gamePanel.getPlayerPlane().setRight(true);
-                break;
+        switch (GameState.state) {
+            case MENU -> gamePanel.getGameEngine().getMenu().keyPressed(e);
+            case PLAYING -> gamePanel.getGameEngine().getPlaying().keyPressed(e);
+            case SPLASH_SCREEN -> gamePanel.getGameEngine().getSplashScreen().keyPressed(e);
+            default -> {
+            }
         }
     }
 }

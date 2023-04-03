@@ -1,90 +1,61 @@
 package Main;
 
-import Background.BackgroundManager;
-import Collision.CollisionManager;
-import Objects.*;
+import java.awt.Graphics;
+
+import GameStates.*;
+import GameStates.Playing;
 import Utils.*;
 
 public class GameEngine implements Runnable {
-    public AudioPlayer audioPlayer;
+    public static AudioPlayer audioPlayer;
     private final GamePanel gamePanel;
-    private final GameFrame gameFrame;
-
-    private PlayerPlane playerPlane;
-    private BackgroundManager background;
-    private CollisionManager collisionManager;
-    private EnemyHelicopter enemyHelicopter;
-    private EnemyUFO enemyUFO;
-    private Explosion explosionHelicopter;
-    private Explosion explosionUFO;
-    public static Score score;
+    private SplashScreen splashScreen;
+    private Playing playing;
+    private Menu menu;
+    private Option option;
 
     public GameEngine() {
         audioPlayer = new AudioPlayer();
         initClasses();
         gamePanel = new GamePanel(this);
-        gameFrame = new GameFrame(gamePanel);
-        gamePanel.requestFocus();
+        new GameFrame(gamePanel, this);
         startGameLoop();
-
+        gamePanel.requestFocus();
     }
 
     private void startGameLoop() {
-        audioPlayer.playSong(AudioPlayer.LEVEL_1);
+        audioPlayer.playSong(AudioPlayer.BACKGROUND);
         Thread gameThread = new Thread(this);
         gameThread.start();
     }
 
     private void initClasses() {
-        this.background = new BackgroundManager();
-        this.playerPlane = new PlayerPlane();
-        this.score = new Score();
-
-        this.enemyHelicopter = new EnemyHelicopter(this);
-        this.enemyUFO = new EnemyUFO( this);
-        this.collisionManager = new CollisionManager(this);
-
-        this.explosionHelicopter = new Explosion(Constants.ObjectSizeData.EXP_HELICOPTER_PLANE, Constants.ObjectSizeData.EXP_HELICOPTER_PLANE);
-        this.explosionUFO = new Explosion(Constants.ObjectSizeData.EXP_UFO_PLANE, Constants.ObjectSizeData.EXP_UFO_PLANE);
-    }
-
-    public PlayerPlane getPlayerPlane() {
-        return this.playerPlane;
-    }
-
-    public EnemyHelicopter getEnemyHelicopter() {
-        return this.enemyHelicopter;
-    }
-
-    public BackgroundManager getBackground() {
-        return this.background;
-    }
-
-    public CollisionManager getCollisionManager() {
-        return this.collisionManager;
-    }
-
-    public Explosion getExplosionHelicopter() {
-        return explosionHelicopter;
-    }
-
-    public Explosion getExplosionUFO() {
-        return explosionUFO;
-    }
-
-    public EnemyUFO getEnemyUFO() {
-        return enemyUFO;
+        this.splashScreen = new SplashScreen();
+        this.menu = new Menu();
+        this.playing = new Playing();
+        this.option = new Option();
     }
 
     public void update() {
-        playerPlane.update();
+        switch (GameState.state) {
+            case SPLASH_SCREEN -> splashScreen.update();
+            case MENU -> menu.update();
+            case OPTIONS -> option.update();
+            case PLAYING -> playing.update();
+            default -> {
+            }
+        }
+    }
 
-        collisionManager.updateCollisionDetection();
-
-        enemyHelicopter.update();
-        enemyUFO.update();
-        explosionHelicopter.update();
-        explosionUFO.update();
+    public void render(Graphics g) {
+        switch (GameState.state) {
+            case SPLASH_SCREEN -> splashScreen.draw(g);
+            case MENU -> menu.draw(g);
+            case OPTIONS -> option.draw(g);
+            case PLAYING -> playing.draw(g);
+            default -> {
+            }
+        }
     }
 
     @Override
@@ -94,9 +65,6 @@ public class GameEngine implements Runnable {
         double timePerUpdate = 1000000000.0 / 200;
 
         long previousTime = System.nanoTime();
-
-        int frames = 0;
-        int updates = 0;
         long lastCheck = System.currentTimeMillis();
 
         double deltaU = 0;
@@ -111,23 +79,33 @@ public class GameEngine implements Runnable {
 
             if (deltaU >= 1) {
                 update();
-                updates++;
                 deltaU--;
             }
 
             if (deltaF >= 1) {
                 gamePanel.repaint();
-                frames++;
                 deltaF--;
             }
 
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
-                frames = 0;
-                updates = 0;
             }
         }
 
     }
 
+    public Playing getPlaying() {
+        return playing;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public Option getOption() {
+        return option;
+    }
+    public SplashScreen getSplashScreen() {
+        return splashScreen;
+    }
 }
