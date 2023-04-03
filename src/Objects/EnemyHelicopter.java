@@ -7,8 +7,7 @@ import Utils.Constants.Path;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import GameStates.Playing;
-import Interfaces.IEnemy;
-import Interfaces.IGameStandard;
+import Interfaces.*;
 import static Utils.Constants.Path.*;
 
 public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
