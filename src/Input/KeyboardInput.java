@@ -42,6 +42,9 @@ public class KeyboardInput implements KeyListener {
             case PLAYING:
                 gamePanel.getGameEngine().getPlaying().keyPressed(e);
                 break;
+            case SPLASH_SCREEN:
+                gamePanel.getGameEngine().getSplashScreen().keyPressed(e);
+                break;
             default:
                 break;
         }

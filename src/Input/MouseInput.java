@@ -41,6 +41,9 @@ public class MouseInput implements MouseListener, MouseMotionListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         switch (GameState.state) {
+            case SPLASH_SCREEN:
+                gamePanel.getGameEngine().getSplashScreen().mouseClicked(e);
+                break;
             case OPTIONS:
                 gamePanel.getGameEngine().getOption().mouseClicked(e);
                 break;

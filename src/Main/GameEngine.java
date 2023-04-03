@@ -9,6 +9,7 @@ import Utils.*;
 public class GameEngine implements Runnable {
     public static AudioPlayer audioPlayer;
     private final GamePanel gamePanel;
+    private SplashScreen splashScreen;
     private Playing playing;
     private Menu menu;
     private Option option;
@@ -29,13 +30,17 @@ public class GameEngine implements Runnable {
     }
 
     private void initClasses() {
-        this.menu = new Menu(this);
-        this.playing = new Playing(this);
-        this.option = new Option(this);
+        this.splashScreen = new SplashScreen();
+        this.menu = new Menu();
+        this.playing = new Playing();
+        this.option = new Option();
     }
 
     public void update() {
         switch (GameState.state) {
+            case SPLASH_SCREEN:
+                splashScreen.update();
+                break;
             case MENU:
                 menu.update();
                 break;
@@ -52,6 +57,9 @@ public class GameEngine implements Runnable {
 
     public void render(Graphics g) {
         switch (GameState.state) {
+            case SPLASH_SCREEN:
+                splashScreen.draw(g);
+                break;
             case MENU:
                 menu.draw(g);
                 break;
@@ -112,5 +120,8 @@ public class GameEngine implements Runnable {
 
     public Option getOption() {
         return option;
+    }
+    public SplashScreen getSplashScreen() {
+        return splashScreen;
     }
 }

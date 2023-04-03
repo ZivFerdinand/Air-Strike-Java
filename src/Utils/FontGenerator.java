@@ -38,7 +38,7 @@ public class FontGenerator {
         g.setColor(new Color(r, green, b, a));
     }
 
-    private void pauseBlinking(Graphics g) {
+    private void blinkingText(Graphics g) {
         opacity += opacityChange;
         if (opacity == 125 || opacity == 255) {
             opacityChange *= -1;
@@ -82,8 +82,15 @@ public class FontGenerator {
         g.drawString("" + health + "%", 140, 100);
 
         setFontSizeColor(g, 18.5f, 255, 255, 255, opacity);
-        pauseBlinking(g);
+        blinkingText(g);
         g.drawString("\'ESC\' -> PAUSE", 55, 45);
+    }
+    public void drawInstruction(Graphics g, float fontSize) {
+        g.setFont(mainFont);
+
+        setFontSizeColor(g, 18.5f, 255, 255, 255, opacity);
+        blinkingText(g);
+        g.drawString("PRESS ENTER OR CLICK ANYWHERE TO START", 360, 700);
     }
 
     public void drawScoreGained(Graphics g, int score, int fontSize, int x, int y) {

@@ -12,7 +12,7 @@ import static Utils.Constants.Path.*;
 
 public class Option extends State implements IStateMethod {
     private AudioPlayer audioPlayer;
-    private BufferedImage backgroundImg;
+
     private BufferedImage map1, map2;
     private BufferedImage map1_Hvr, map2_Hvr;
     private BufferedImage map1_Clk, map2_Clk;
@@ -21,16 +21,14 @@ public class Option extends State implements IStateMethod {
 
     private Rectangle map1_HB, map2_HB;
 
-    public Option(GameEngine gameEngine) {
-        super(gameEngine);
+    public Option() {
+        super();
         audioPlayer = new AudioPlayer();
         instantiateHitBox();
         loadBackground();
-
     }
 
     private void loadBackground() {
-        backgroundImg = ImageLoader.GetSpriteAtlas(MAIN_MENU_BG);
         map1 = ImageLoader.GetSpriteAtlas(MAP_1);
         map2 = ImageLoader.GetSpriteAtlas(MAP_2);
 
@@ -62,7 +60,7 @@ public class Option extends State implements IStateMethod {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(backgroundImg, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
+        g.drawImage(SplashScreen.backgroundImg, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
         g.drawImage(chooseMapImg, 499, 40, 282, 96, null);
         g.drawImage(currMap1, 320, 150, 300, 600, null);
         g.drawImage(currMap2, 660, 150, 300, 600, null);

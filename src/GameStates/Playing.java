@@ -37,8 +37,8 @@ public class Playing extends State implements IStateMethod {
 
     public static Score score;
 
-    public Playing(GameEngine gameEngine) {
-        super(gameEngine);
+    public Playing() {
+        super();
         initClasses();
     }
 

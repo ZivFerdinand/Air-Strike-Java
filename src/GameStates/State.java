@@ -3,14 +3,12 @@ package GameStates;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-import Main.GameEngine;
 import UI.MenuButton;
 
 public class State {
-    protected GameEngine gameEngine;
 
-    public State(GameEngine gameEngine) {
-        this.gameEngine = gameEngine;
+    public State() {
+        
     }
 
     public boolean isIn(MouseEvent e, MenuButton mb) {

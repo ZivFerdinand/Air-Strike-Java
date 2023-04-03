@@ -13,11 +13,11 @@ import static Utils.Constants.Path.*;
 public class Menu extends State implements IStateMethod {
     private AudioPlayer audioPlayer;
     private MenuButton[] buttons;
-    private BufferedImage backgroundPanel, backgroundImg;
+    private BufferedImage backgroundPanel;
     private int menuX, menuY, menuWidth, menuHeight;
 
-    public Menu(GameEngine gameEngine) {
-        super(gameEngine);
+    public Menu() {
+        super();
         loadButtons();
         loadBackground();
         audioPlayer = new AudioPlayer();
@@ -25,7 +25,6 @@ public class Menu extends State implements IStateMethod {
 
     private void loadBackground() {
         backgroundPanel = ImageLoader.GetSpriteAtlas(MAINMENU_PANEL);
-        backgroundImg = ImageLoader.GetSpriteAtlas(MAIN_MENU_BG);
 
         menuWidth = (int) backgroundPanel.getWidth() * 2;
         menuHeight = (int) backgroundPanel.getHeight() * 2;
@@ -47,7 +46,7 @@ public class Menu extends State implements IStateMethod {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(backgroundImg, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
+        g.drawImage(SplashScreen.backgroundImg, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
         g.drawImage(backgroundPanel, menuX, menuY, menuWidth, menuHeight, null);
 
         for (MenuButton mb : buttons)
