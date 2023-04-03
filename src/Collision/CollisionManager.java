@@ -1,9 +1,7 @@
 package Collision;
 
 import Objects.*;
-import Utils.AudioPlayer;
-import Utils.Constants;
-import Utils.FontGenerator;
+import Utils.*;
 
 import java.util.ArrayList;
 
