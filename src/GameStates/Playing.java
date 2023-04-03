@@ -9,9 +9,11 @@ import Main.*;
 import Objects.*;
 import Background.BackgroundManager;
 import Collision.CollisionManager;
+import Interfaces.IStateMethod;
 import Utils.*;
 import UI.*;
 import static Utils.Constants.UIData.PauseButton.*;
+import static Utils.Constants.Path.*;
 
 public class Playing extends State implements IStateMethod {
     private PlayerPlane playerPlane;
@@ -22,40 +24,57 @@ public class Playing extends State implements IStateMethod {
     private Explosion explosionHelicopter;
     private Explosion explosionUFO;
     private Explosion explosionPlayer;
-    private ArrayList<Coin> star;
+    private ArrayList<Coin> coin;
     private FontGenerator fontGenerator;
     private PauseButton pauseButton;
     private PausePanel pausePanel;
     private GameOverPanel gameOverPanel;
-    public static Score score;
+
     private boolean hasDied;
-    public static boolean paused;
-    public static boolean gameOver;
+
+    private static boolean paused;
+    private static boolean gameOver;
+
+    public static Score score;
 
     public Playing(GameEngine gameEngine) {
         super(gameEngine);
         initClasses();
     }
 
-    public void initClasses() {
-        score = new Score();
+    private void initClasses() {
+        score = new Score(this);
         this.playerPlane = new PlayerPlane();
         this.background = new BackgroundManager(this);
         this.enemyHelicopter = new EnemyHelicopter(this);
         this.enemyUFO = new EnemyUFO(this);
-        this.star = new ArrayList<>();
+        this.coin = new ArrayList<Coin>();
         instantiateStars();
         this.collisionManager = new CollisionManager(this);
         this.explosionHelicopter = new Explosion(Constants.ObjectSizeData.EXP_HELICOPTER_PLANE,
-        Constants.ObjectSizeData.EXP_HELICOPTER_PLANE);
+                Constants.ObjectSizeData.EXP_HELICOPTER_PLANE);
         this.explosionUFO = new Explosion(Constants.ObjectSizeData.EXP_UFO_PLANE,
-        Constants.ObjectSizeData.EXP_UFO_PLANE);
+                Constants.ObjectSizeData.EXP_UFO_PLANE);
         this.explosionPlayer = new Explosion(Constants.ObjectSizeData.EXP_PLAYER_PLANE,
-        Constants.ObjectSizeData.EXP_PLAYER_PLANE);
+                Constants.ObjectSizeData.EXP_PLAYER_PLANE);
         this.fontGenerator = new FontGenerator();
         this.pausePanel = new PausePanel(this);
         this.gameOverPanel = new GameOverPanel(this);
-        this.pauseButton = new PauseButton(1174, 55, PAUSE_SIZE, PAUSE_SIZE);
+        this.pauseButton = new PauseButton(1174, 55, PAUSE_SIZE, PAUSE_SIZE, PAUSE_BUTTON);
+        this.hasDied = false;
+        paused = false;
+        gameOver = false;
+    }
+    
+    public void resetClasses() {
+        background.reset();
+        playerPlane.reset();
+        enemyHelicopter.reset();
+        enemyUFO.reset();
+        explosionHelicopter.reset();
+        explosionUFO.reset();
+        explosionPlayer.reset();
+        score = new Score(this);
         this.hasDied = false;
         paused = false;
         gameOver = false;
@@ -63,7 +82,7 @@ public class Playing extends State implements IStateMethod {
 
     private void instantiateStars() {
         for(int i = 0;i<5;i++){
-            star.add(new Coin(Constants.ObjectSizeData.STAR));
+            coin.add(new Coin(Constants.ObjectSizeData.STAR));
         }
     }
 
@@ -86,7 +105,7 @@ public class Playing extends State implements IStateMethod {
             explosionUFO.update();
             explosionPlayer.update();
             pauseButton.update();
-            for (Coin s : star) {
+            for (Coin s : coin) {
                 s.update();
             }
         }
@@ -105,7 +124,7 @@ public class Playing extends State implements IStateMethod {
         explosionUFO.render(g);
         explosionPlayer.render(g);
         pauseButton.draw(g);
-        for (Coin s : star) {
+        for (Coin s : coin) {
             s.render(g);
         }
         playerPlane.render(g);
@@ -202,9 +221,20 @@ public class Playing extends State implements IStateMethod {
                 break;
         }
     }
+
+    public static boolean isPaused() {
+        return paused;
+    }
+
+    public static boolean isGameOver() {
+        return gameOver;
+    }
+    public static void setGameOver(boolean status) {
+        gameOver = status;
+    }
     
-    public void unpauseGame() {
-        paused = false;
+    public void setPaused(boolean status) {
+        paused = status;
     }
 
     public PlayerPlane getPlayerPlane() {
@@ -227,8 +257,8 @@ public class Playing extends State implements IStateMethod {
         return explosionUFO;
     }
 
-    public ArrayList<Coin> getStar() {
-        return star;
+    public ArrayList<Coin> getCoin() {
+        return coin;
     }
 
 }

@@ -28,7 +28,6 @@ public class Constants {
         public static final int UFO_REDUCE = 7;
         public static final int HELICOPTER_REDUCE = 7;
         public static final int PLAYER_REDUCE_LASER = 5;
-
     }
     
     public static class Path {
@@ -56,6 +55,7 @@ public class Constants {
         public static String LASER = "/res/sprite/Laser-Sprite.png";
         public static String LASER_ENEMY = "/res/sprite/Laser-Enemy.png";
         public static String COIN = "/res/sprite/Coin.png";
+        public static String HEALTH_ICON = "/res/sprite/Health-Icon.png";
 
         public static String PAUSE_PANEL = "/res/sprite/Pause-Menu.png";
         public static String URM_BUTTONS = "/res/sprite/URM-Buttons.png";
@@ -65,7 +65,7 @@ public class Constants {
     }
 
     public static class Health{
-        public static int PLAYER_HEALTH = 100;
+        public static int PLAYER_HEALTH = 5;
         public static int HELICOPTER_HEALTH = 10;
         public static int UFO_HEALTH = 20;
     }

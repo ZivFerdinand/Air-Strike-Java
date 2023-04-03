@@ -4,14 +4,11 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
-
 import Background.BackgroundManager;
+import Interfaces.IStateMethod;
 import Main.*;
-import Utils.*;;
+import Utils.*;
+import static Utils.Constants.Path.*;
 
 public class Option extends State implements IStateMethod {
     private AudioPlayer audioPlayer;
@@ -20,7 +17,7 @@ public class Option extends State implements IStateMethod {
     private BufferedImage map1_Hvr, map2_Hvr;
     private BufferedImage map1_Clk, map2_Clk;
     private BufferedImage currMap1, currMap2;
-    private BufferedImage chooseMap;
+    private BufferedImage chooseMapImg;
 
     private Rectangle map1_HB, map2_HB;
 
@@ -35,114 +32,17 @@ public class Option extends State implements IStateMethod {
     }
 
     private void loadBackground() {
-        InputStream is = getClass().getResourceAsStream(Constants.Path.MAIN_MENU_BG);
-        try {
+        backgroundImg = ImageLoader.GetSpriteAtlas(MAIN_MENU_BG);
+        map1 = ImageLoader.GetSpriteAtlas(MAP_1);
+        map2 = ImageLoader.GetSpriteAtlas(MAP_2);
+        
+        map1_Hvr = ImageLoader.GetSpriteAtlas(MAP_1_HVR);
+        map2_Hvr = ImageLoader.GetSpriteAtlas(MAP_2_HVR);
 
-            backgroundImg = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        map1_Clk = ImageLoader.GetSpriteAtlas(MAP_1_CLK);
+        map2_Clk = ImageLoader.GetSpriteAtlas(MAP_2_CLK);
 
-
-        is = getClass().getResourceAsStream(Constants.Path.MAP_1);
-        try {
-
-            map1 = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        is = getClass().getResourceAsStream(Constants.Path.MAP_2);
-        try {
-
-            map2 = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        is = getClass().getResourceAsStream(Constants.Path.MAP_1_HVR);
-        try {
-
-            map1_Hvr = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        is = getClass().getResourceAsStream(Constants.Path.MAP_2_HVR);
-        try {
-
-            map2_Hvr = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        is = getClass().getResourceAsStream(Constants.Path.MAP_1_CLK);
-        try {
-
-            map1_Clk = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        is = getClass().getResourceAsStream(Constants.Path.MAP_2_CLK);
-        try {
-
-            map2_Clk = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        is = getClass().getResourceAsStream(Constants.Path.CHOOSE_MAP);
-        try {
-
-            chooseMap = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        chooseMapImg = ImageLoader.GetSpriteAtlas(CHOOSE_MAP);
     }
 
 
@@ -160,7 +60,7 @@ public class Option extends State implements IStateMethod {
     @Override
     public void draw(Graphics g) {
         g.drawImage(backgroundImg, 0, 0, GamePanel.GAME_WIDTH, GamePanel.GAME_HEIGHT, null);
-        g.drawImage(chooseMap, 499, 40, 282, 96, null);
+        g.drawImage(chooseMapImg, 499, 40, 282, 96, null);
         g.drawImage(currMap1, x, 150, 300, 600, null);
         g.drawImage(currMap2, 660, 150, 300, 600, null);
     }

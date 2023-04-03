@@ -3,16 +3,13 @@ package Objects;
 import Main.GamePanel;
 import Utils.AudioPlayer;
 import Utils.Constants;
-import Utils.Constants.Path;
-import javax.imageio.ImageIO;
-
+import Utils.ImageLoader;
 import GameStates.Playing;
 import Interfaces.IGameStandard;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
 import java.util.ArrayList;
+import static Utils.Constants.Path.*;
 
 public class PlayerPlane extends Object implements IGameStandard {
     private AudioPlayer audioPlayer;
@@ -37,11 +34,23 @@ public class PlayerPlane extends Object implements IGameStandard {
     private boolean isLeft;
 
     public PlayerPlane() {
-        super((GamePanel.GAME_WIDTH - 150) / 2, 600, 7, 40, 135, 75, Path.PLAYER_PLANE, Constants.ObjectSizeData.PLAYER_PLANE);
+        super((GamePanel.GAME_WIDTH - 150) / 2, 600, 7, 40, 135, 75, PLAYER_PLANE, Constants.ObjectSizeData.PLAYER_PLANE);
         this.audioPlayer = new AudioPlayer();
         importImgShadow();
         laserInstantiate(23);
         loadAnimations();
+    }
+
+    public void reset()
+    {
+        healthMax = Constants.Health.PLAYER_HEALTH;
+        posX = (GamePanel.GAME_WIDTH - 150) / 2;
+        posY = 600;
+        healthBackPos = 0;
+        healthPosX = 50;
+        counterPassed = counterAudio = 0;
+        laserPlaneShoot.clear();
+        laserInstantiate(23);
     }
 
     private void loadAnimations() {
@@ -82,31 +91,8 @@ public class PlayerPlane extends Object implements IGameStandard {
     }
 
     private void importImgShadow() {
-        InputStream is = getClass().getResourceAsStream(Path.PLAYER_PLANE_SHADOW);
-        try {
-            imgShadow = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        is = getClass().getResourceAsStream("/res/sprite/Health-Icon.png");
-        try {
-            healthStatus = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        imgShadow = ImageLoader.GetSpriteAtlas(PLAYER_PLANE_SHADOW);
+        healthStatus = ImageLoader.GetSpriteAtlas(HEALTH_ICON);
     }
 
     public void setUp(boolean up) {
@@ -209,7 +195,7 @@ public class PlayerPlane extends Object implements IGameStandard {
     }
     private void laserUpdate(Graphics g)
     {
-        healthBackPos ++;
+        healthBackPos++;
         counterPassed++;
         counterAudio++;
         if(healthBackPos == 20)
@@ -222,10 +208,8 @@ public class PlayerPlane extends Object implements IGameStandard {
             Playing.score.setScore(1);
             counterAudio = 0;
 
-            if(Playing.paused == false && Playing.gameOver == false)
+            if(!Playing.isPaused() && !Playing.isGameOver() && healthMax!=0)
                 audioPlayer.playAttackSound();
-
-
         }
         if (counterPassed >= 460)
             counterPassed = 460;

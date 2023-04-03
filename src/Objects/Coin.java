@@ -3,12 +3,11 @@ package Objects;
 import Background.BackgroundManager;
 import GameStates.Playing;
 import Main.GamePanel;
-import Utils.Constants;
 import Utils.FontGenerator;
 import Utils.ObjectSize;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import static Utils.Constants.Path.*;
 
 public class Coin extends Object{
     private FontGenerator fontGenerator;
@@ -22,7 +21,7 @@ public class Coin extends Object{
     private boolean isAnimating = false;
 
     public Coin(ObjectSize imageSize) {
-        super(0, 0, 0, 0, imageSize.w, imageSize.h, Constants.Path.COIN, imageSize);
+        super(0, 0, 0, 0, imageSize.w, imageSize.h, COIN, imageSize);
         this.expWidth = imageSize.w;
         this.expHeight = imageSize.h;
         this.fontGenerator = new FontGenerator();

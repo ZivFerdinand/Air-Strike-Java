@@ -3,18 +3,13 @@ package Objects;
 import Main.GamePanel;
 import Utils.*;
 import Utils.Constants.Path;
-
-import javax.imageio.ImageIO;
-
 import GameStates.Playing;
 import Interfaces.IEnemy;
 import Interfaces.IGameStandard;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import static Utils.Constants.Path.*;
 
 public class EnemyUFO extends Object implements IEnemy, IGameStandard {
     private final AudioPlayer audioPlayer;
@@ -49,6 +44,11 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
         totalMvmt = 0;
         importImgShadow();
         laserInstantiate(5);
+    }
+
+    public void reset()
+    {
+        resetPosition();
     }
 
     public void update() {
@@ -113,9 +113,9 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
         if (health < 0) {
             healthReset();
             playing.getExplosionUFO().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_UFO_LASER_POINT, Constants.DamageDealer.UFO_REDUCE, false);
-            playing.getStar().get(0).startAnimation(posX + Assist.getRandomNumber(0, 200), posY + Assist.getRandomNumber(0, 192));
-            playing.getStar().get(1).startAnimation(posX + Assist.getRandomNumber(0, 200), posY +Assist.getRandomNumber(0, 192));
-            playing.getStar().get(2).startAnimation(posX + Assist.getRandomNumber(0, 200), posY +Assist.getRandomNumber(0, 192));
+            playing.getCoin().get(0).startAnimation(posX + Assist.getRandomNumber(0, 200), posY + Assist.getRandomNumber(0, 192));
+            playing.getCoin().get(1).startAnimation(posX + Assist.getRandomNumber(0, 200), posY +Assist.getRandomNumber(0, 192));
+            playing.getCoin().get(2).startAnimation(posX + Assist.getRandomNumber(0, 200), posY +Assist.getRandomNumber(0, 192));
             posY = GamePanel.GAME_HEIGHT + 1000;
 
             audioPlayer.playDestroySound();
@@ -138,32 +138,8 @@ public class EnemyUFO extends Object implements IEnemy, IGameStandard {
     }
 
     private void importImgShadow() {
-        InputStream is = getClass().getResourceAsStream(Path.ENEMY_UFO_SHADOW);
-        try {
-            imgShadow = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        is = getClass().getResourceAsStream(Path.ENEMY_UFO_HIT);
-        try {
-            imgHittingSprite = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+        imgShadow = ImageLoader.GetSpriteAtlas(ENEMY_UFO_SHADOW);
+        imgHittingSprite = ImageLoader.GetSpriteAtlas(ENEMY_UFO_HIT);
         for (int i = 0; i < imgHitting.length; i++) {
             imgHitting[i] = imgHittingSprite.getSubimage(i * 600, 0, 600, 600);
         }

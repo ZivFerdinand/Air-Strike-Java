@@ -3,6 +3,8 @@ package Utils;
 import java.awt.*;
 import java.io.*;
 
+import GameStates.Playing;
+
 public class FontGenerator {
     Font mainFont;
     public FontGenerator()
@@ -13,7 +15,7 @@ public class FontGenerator {
     {
         try {
 
-            InputStream is = getClass().getResourceAsStream("/res/font/mainFont.ttf");
+            InputStream is = getClass().getResourceAsStream("../res/font/mainFont.ttf");
             mainFont = Font.createFont(Font.TRUETYPE_FONT, is);
         } catch (FontFormatException e)
         {
@@ -76,9 +78,6 @@ public class FontGenerator {
             opacityChange*=-1;
         }
         g.drawString("\'ESC\' -> PAUSE", 55, 45);
-        
-        
-
     }
     public void render(Graphics g, int score, int fontSize, int x, int y)
     {
@@ -103,5 +102,14 @@ public class FontGenerator {
         g.setColor(Color.ORANGE);
 
         g.drawString("+" + 5 + "c", x, y);
+    }
+    public void showScore(Graphics g, int fontSize, int x, int y)
+    {
+        g.setFont(mainFont);
+        g.setFont(g.getFont().deriveFont(Font.PLAIN, fontSize));
+        g.setColor(Color.YELLOW);
+
+        g.drawString("YOUR SCORE", x, y);
+        g.drawString("> " + Playing.score.getScore(), x, y + 30);
     }
 }

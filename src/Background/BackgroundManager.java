@@ -1,27 +1,25 @@
 package Background;
 
 import Main.GamePanel;
-import Utils.Constants;
-
-import javax.imageio.ImageIO;
-
+import Utils.ImageLoader;
 import GameStates.Playing;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import static Utils.Constants.Path.*;
 
 public class BackgroundManager {
     public static boolean isFirstMap = true;
+    public static final int backgroundMovementSpeed = 1;
+
     private final int initFirstImagePosY = -GamePanel.GAME_WIDTH * 2 + GamePanel.GAME_HEIGHT;
     private final int initSecondImagePosY = -GamePanel.GAME_WIDTH * 2;
-    public static final int backgroundMovementSpeed = 1;
+
     private final int backgroundWidth = GamePanel.GAME_WIDTH;
-    private final int backgroundHeight = GamePanel.GAME_WIDTH * 2;
+    private final int backgroundHeight = backgroundWidth * 2;
 
     private BufferedImage backgroundImage;
-    private BufferedImage map1, map2;
+    private BufferedImage map1Img, map2Img;
+
     private int firstImagePosY, secondImagePosY;
 
     private Playing playing;
@@ -29,58 +27,45 @@ public class BackgroundManager {
     public BackgroundManager(Playing playing) {
         secondImagePosY = initSecondImagePosY;
         firstImagePosY = initFirstImagePosY;
+
         this.playing = playing;
+
         importImg();
     }
 
+    public void reset()
+    {
+        secondImagePosY = initSecondImagePosY;
+        firstImagePosY = initFirstImagePosY;
+    }
+
+    private void importImg() {
+        backgroundImage = ImageLoader.GetSpriteAtlas(BACKGROUND_GAME_2);
+        map1Img = ImageLoader.GetSpriteAtlas(BACKGROUND_GAME_1);
+    }
+
     public void render(Graphics g) {
-        if(Playing.paused == false && Playing.gameOver == false && playing.getPlayerPlane().getHealth() != 0)
+        if(checkStatusToUpdate())
             updateBackgroundPosition();
         g.drawImage(backgroundImage, 0, firstImagePosY, backgroundWidth, backgroundHeight, null);
         validateSubtractImage(g);
         
-        if(Playing.paused == false && Playing.gameOver == false && playing.getPlayerPlane().getHealth() != 0)
+        if(checkStatusToUpdate())
             validateResetImage();
     }
 
-    private void importImg() {
-        InputStream is = getClass().getResourceAsStream(Constants.Path.BACKGROUND_GAME_2);
-        try {
-            backgroundImage = map2 = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        is = getClass().getResourceAsStream(Constants.Path.BACKGROUND_GAME_1);
-        try {
-            map1 = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    private boolean checkStatusToUpdate()
+    {
+        return (!Playing.isPaused() && !Playing.isGameOver() && playing.getPlayerPlane().getHealth() != 0);
     }
-
     private void updateBackgroundPosition() {
-        backgroundImage = (isFirstMap) ? map1 : map2;
-
+        backgroundImage = (isFirstMap) ? map1Img : map2Img;
         firstImagePosY += backgroundMovementSpeed;
     }
 
     private void validateSubtractImage(Graphics g) {
         if (firstImagePosY >= 0) {
-            
-            if(Playing.paused == false && Playing.gameOver == false && playing.getPlayerPlane().getHealth() != 0)
+            if(checkStatusToUpdate())
                 secondImagePosY += backgroundMovementSpeed;
             g.drawImage(backgroundImage, 0, secondImagePosY, backgroundWidth, backgroundHeight, null);
         }

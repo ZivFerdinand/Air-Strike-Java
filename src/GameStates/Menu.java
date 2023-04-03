@@ -4,14 +4,11 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
-
+import Interfaces.IStateMethod;
 import Main.*;
 import UI.MenuButton;
-import Utils.*;;
+import Utils.*;
+import static Utils.Constants.Path.*;
 
 public class Menu extends State implements IStateMethod {
     private AudioPlayer audioPlayer;
@@ -27,32 +24,9 @@ public class Menu extends State implements IStateMethod {
     }
 
     private void loadBackground() {
-        InputStream is = getClass().getResourceAsStream(Constants.Path.MAINMENU_PANEL);
-        try {
-
-            backgroundPanel = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        is = getClass().getResourceAsStream(Constants.Path.MAIN_MENU_BG);
-        try {
-
-            backgroundImg = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        backgroundPanel = ImageLoader.GetSpriteAtlas(MAINMENU_PANEL);
+        backgroundImg = ImageLoader.GetSpriteAtlas(MAIN_MENU_BG);
+        
         menuWidth = (int) backgroundPanel.getWidth() * 2;
         menuHeight = (int) backgroundPanel.getHeight() * 2;
         menuX = GamePanel.GAME_WIDTH / 2 - menuWidth / 2;

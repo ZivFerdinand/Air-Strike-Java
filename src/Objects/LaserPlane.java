@@ -5,15 +5,15 @@ import java.awt.*;
 import GameStates.Playing;
 import Interfaces.IGameStandard;
 import Interfaces.ILaser;
-import Utils.Constants;
-import Utils.Constants.Path;
+import static Utils.Constants.Path.*;
+import static Utils.Constants.ObjectSizeData.*;
 public class LaserPlane extends Object implements ILaser, IGameStandard{
     private final int laserSpeed = 4;
     private final int initPosX, initPosY;
     private int totalMvmt = 0;
 
     public LaserPlane(int posX, int posY) {
-        super(posX, posY,70, 0, 10, 38, Path.LASER, Constants.ObjectSizeData.PLAYER_LASER);
+        super(posX, posY,70, 0, 10, 38, LASER, PLAYER_LASER);
         this.initPosX = posX;
         this.initPosY = posY;
     }
@@ -42,7 +42,7 @@ public class LaserPlane extends Object implements ILaser, IGameStandard{
     }
 
     public void render(Graphics g) {
-        if(Playing.paused == false && Playing.gameOver == false)
+        if(!Playing.isPaused() && !Playing.isGameOver())
             updatePosition();
         g.drawImage(img, (int) posX + 65, (int) posY, imageWidth, imageHeight, null);
     }

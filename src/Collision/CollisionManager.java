@@ -34,7 +34,7 @@ public class CollisionManager {
         this.enemyHelicopter = playing.getEnemyHelicopter();
         this.enemyUFO = playing.getEnemyUFO();
         this.laserEnemies = playing.getEnemyUFO().getLaserShoot();
-        this.coins = playing.getStar();
+        this.coins = playing.getCoin();
 
         this.audioPlayer = new AudioPlayer();
         this.fontGenerator = new FontGenerator();

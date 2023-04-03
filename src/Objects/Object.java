@@ -4,9 +4,7 @@ import Utils.ObjectSize;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import javax.imageio.ImageIO;
+import Utils.ImageLoader;
 
 public abstract class Object {
     protected BufferedImage img;
@@ -53,18 +51,7 @@ public abstract class Object {
     }
 
     private void importImg(String path) {
-        InputStream is = getClass().getResourceAsStream(path);
-        try {
-            img = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        img = ImageLoader.GetSpriteAtlas(path);
     }
 
     public Rectangle getHitBox() {

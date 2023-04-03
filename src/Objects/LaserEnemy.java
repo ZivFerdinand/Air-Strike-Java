@@ -5,8 +5,8 @@ import java.awt.*;
 import GameStates.Playing;
 import Interfaces.IGameStandard;
 import Interfaces.ILaser;
-import Utils.Constants;
-import Utils.Constants.Path;
+import static Utils.Constants.ObjectSizeData.*;
+import static Utils.Constants.Path.*;
 
 public class LaserEnemy extends Object implements ILaser,IGameStandard {
     private final int laserSpeedX, laserSpeedY;
@@ -14,7 +14,7 @@ public class LaserEnemy extends Object implements ILaser,IGameStandard {
     private int totalMvmt = 0;
 
     public LaserEnemy(int posX, int posY, int laserSpeedX, int laserSpeedY) {
-        super(posX, posY,85, 85, 31, 32, Path.LASER_ENEMY, Constants.ObjectSizeData.ENEMY_LASER);
+        super(posX, posY,85, 85, 31, 32, LASER_ENEMY, ENEMY_LASER);
         this.initPosX = posX;
         this.initPosY = posY;
         this.laserSpeedX = laserSpeedX;
@@ -39,7 +39,7 @@ public class LaserEnemy extends Object implements ILaser,IGameStandard {
     }
 
     public void update() {
-        if(Playing.paused == false && Playing.gameOver == false)
+        if(!Playing.isPaused() && !Playing.isGameOver())
             updatePosition();
     }
 

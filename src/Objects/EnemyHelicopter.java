@@ -6,14 +6,10 @@ import Utils.Constants.Path;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
-
 import GameStates.Playing;
 import Interfaces.IEnemy;
 import Interfaces.IGameStandard;
+import static Utils.Constants.Path.*;
 
 public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
     private FontGenerator fontGenerator;
@@ -31,12 +27,18 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
     private Playing playing;
     
     public EnemyHelicopter(Playing playing) {
-        super(50, Constants.InitialPosition.HELICOPTER_INITIAL_POS_Y, 40, 1, 50, 129, Path.ENEMY_HELICOPTER, Constants.ObjectSizeData.ENEMY_HELICOPTER);
+        super(50, Constants.InitialPosition.HELICOPTER_INITIAL_POS_Y, 40, 1, 50, 129, Path.ENEMY_HELICOPTER,
+                Constants.ObjectSizeData.ENEMY_HELICOPTER);
         this.playing = playing;
         this.fontGenerator = new FontGenerator();
         totalMvmt = 0;
         healthReset();
         importImgAnimation();
+    }
+    
+    public void reset()
+    {
+        resetPosition();
     }
     
     public void setHitting(boolean isHitting) {
@@ -47,20 +49,7 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
         for (int i = 0; i < animation.length; i++) {
             animation[i] = img.getSubimage(i * 96, 0, 96, 128);
         }
-
-        InputStream is = getClass().getResourceAsStream(Path.ENEMY_HELICOPTER_HIT);
-        try {
-            imgHittingSprite = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+        imgHittingSprite = ImageLoader.GetSpriteAtlas(ENEMY_HELICOPTER_HIT);
         for (int i = 0; i < animation.length; i++) {
             imgHitting[i] = imgHittingSprite.getSubimage(i * 96, 0, 96, 128);
         }
@@ -124,8 +113,8 @@ public class EnemyHelicopter extends Object implements IEnemy, IGameStandard {
         if (health < 0) {
             healthReset();
             playing.getExplosionHelicopter().startAnimation(posX, posY, Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT, Constants.DamageDealer.HELICOPTER_REDUCE, false);
-            playing.getStar().get(3).startAnimation(posX + Assist.getRandomNumber(0, 100), posY + Assist.getRandomNumber(0, 96));
-            playing.getStar().get(4).startAnimation(posX+ Assist.getRandomNumber(0, 100), posY+Assist.getRandomNumber(0, 96));
+            playing.getCoin().get(3).startAnimation(posX + Assist.getRandomNumber(0, 100), posY + Assist.getRandomNumber(0, 96));
+            playing.getCoin().get(4).startAnimation(posX+ Assist.getRandomNumber(0, 100), posY+Assist.getRandomNumber(0, 96));
 
             posY = GamePanel.GAME_HEIGHT + 1000;
             Playing.score.setScore(Constants.DamageDealer.ENEMY_HELICOPTER_LASER_POINT);

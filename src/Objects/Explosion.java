@@ -4,13 +4,12 @@ import Background.BackgroundManager;
 import GameStates.Playing;
 import Interfaces.IGameStandard;
 import Utils.FontGenerator;
-import Utils.Constants.Path;
 import Utils.AudioPlayer;
 import Utils.ObjectSize;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
+import static Utils.Constants.Path.*;
 public class Explosion extends Object implements IGameStandard {
     private AudioPlayer audioPlayer;
     private FontGenerator fontGenerator;
@@ -27,7 +26,7 @@ public class Explosion extends Object implements IGameStandard {
     private boolean isAnimating = false;
     private boolean isPlayerDeath = false;
     public Explosion(ObjectSize objectSize, ObjectSize imageSize) {
-        super(0, 0, 0, 0, 0, 0, Path.EXPLOSION, imageSize);
+        super(0, 0, 0, 0, 0, 0, EXPLOSION, imageSize);
         this.score = 0;
         this.audioPlayer = new AudioPlayer();
         this.fontGenerator = new FontGenerator();
@@ -36,6 +35,10 @@ public class Explosion extends Object implements IGameStandard {
         loadAnimations();
     }
 
+    public void reset()
+    {
+        isAnimating = false;
+    }
     private void loadAnimations() {
         int count = 0;
         for (int j = 0; j < 6; j++)
@@ -56,8 +59,7 @@ public class Explosion extends Object implements IGameStandard {
                     isAnimating = false;
                     if (isPlayerDeath) {
                         isPlayerDeath = false;
-                        Playing.gameOver = true;
-
+                        Playing.setGameOver(true);
                     }
                 }
 

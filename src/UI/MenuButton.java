@@ -3,15 +3,11 @@ package UI;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
-
 import GameStates.GameState;
 import Main.GameEngine;
 import Utils.*;
 import static Utils.Constants.UIData.Buttons.*;
+import static Utils.Constants.Path.*;
 
 public class MenuButton {
     private int xPos, yPos, rowIndex, index;
@@ -37,20 +33,8 @@ public class MenuButton {
 
     private void loadImgs() {
         imgs = new BufferedImage[3];
-        BufferedImage temp = null;
-        InputStream is = getClass().getResourceAsStream(Constants.Path.BUTTON_MAINMENU);
-        try {
 
-            temp = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        BufferedImage temp = ImageLoader.GetSpriteAtlas(BUTTON_MAINMENU);
         for (int i = 0; i < imgs.length; i++)
             imgs[i] = temp.getSubimage(i * B_WIDTH_DEFAULT, rowIndex * B_HEIGHT_DEFAULT, B_WIDTH_DEFAULT,
                     B_HEIGHT_DEFAULT);

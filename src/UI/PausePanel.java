@@ -2,24 +2,20 @@ package UI;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
-
 import GameStates.GameState;
 import GameStates.Playing;
-import Main.GameEngine;
+import Interfaces.IStateMethod;
 import Main.GamePanel;
-import Utils.AudioPlayer;
+import Utils.ImageLoader;
 import Utils.Constants.ObjectSizeData;
 
 import static Utils.Constants.UIData.URMButtons.URM_SIZE;
-import static Utils.Constants.Path.PAUSE_PANEL;
+import static Utils.Constants.Path.*;
 
-public class PausePanel {
+public class PausePanel implements IStateMethod{
     private Playing playing;
     private BufferedImage backgroundImg;
     private int bgX, bgY, bgW, bgH;
@@ -37,26 +33,14 @@ public class PausePanel {
         int unpauseX = 734;
         int bY = 400;
 
-        menuB = new URMButton(menuX, bY, URM_SIZE, URM_SIZE, 2);
-        replayB = new URMButton(replayX, bY,URM_SIZE,URM_SIZE, 1);
-        unpauseB = new URMButton(unpauseX, bY,URM_SIZE,URM_SIZE, 0);
+        menuB = new URMButton(menuX, bY, URM_SIZE, URM_SIZE, 2, URM_BUTTONS);
+        replayB = new URMButton(replayX, bY,URM_SIZE,URM_SIZE, 1, URM_BUTTONS);
+        unpauseB = new URMButton(unpauseX, bY,URM_SIZE,URM_SIZE, 0, URM_BUTTONS);
 
     }
 
     private void loadBackground() {
-        InputStream is = getClass().getResourceAsStream(PAUSE_PANEL);
-        try {
-
-            backgroundImg = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        backgroundImg = ImageLoader.GetSpriteAtlas(PAUSE_PANEL);
         bgW = ObjectSizeData.PAUSE_PANEL.w;
         bgH = ObjectSizeData.PAUSE_PANEL.h;
         bgX = GamePanel.GAME_WIDTH / 2 - bgW / 2;
@@ -92,22 +76,21 @@ public class PausePanel {
     public void mouseReleased(MouseEvent e) {
         if (isIn(e, menuB)) {
             if (menuB.isMousePressed()) {
-                GameState.state = GameState.MENU;
-                GameEngine.audioPlayer.playSong(AudioPlayer.BACKGROUND);
-                playing.initClasses();
-                playing.unpauseGame();
-
+                GameState.setState(GameState.MENU);
+                playing.resetClasses();
+                playing.setPaused(false);
+                
             }
         } else if (isIn(e, replayB)) {
             if (replayB.isMousePressed())
             {
-                GameEngine.audioPlayer.playSong(AudioPlayer.LEVEL_1);
-                playing.initClasses();
-                playing.unpauseGame();
+                GameState.setState(GameState.PLAYING);
+                playing.resetClasses();
+                playing.setPaused(false);
             }
         } else if (isIn(e, unpauseB)) {
             if (unpauseB.isMousePressed())
-                playing.unpauseGame();
+                playing.setPaused(false);
         }
 
         menuB.resetBools();
@@ -131,5 +114,17 @@ public class PausePanel {
 
     private boolean isIn(MouseEvent e, Button b) {
         return b.getBounds().contains(e.getX(), e.getY());
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 }
