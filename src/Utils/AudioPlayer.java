@@ -9,13 +9,15 @@ public class AudioPlayer {
     public static int BACKGROUND = 0;
     public static int LEVEL_1 = 1;
 
-    private Clip[] songs, effects;
+    private static Clip[] songs, effects;
     private int currentSongId;
     private final float volume = 1f;
 
     public AudioPlayer() {
-        loadSongs();
-        loadEffects();
+        if(songs == null || effects == null) {
+            loadSongs();
+            loadEffects();
+        }
     }
 
     private void loadSongs() {
