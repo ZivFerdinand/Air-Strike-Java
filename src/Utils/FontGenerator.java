@@ -6,7 +6,7 @@ import java.io.*;
 import GameStates.Playing;
 
 public class FontGenerator {
-    Font mainFont;
+    private static Font mainFont;
 
     float tempFontSize = 40;
     float change = -.3f;
@@ -14,7 +14,8 @@ public class FontGenerator {
     int opacityChange = -1;
 
     public FontGenerator() {
-        importFont();
+        if(mainFont == null)
+            importFont();
     }
 
     private void importFont() {

@@ -1,6 +1,8 @@
 package UI;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+
 import GameStates.GameState;
 import Main.GameEngine;
 import Utils.*;
@@ -10,15 +12,28 @@ public class MenuButton extends Button {
     private final int xOffsetCenter = B_WIDTH / 2;
     private final GameState state;
 
+
+    private BufferedImage[] imgs;
+    private static BufferedImage privateImg;
+
     public MenuButton(int x, int y, int rowIndex, GameState state, String path) {
-        super(x, y, B_WIDTH, B_HEIGHT, path);
+        super(x, y, B_WIDTH, B_HEIGHT, "");
         this.x = x;
         this.y = y;
         this.state = state;
-        loadImgs2(rowIndex);
+        if(privateImg == null)
+        {
+            privateImg = ImageLoader.GetSpriteAtlas(path);
+        }
+        loadImg(rowIndex);
         initBounds();
     }
-
+    private void loadImg(int rowIndex) {
+        imgs = new BufferedImage[3];
+        for (int i = 0; i < imgs.length; i++)
+            imgs[i] = privateImg.getSubimage(i * Utils.Constants.UIData.Buttons.B_WIDTH_DEFAULT, rowIndex * Constants.UIData.Buttons.B_HEIGHT_DEFAULT, Utils.Constants.UIData.Buttons.B_WIDTH_DEFAULT,
+                    Constants.UIData.Buttons.B_HEIGHT_DEFAULT);
+    }
     private void initBounds() {
         bounds = new Rectangle(x - xOffsetCenter, y, B_WIDTH, B_HEIGHT);
     }

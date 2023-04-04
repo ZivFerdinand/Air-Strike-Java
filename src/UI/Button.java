@@ -24,29 +24,10 @@ public abstract class Button {
         this.path = path;
         this.mouseOver = false;
         this.mousePressed = false;
-        this.temp = ImageLoader.GetSpriteAtlas(path);
+
+        if(path != "")
+            this.temp = ImageLoader.GetSpriteAtlas(path);
         createBounds();
-    }
-
-    protected void loadImgs() {
-        imgs = new BufferedImage[3];
-        for (int i = 0; i < imgs.length; i++)
-            imgs[i] = temp.getSubimage(i * Utils.Constants.UIData.PauseButton.PAUSE_SIZE_DEFAULT, 0, Utils.Constants.UIData.PauseButton.PAUSE_SIZE_DEFAULT,
-                    Utils.Constants.UIData.PauseButton.PAUSE_SIZE_DEFAULT);
-    }
-
-    protected void loadImgs(int rowIndex) {
-        imgs = new BufferedImage[3];
-        for (int i = 0; i < imgs.length; i++)
-            imgs[i] = temp.getSubimage(i * Utils.Constants.UIData.URMButtons.URM_SIZE_DEFAULT, rowIndex * Utils.Constants.UIData.URMButtons.URM_SIZE_DEFAULT, Utils.Constants.UIData.URMButtons.URM_SIZE_DEFAULT,
-                    Utils.Constants.UIData.URMButtons.URM_SIZE_DEFAULT);
-    }
-
-    protected void loadImgs2(int rowIndex) {
-        imgs = new BufferedImage[3];
-        for (int i = 0; i < imgs.length; i++)
-            imgs[i] = temp.getSubimage(i * Utils.Constants.UIData.Buttons.B_WIDTH_DEFAULT, rowIndex * Constants.UIData.Buttons.B_HEIGHT_DEFAULT, Utils.Constants.UIData.Buttons.B_WIDTH_DEFAULT,
-                        Constants.UIData.Buttons.B_HEIGHT_DEFAULT);
     }
 
     public void update() {

@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import static Utils.Constants.Path.*;
 
 public class Explosion extends Object implements IGameStandard {
+    private static BufferedImage privateImg;
     private final AudioPlayer audioPlayer;
     private final FontGenerator fontGenerator;
     private BufferedImage currAnimation;
@@ -26,12 +27,14 @@ public class Explosion extends Object implements IGameStandard {
     private boolean isPlayerDeath = false;
 
     public Explosion(ObjectSize objectSize, ObjectSize imageSize) {
-        super(0, 0, 0, 0, 0, 0, EXPLOSION, imageSize, BackgroundManager.backgroundMovementSpeed);
+        super(0, 0, 0, 0, 0, 0, "", imageSize, BackgroundManager.backgroundMovementSpeed);
         this.score = 0;
         this.audioPlayer = new AudioPlayer();
         this.fontGenerator = new FontGenerator();
         this.expWidth = objectSize.w;
         this.expHeight = objectSize.h;
+        if(privateImg == null)
+            privateImg = importPrivateImg(EXPLOSION);
         loadAnimations();
     }
 
@@ -44,7 +47,7 @@ public class Explosion extends Object implements IGameStandard {
         int count = 0;
         for (int j = 0; j < 6; j++)
             for (int i = 0; i < 6; i++) {
-                animations[count++] = img.getSubimage(i * 100, j * 96, 100, 96);
+                animations[count++] = privateImg.getSubimage(i * 100, j * 96, 100, 96);
             }
     }
 
