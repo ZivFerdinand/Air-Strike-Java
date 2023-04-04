@@ -45,7 +45,11 @@ public abstract class Object {
     }
 
     private void importImg(String path) {
-        img = ImageLoader.GetSpriteAtlas(path);
+        if(path != "")
+            img = ImageLoader.GetSpriteAtlas(path);
+    }
+    protected BufferedImage importPrivateImg(String path) {
+        return ImageLoader.GetSpriteAtlas(path);
     }
 
     public void updateHitBox() {
