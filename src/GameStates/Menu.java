@@ -9,6 +9,7 @@ import UI.MenuButton;
 import Utils.*;
 import static Utils.Constants.Path.*;
 
+
 public class Menu extends State implements IStateMethod {
     private final AudioPlayer audioPlayer;
     private MenuButton[] buttons;
