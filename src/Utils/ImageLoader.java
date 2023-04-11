@@ -3,7 +3,6 @@ package Utils;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
-
 import javax.imageio.ImageIO;
 
 public class ImageLoader {
