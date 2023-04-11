@@ -1,6 +1,5 @@
 package Background;
 
-
 import Main.GamePanel;
 import Utils.ImageLoader;
 import GameStates.Playing;
