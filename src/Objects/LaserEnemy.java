@@ -47,7 +47,7 @@ public class LaserEnemy extends Object implements ILaser,IGameStandard {
     }
 
     public void render(Graphics g) {
-        g.drawImage(img, (int) posX + 85, (int) posY+85, imageWidth, imageHeight, null);
+        g.drawImage(privateImg, (int) posX + 85, (int) posY+85, imageWidth, imageHeight, null);
     }
 
     private void updatePosition() {
